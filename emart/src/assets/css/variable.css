@@ -1,0 +1,44 @@
+:root {
+    /* fonts weight */
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+
+    /* 색상 */
+    --color-white: #FFFFFF;
+    --color-black: #232527;
+    --color-primary: #FFB81C;
+    --color-primary-hover: #e6a819;;
+    --color-bg-dark: #1D1D1D;
+    --color-bg-light-dark1: #323232;
+    --color-transparent: transparent;
+
+    /* 컴포넌트 배경색 */
+    --color-bg-lightgray1: #404144;
+    --color-bg-lightgray2: #535354;
+    --color-bg-lightgray3: #444444;
+
+    /* 색상 */
+    --color-gray1: #F5F5F5;
+    --color-gray2: #D0D0D0;
+    --color-gray3: #BBBBBB;
+    --color-gray4: #9C9C9C;
+    --color-gray5: #888888;
+    --color-gray6: #575757;
+    --color-gray7: #ebebeb;
+    --color-gray8: #777777;
+    --color-gray9: #313131;
+    --color-gray10: #C2C2C2;
+
+    /* 테이블 */
+    --table-border-color: #E2E2E2;
+    --table-point-color: #777777;
+
+    /* border */
+    --color-border: #DBDBDB;
+    --color-border2: #7b7b7b;
+    --color-border3: #757575;
+    --color-border-dark1: #444444;
+    --color-border-dark2: #454545;
+}
