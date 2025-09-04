@@ -32,7 +32,7 @@ export default function Login() {
 
       // 역할에 따라 적절한 페이지로 리다이렉트
       if (role === 'admin') {
-        navigate('/iGenManagement');
+        navigate('/modelManagement/aiImageManagement/view');
       } else {
         navigate('/home');
       }

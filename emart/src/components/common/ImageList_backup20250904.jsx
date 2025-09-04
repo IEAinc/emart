@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Pagination from './pagination/Pagination.jsx'
 import Button from './forms/Button.jsx'
-const ImageList = ({isGenerate = false}) => {
+const ImageList = ({isGenerate = true}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
 
@@ -56,11 +56,11 @@ const ImageList = ({isGenerate = false}) => {
           }
         </>
       )}
-      {!isGenerate && (
+      {/*{!isGenerate && (
         <>
           없엉
         </>
-      )}
+      )}*/}
     </div>
   );
 }

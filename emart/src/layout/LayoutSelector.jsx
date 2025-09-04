@@ -6,7 +6,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 export default function LayoutSelector({ adminMenuData, userMenuData }) {
   const { user } = useContext(AuthContext);
-  const isAdmin = user?.role === 'user';
+  const isAdmin = user?.role === 'admin';
 
   const navigate = useNavigate();
   const location = useLocation();

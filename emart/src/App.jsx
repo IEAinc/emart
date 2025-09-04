@@ -28,7 +28,8 @@ function App() {
     {
       title: 'IGen 운영관리',
       path: '/iGenManagement',
-      icon: { default: '', active: '' },
+      icon: { default: '', active: ''},
+      disabled: true
     },
     {
       title: '모델 관리',
@@ -36,7 +37,7 @@ function App() {
       icon: { default: '', active: '' },
       subMenu: [
         { title: '생성형 이미지 모델 관리', path: '/modelManagement/aiImageManagement/view' },
-        { title: '생성형 동영상 모델 관리', path: '/modelManagement/aiVideoManagement' },
+        { title: '생성형 동영상 모델 관리', path: '/modelManagement/aiVideoManagement',disabled: true },
       ],
     },
   ];
@@ -62,8 +63,8 @@ function App() {
       path: '/editContents',
       icon: { default: '', active: '' },
       subMenu: [
-        { title: '이미지 편집기', path: '/editContents/editContentsImage' },
-        { title: '영상 편집기', path: '/editContents/2' },
+        { title: '이미지 편집기', path: '/editContents/editContentsImage' ,disabled: true },
+        { title: '영상 편집기', path: '/editContents/2',disabled: true },
       ],
     },
     {
@@ -71,9 +72,9 @@ function App() {
       path: '/myProjects',
       icon: { default: '', active: '' },
       subMenu: [
-        { title: '마케팅 문구 생성물', path: '/myProjects/1' },
-        { title: '마케팅 이미지 생성물', path: '/myProjects/2' },
-        { title: '마케팅 동영상 생성물', path: '/myProjects/2' },
+        { title: '마케팅 문구 생성물', path: '/myProjects/1',disabled: true },
+        { title: '마케팅 이미지 생성물', path: '/myProjects/2',disabled: true },
+        { title: '마케팅 동영상 생성물', path: '/myProjects/2',disabled: true },
       ],
     },
   ];
@@ -82,7 +83,7 @@ function App() {
     <AuthProvider>
       <Routes>
         {/* 로그인 페이지 */}
-        {/*<Route path="/login" element={<Login />} />*/}
+        <Route path="/login" element={<Login />} />
 
         {/* 레이아웃 적용 페이지 */}
         <Route path="/" element={<LayoutSelector adminMenuData={adminMenuData} userMenuData={userMenuData} />}>

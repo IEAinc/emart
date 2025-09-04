@@ -62,31 +62,28 @@ const Sidebar = ({menuData = []}) => {
               <div className="sidebar-list" key={index}>
                 {/* Link 또는 Button을 사용하여 경로 이동 처리 */}
                 <Link
-                  to={menu.subMenu ? "#" : menu.path} // 하위 메뉴가 없으면 바로 경로로 이동
+                  to={
+                    menu.disabled || menu.subMenu ? "#" : menu.path
+                  } // disabled이거나 하위 메뉴가 있으면 링크 없음
                   className={`first-depth ${
                     menu.subMenu
-                      ? ""  // 하위 메뉴가 있는 경우 절대 active 클래스를 붙이지 않음
-                      : (isMenuActive ? "active" : "")  // 하위 메뉴가 없을 때만 active
+                      ? "" // 하위 메뉴가 있는 경우 active 붙이지 않음
+                      : menu.disabled
+                        ? "disabled" // disabled일 때 스타일용 클래스
+                        : (isMenuActive ? "active" : "")
                   }`}
                   onClick={(event) => {
-                    if (menu.subMenu) {
-                      event.preventDefault(); // 하위 메뉴가 있을 경우 경로 변경 방지
-                      toggleMenu(index); // 아코디언 열림/닫힘 처리
+                    if (menu.subMenu || menu.disabled) {
+                      event.preventDefault(); // 하위 메뉴 또는 disabled일 경우 클릭 막음
+                      if (menu.subMenu) toggleMenu(index); // 아코디언만 처리
                     }
                   }}
                 >
-                  <div className="s-tit">
-                    {menu.title}
-                  </div>
-                  {/* 하위 메뉴 토글 아이콘 */}
+                  <div className="s-tit">{menu.title}</div>
                   {menu.subMenu && (
                     <span className={`arrow-btn ${isOpened ? "open" : ""}`}>
-                    {isOpened ? (
-                      <span className="sr-only">열림</span>
-                    ) : (
-                      <span className="sr-only">닫힘</span>
-                    )}
-                  </span>
+                      {isOpened ? <span className="sr-only">열림</span> : <span className="sr-only">닫힘</span>}
+                    </span>
                   )}
                 </Link>
 
@@ -127,9 +124,13 @@ const Sidebar = ({menuData = []}) => {
 
                       return (
                         <li key={subIndex}>
-                          <Link to={subMenu.path} className={isActive ? "active" : ""}>
-                            {subMenu.title}
-                          </Link>
+                          {subMenu.disabled ? (
+                            <>{subMenu.title}</>
+                          ) : (
+                            <Link to={subMenu.path} className={isActive ? "active" : ""}>
+                              {subMenu.title}
+                            </Link>
+                          )}
                         </li>
                       );
                     })}
