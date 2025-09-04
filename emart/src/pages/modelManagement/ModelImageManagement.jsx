@@ -55,9 +55,8 @@ const ModelImageManagement = () => {
           ))}
         </nav>
       </div>
-
       {/* 탭 콘텐츠 */}
-      <div className="tab-content mt-6">
+      <div className="tab-content">
         {tabs.find(tab => tab.id === activeTab)?.component}
       </div>
     </div>

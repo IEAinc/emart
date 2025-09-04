@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import SelectArrowIcon from '../../../assets/images/icon/ico_select_arrow.svg?react';
 
-const Select = ({ label, value, onChange, options, openDirection = "bottom", colVer = true, disabled = false }) => {
+const Select = ({ label, className, value, onChange, options, openDirection = "bottom", colVer = true, disabled = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
@@ -20,10 +20,10 @@ const Select = ({ label, value, onChange, options, openDirection = "bottom", col
   }, []);
 
   return (
-    <div className={`select-wrapper ${colVer ? 'col-ver' : ''}`}>
+    <div className={`select-wrapper ${colVer ? 'col-ver' : ''} ${className}`}>
       {label && (
         <div className="label-wrapper">
-          <label className="select-label">{label}</label>
+          <span className="select-label">{label}</span>
         </div>
       )}
       <div ref={ref} className="select-inner">

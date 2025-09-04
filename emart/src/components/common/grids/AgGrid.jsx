@@ -210,7 +210,7 @@ const AgGrid = (props) => {
           ref={gridRef}
           rowData={displayData}
           columnDefs={props.columnDefs}
-          headerHeight={40}
+          headerHeight={36}
           defaultColDef={defaultColDef}
           suppressMovableColumns={true} // 셀 이동 비활성화
           overlayNoRowsTemplate={`<span style="font-size:16px;">표시할 데이터가 없습니다.</span>`}

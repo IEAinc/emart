@@ -3,6 +3,7 @@ import { useId } from 'react';
 const Input = ({
                  id,
                  labelName,
+                 className,
                  placeholder,
                  disabled = false,
                  readonly = false,
@@ -19,7 +20,7 @@ const Input = ({
   const inputId = id || generatedId;
 
   return (
-    <div className="input-wrapper">
+    <div className={`input-wrapper ${className}`}>
       {labelName && (
         <label htmlFor={inputId}>
           {labelName}

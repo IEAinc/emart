@@ -53,9 +53,7 @@ const ImageGeneratorPrompt = ({ onAddText }) => {
 
           <label htmlFor="imageUpload" className="custom-file-upload">이미지 업로드</label>
           <div className="file-name">
-            {file && (
-              <>{file.name}</>
-            )}
+            {file ? file.name : "마케팅 이미지에 활용될 상품 이미지를 업로드해주세요"}
           </div>
           {/* 업로드 된 이미지 preview인데 현재 사용X */}
           {/*{previewUrl && (

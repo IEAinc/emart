@@ -60,7 +60,7 @@ const GenerateContentsImage = () => {
     <div className="generator-content-wrap">
       <ImageGeneratorSetting settings={settings} onChange={handleSettingsChange}/>
       <div className="generator-box">
-        <ImageList allImages={allImages} onDownload={handleDownload}/>
+        <ImageList allImages={allImages} onDownload={handleDownload} isGenerate={true}/>
         <ImageGeneratorPrompt onAddText={handleAddText} />
       </div>
     </div>

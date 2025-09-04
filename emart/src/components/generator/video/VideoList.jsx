@@ -1,4 +1,5 @@
 import Button from '../../common/forms/Button.jsx'
+import Loading from "../../Loading.jsx";
 const VideoList = ({allVideos=[], isGenerate=false, onDownload}) => {
   return (
     <div className="generator-image-list-wrap">
@@ -37,13 +38,20 @@ const VideoList = ({allVideos=[], isGenerate=false, onDownload}) => {
         </>
       )}
       {allVideos.length === 0 && (
-        <div className="empty-page">
-          <div className="empty-desc">
-            <span className="upload-img alone"></span>
-            <p>IGEN에 오신 것을 환영합니다.</p>
-            <span>마케팅 이미지 생성을 시작하세요.</span>
+        !isGenerate ? (
+          <div className="empty-page">
+            <div className="empty-desc">
+              <span className="upload-img alone"></span>
+              <p>IGEN에 오신 것을 환영합니다.</p>
+              <span>마케팅 동영상 생성을 시작하세요.</span>
+            </div>
           </div>
-        </div>
+        ) : (
+          <Loading />
+        )
+      )}
+      {isGenerate && (
+        <Loading />
       )}
     </div>
   );
