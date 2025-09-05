@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Input from '../../common/forms/Input.jsx'
 import Button from '../../common/forms/Button.jsx'
-const ImageGeneratorPrompt = ({ onAddText }) => {
+import {api, errorHandler} from "../../../util/axios.jsx";
+const ImageGeneratorPrompt = ({ onAddText,setImgURl }) => {
   const [inputValue, setInputValue] = useState('');
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -9,12 +10,26 @@ const ImageGeneratorPrompt = ({ onAddText }) => {
   const handleChange = (e) => setInputValue(e.target.value);
 
   // 파일 선택 시
-  const handleFileChange = (e) => {
+  const handleFileChange =async (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
+    setImgURl(null)
 
+    let form=new FormData();
+    form.append("file",selectedFile)
+    let response=null;
+    try {
+       response = await api.post("/IMAGE/image/makeUrl", form, {
+        headers: {
+          "Content-Type": "multipart/form-data", // 생략해도 됨
+        },
+      })
+    } catch (error) {
+     console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+      return false;
+    }
+    setImgURl(response.data.save_url);
     setFile(selectedFile);
-
     // 미리보기 URL 생성
     const reader = new FileReader();
     reader.onload = () => setPreviewUrl(reader.result);
@@ -22,7 +37,7 @@ const ImageGeneratorPrompt = ({ onAddText }) => {
   };
 
   const handleClick = () => {
-    if (!inputValue.trim() && !file) return;
+    if (!inputValue.trim() || !file) return;
 
     // 상위로 전달
     onAddText &&
@@ -33,8 +48,8 @@ const ImageGeneratorPrompt = ({ onAddText }) => {
     });
 
     // 초기화
-    setInputValue('');
-    setFile(null);
+    //setInputValue('');
+   // setFile(null);
     setPreviewUrl(null);
   };
 

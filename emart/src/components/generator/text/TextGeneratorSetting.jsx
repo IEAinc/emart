@@ -2,19 +2,19 @@ import Select from '../../../components/common/forms/Select.jsx'
 
 const TextGeneratorSetting = ({ settings, onChange }) => {
   const modelOptions =[
-    { label: 'v.1.0', value: 'option1' }
+    { label: 'v.1.0', value: 'v.1.0' }
   ];
   const textLengthOptions = [
-    { label: 1, value: 'option1' },
+    { label: 1, value: 1},
   ];
   const styleOptions = [
-    { label: '트랜디/밈 스타일', value: 'option1' },
+    { label: '트랜디/밈 스타일', value: '트랜디/밈 스타일'},
   ];
   const purposeOptions = [
-    { label: '신제품 소개', value: 'option1' },
+    { label: '신제품 소개', value: '신제품 소개' },
   ];
   const brandOptions = [
-    { label: '모던하고 심플한', value: 'option1' },
+    { label: '모던하고 심플한', value: '모던하고 심플한'},
   ];
 
   return (

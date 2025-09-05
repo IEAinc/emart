@@ -6,25 +6,25 @@ import Radio3 from '../../..//assets/images/generate/generate_43.svg?react';
 
 const ImageGeneratorSetting = ({ settings, onChange }) => {
   const modelOptions = [
-    { label: 'v.1.0', value: 'option1' }
+    { label: 'v.1.0', value: 'v.1.0' }
   ];
   const generateRadioTabList = [
     { label: '표준', value: '표준' },
     { label: 'FAST모드', value: 'FAST모드' },
   ];
   const styleOptions = [
-    { label: '실사 스타일', value: 'option1' },
+    { label: '실사 스타일', value: '실사 스타일' },
   ];
   const brandOptions = [
-    { label: '모던하고 심플한', value: 'option1' },
+    { label: '모던하고 심플한', value: '모던하고 심플한' },
   ];
   const resolutionOptions = [
-    { label: '512*512', value: 'option1' },
+    { label: '512*512', value: '512*512' },
   ];
   const tabList = [
-    { label: '1:1', value: 'a', icon: <Radio1 /> },
-    { label: '9:16', value: 'b', icon: <Radio2 /> },
-    { label: '4:3', value: 'c', icon: <Radio3 /> },
+    { label: '1:1', value: '1:1', icon: <Radio1 /> },
+    { label: '9:16', value: '9:16', icon: <Radio2 /> },
+    { label: '4:3', value:'4:3', icon: <Radio3 /> },
   ];
   const tabList2 = [
     { label: '1', value: '1' },

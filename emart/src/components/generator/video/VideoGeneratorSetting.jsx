@@ -10,22 +10,22 @@ const VideoGeneratorSetting = ({ settings, onChange }) => {
     { label: 'FAST모드', value: 'FAST모드' },
   ];
   const styleOptions = [
-    { label: '실사 스타일', value: 'option1' },
-    { label: '실사 스타일 2', value: 'option2' },
-    { label: '실사 스타일 3', value: 'option3' },
+    { label: '실사 스타일', value: '실사 스타일' },
+    { label: '실사 스타일 2', value: '실사 스타일 2' },
+    { label: '실사 스타일 3', value: '실사 스타일 3' },
   ];
   const brandOptions = [
-    { label: '모던하고 심플한', value: 'option1' },
-    { label: '모던하고 심플한 2', value: 'option2' },
-    { label: '모던하고 심플한 3', value: 'option3' },
+    { label: '모던하고 심플한', value: '모던하고 심플한' },
+    { label: '모던하고 심플한 2', value: '모던하고 심플한 2' },
+    { label: '모던하고 심플한 3', value: '모던하고 심플한 3' },
   ];
   const resolutionOptions = [
-    { label: '512*512', value: 'option1' },
+    { label: '512*512', value: '512*512'},
   ];
   const tabList = [
-    { label: '1:1', value: 'a', icon: <Radio1 /> },
-    { label: '9:16', value: 'b', icon: <Radio2 /> },
-    { label: '4:3', value: 'c', icon: <Radio3 /> },
+    { label: '1:1', value: '1:1', icon: <Radio1 /> },
+    { label: '9:16', value: '9:16', icon: <Radio2 /> },
+    { label: '4:3', value:  '4:3', icon: <Radio3 /> },
   ];
   const tabList2 = [
     { label: '1', value: '1' },
