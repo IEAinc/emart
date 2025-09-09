@@ -37,7 +37,7 @@ const VideoGeneratorPrompt = ({onAddText,setImgURl}) => {
   };
 
   const handleClick = () => {
-    if (!inputValue.trim() || !file) return;
+    if (!inputValue.trim() && !file) return;
 
     // 상위로 전달
     onAddText &&
