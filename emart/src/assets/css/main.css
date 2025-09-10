@@ -30,7 +30,7 @@ html, body {height:100%;font-family:"Pretendard", sans-serif;font-weight:var(--f
 
 /* 헤더 */
 header {width:100%;height:68px;background-color:var(--color-bg-dark);position:fixed;top:0;left:0;z-index:10000;}
-header > .inner-content {width:100%;height:100%;max-width:1826px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin:0 auto;padding:0 40px;}
+header > .inner-content {width:100%;height:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;margin:0 auto;padding:0 40px;}
 header > .inner-content.admin {max-width:100%;padding:0 47px;}
 header h1 {width:150px;}
 .menu-wrap {position:relative;}
