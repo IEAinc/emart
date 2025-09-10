@@ -10,12 +10,12 @@ const GenerateContentsVideo = () => {
   const [isGen,setIsGen]=useState(false)
   const [imgUrl,setImgURl]=useState(null)
   const [allVideos, setAllVideos] = useState([
-    // {
-    //   id: 1,
-    //   src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    //   alt: 'Big Buck Bunny',
-    //   title: '테스트 영상 1',
-    // },
+    {
+      id: 1,
+      src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      alt: 'Big Buck Bunny',
+      title: '테스트 영상 1',
+    },
   ]); // 전체 이미지
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0' },
