@@ -8,12 +8,12 @@ const TextList = ({allTexts=[],isGenerate=false,onDownload}) => {
         <>
           <div className="list-title-wrap">
             <p className="list-tit type02">AI 마케팅 문구 생성기</p>
-            <Button
-              className={'normal'}/* ico-reset */
+            {/*<Button
+              className={'normal'}
               onClick={onDownload}
             >
               다운로드
-            </Button>
+            </Button>*/}
           </div>
           <div className="generator-text-list">
             <ul>
