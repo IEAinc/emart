@@ -155,7 +155,7 @@ const Sidebar = ({menuData = []}) => {
           onClick={handleOpenSidebar}
           className="sidebar-open-btn"
         >
-          열기
+
         </Button>
       }
     </>

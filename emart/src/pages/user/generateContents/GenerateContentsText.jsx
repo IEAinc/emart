@@ -7,7 +7,8 @@ import {api, errorHandler} from "../../../util/axios.jsx";
 
 const GenerateContentsText = () => {
   const [isGen,setIsGen]=useState(false)
-  const [allTexts, setAllTexts] = useState([]); // 전체 텍스트
+  const [allTexts, setAllTexts] = useState([
+  ]); // 전체 텍스트
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0'},
     textLength: { label: 1, value: 1 },
@@ -48,7 +49,7 @@ const GenerateContentsText = () => {
     let result=response.data.text_list[0].text
     const newItem = {
       id: Date.now(),
-      text:result,
+      text: result,
       settings, // 이미 settings가 초기값으로 채워져 있으므로 그대로 사용
     };
     setAllTexts((prev) => {

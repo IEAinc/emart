@@ -24,7 +24,7 @@ const GenerateContentsVideo = () => {
     brand: { label: '모던하고 심플한', value: '모던하고 심플한' },
     ratio:     { label: '9:16', value: '9:16', icon: <Radio2 /> },
     resolution: { label: '512*512', value: '512*512' }, // 해상도 기본값
-    imageCount: { label: '1', value: '1' },
+    imageCount: { label: '5초', value: '1' },
   });
 
   // VideoGeneratorSetting에서 전달된 값 업데이트

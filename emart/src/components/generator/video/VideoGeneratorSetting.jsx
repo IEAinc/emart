@@ -4,7 +4,9 @@ import Radio1 from '../../../assets/images/generate/generate_11.svg?react'
 import Radio2 from '../../..//assets/images/generate/generate_916.svg?react'
 import Radio3 from '../../..//assets/images/generate/generate_43.svg?react'
 const VideoGeneratorSetting = ({ settings, onChange }) => {
-  const modelOptions = [{ label: 'v.1.0', value: 'option1' }];
+  const modelOptions = [
+    { label: 'v.1.0', value: 'v.1.0' }
+  ];
   const generateRadioTabList = [
     { label: '표준', value: '표준' },
     { label: 'FAST모드', value: 'FAST모드' },
@@ -28,10 +30,10 @@ const VideoGeneratorSetting = ({ settings, onChange }) => {
     { label: '4:3', value:  '4:3', icon: <Radio3 /> },
   ];
   const tabList2 = [
-    { label: '1', value: '1' },
-    { label: '2', value: '2' },
-    { label: '3', value: '3' },
-    { label: '4', value: '4' },
+    { label: '5초', value: '1' },
+    { label: '10초', value: '2' },
+    { label: '15초', value: '3' },
+    { label: '20초', value: '4' },
   ];
 
   return (
@@ -82,14 +84,6 @@ const VideoGeneratorSetting = ({ settings, onChange }) => {
 
         <div className="list-box">
           <p className="list-tit">동영상 설정</p>
-          <Select
-            label="해상도"
-            value={settings.resolution}
-            onChange={(option) => onChange('resolution', option)}
-            options={resolutionOptions}
-            openDirection="bottom"
-            disabled
-          />
           {/* 동영상 비율 */}
           <div className="list-title-wrap">
             <p className="list-tit">동영상 비율</p>
@@ -99,6 +93,14 @@ const VideoGeneratorSetting = ({ settings, onChange }) => {
             name="generate-radios"
             value={settings.ratio}
             onChange={(value) => onChange('ratio', value)}
+            disabled
+          />
+          <Select
+            label="해상도"
+            value={settings.resolution}
+            onChange={(option) => onChange('resolution', option)}
+            options={resolutionOptions}
+            openDirection="bottom"
             disabled
           />
           {/* 동영상 길이 */}

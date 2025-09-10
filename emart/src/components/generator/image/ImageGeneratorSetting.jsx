@@ -81,14 +81,6 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
 
         <div className="list-box">
           <p className="list-tit">이미지 설정</p>
-          <Select
-            label="해상도"
-            value={settings.resolution}
-            onChange={(option) => onChange('resolution', option)}
-            options={resolutionOptions}
-            openDirection="bottom"
-            disabled
-          />
           {/* 이미지 비율 */}
           <div className="list-title-wrap">
             <p className="list-tit">이미지 비율</p>
@@ -98,6 +90,14 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
             name="generate-radios"
             value={settings.ratio}
             onChange={(value) => onChange('ratio', value)}
+            disabled
+          />
+          <Select
+            label="해상도"
+            value={settings.resolution}
+            onChange={(option) => onChange('resolution', option)}
+            options={resolutionOptions}
+            openDirection="bottom"
             disabled
           />
           {/* 이미지 수 */}

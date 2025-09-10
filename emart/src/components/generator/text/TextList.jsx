@@ -18,9 +18,19 @@ const TextList = ({allTexts=[],isGenerate=false,onDownload}) => {
           <div className="generator-text-list">
             <ul>
               {allTexts.map((item, index) => (
-                <li key={index}>
-                  {item.text}
+                <li key={index} style={{ whiteSpace: 'pre-wrap' }}>
+                  {item.text.split(/(\*\*.*?\*\*)/).map((part, i) => {
+                    if (part.startsWith('**') && part.endsWith('**')) {
+                      return (
+                        <span key={i} style={{ fontWeight: 700 }}>
+                          {part.slice(2, -2)}
+                        </span>
+                      );
+                    }
+                    return part;
+                  })}
                 </li>
+
               ))}
             </ul>
           </div>
