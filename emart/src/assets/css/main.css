@@ -37,8 +37,9 @@ header h1 {width:150px;}
 .menu-wrap > .menu-box {position:absolute;right:0;bottom:-45px;width:200px;z-index:1;background-color:var(--color-primary);border-radius:4px;padding:6px 12px;}
 
 /* 사이드바 */
-.sidebar {position:fixed;top:103px;left:-380px;min-height:500px;height:calc(100vh - 68px - 35px - 39px);width:360px;overflow-y:auto;padding-top:31px;padding-bottom:31px;border-radius:20px;background-color:var(--color-bg-dark);transition:left 0.3s;}
-.sidebar.open {left:20px;}
+.sidebar-whole-wrap {display:flex;align-items:flex-start;position:fixed;top:103px;left:-360px;transition:left 0.3s;}
+.sidebar {min-height:500px;height:calc(100vh - 68px - 35px - 39px);width:360px;overflow-y:auto;padding-top:31px;padding-bottom:31px;border-radius:20px 0 20px 20px;background-color:var(--color-bg-dark);}
+.sidebar-whole-wrap.open {left:20px;}
 .sidebar-list-title {font-size:18px;font-weight:var(--fw-bold);color:var(--color-gray3);padding:0 22px 20px;border-bottom:1px solid var(--color-border-dark2);}
 .sidebar-wrap {padding:0 22px;}
 .first-depth {display:flex;align-items:center;justify-content:space-between;padding:15px 0 20px;font-size:18px;font-weight:var(--fw-medium);color:var(--color-gray3);}
@@ -72,8 +73,8 @@ header h1 {width:150px;}
 .file-upload-single.table-ver .custom-file-upload:hover {border-color:var(--color-primary-hover);color:var(--color-primary-hover);}
 
     /* 콘텐츠 */
-.sidebar.open + .contents-wrap {padding-left: 400px; }
-.contents-wrap {width:100%;min-height:100vh;padding-top:68px;padding-left:20px; padding-right:20px;overflow-y:auto;background-color:var(--color-bg-light-dark1);transition:padding-left 0.3s;}
+.sidebar-whole-wrap.open + .contents-wrap {padding-left: 420px;}
+.contents-wrap {width:100%;min-height:100vh;padding-top:68px;padding-left:40px; padding-right:40px;overflow-y:auto;background-color:var(--color-bg-light-dark1);transition:padding-left 0.3s;}
 .content-box {width:100%;min-width:500px;padding:35px 0;}
 
 /* breadcrumb */
@@ -225,7 +226,7 @@ header h1 {width:150px;}
 /* swiper */
 .swiper-box {width:100%;}
 .swiper-img-box {width: 100%;display: flex;justify-content: center;align-items: center;border-radius:8px;overflow:hidden;}
-.swiper-img-box > img {width: 100%;height:300px;}
+.swiper-img-box > img {width: 100%;}
 
 /* 콘텐츠 생성 >  생성 페이지 (이미지) */
 .generator-content-wrap {width:100%;display:flex;gap:16px;background-color:var(--color-bg-light-dark1);}

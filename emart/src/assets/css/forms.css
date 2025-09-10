@@ -75,8 +75,9 @@
 .btn.bg-gray {background-color:var(--color-gray9);}
 .btn.ico-reset{position:relative;}
 .btn.ico-reset::before {content:'';width:20px;height:20px;margin-right:4px;background: url('../images/icon/ico_reset.svg') 0 center / 16px no-repeat;}
-.btn.sidebar-open-btn {width:40px;height:40px;border-radius:0 8px 8px;background-color:var(--color-primary);position:fixed;left:0;top:68px;}
-
+.btn.sidebar-open-btn {width:26px;height:64px;position:relative;background:url("../../assets/images/icon/ico_sidebar_btn.svg") center center no-repeat;background-size:100%;}
+.btn.sidebar-open-btn::before {content:'';width:24px;height:24px;background:url("../../assets/images/icon/ico_sidebar_small_arrow.svg");transform: rotate(180deg);transition: all 0.3s;}
+.btn.sidebar-open-btn.open::before {transform: rotate(0deg);}
 .btn.tab {flex-direction:column;gap:2px;width:100%;height:65px;border-radius:15px;border:1px solid var(--color-transparent);background-color:var(--color-transparent);}
 .btn.tab > span {display:inline-flex;justify-content:center;text-align:center;font-size:13px;font-weight:var(--fw-medium);color:var(--color-white);}
 .btn.tab.active {border-color:var(--color-primary);}

@@ -46,8 +46,8 @@ const Sidebar = ({menuData = []}) => {
   };
 
   return (
-    <>
-      <div className={`sidebar ${openSideBar ? 'open' : ''}`}>
+    <div className={`sidebar-whole-wrap ${openSideBar ? 'open' : ''}`}>
+      <div className={`sidebar`}>
         {/* 동적 메뉴 렌더링 */}
         {
           isAdmin &&
@@ -142,23 +142,20 @@ const Sidebar = ({menuData = []}) => {
             );
           })}
         </div>
-        <Button
+        {/*<Button
           onClick={handleOpenSidebar}
           className="sidebar-close-btn"
         >
           <span className="sr-only">닫기</span>
-        </Button>
+        </Button>*/}
       </div>
-      {
-        !openSideBar &&
-        <Button
-          onClick={handleOpenSidebar}
-          className="sidebar-open-btn"
-        >
+      <Button
+        onClick={handleOpenSidebar}
+        className={`sidebar-open-btn ${openSideBar ? 'open' : ''}`}
+      >
 
-        </Button>
-      }
-    </>
+      </Button>
+    </div>
   );
 
 }

@@ -12,7 +12,7 @@ const BasicSwiper = ({slides = [], ... props}) => {
         {...props}
         onSlideChange={(swiper) => console.log('slide index:', swiper.activeIndex)}
         onSwiper={(swiper) => console.log('swiper instance', swiper)}
-        style={{ width: '100%', height: 300 }}
+        style={{ width: '100%'}}
       >
         {slides.map((item,idx) => {
           return (
