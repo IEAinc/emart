@@ -38,7 +38,7 @@ header h1 {width:150px;}
 
 /* 사이드바 */
 .sidebar-whole-wrap {display:flex;align-items:flex-start;position:fixed;top:103px;left:-360px;transition:left 0.3s;}
-.sidebar {min-height:500px;height:calc(100vh - 68px - 35px - 39px);width:360px;overflow-y:auto;padding-top:31px;padding-bottom:31px;border-radius:20px 0 20px 20px;background-color:var(--color-bg-dark);}
+.sidebar {min-height:500px;height:calc(100vh - 68px - 35px - 39px);width:360px;overflow-y:auto;padding-top:31px;padding-bottom:31px;border-radius:20px;background-color:var(--color-bg-dark);}
 .sidebar-whole-wrap.open {left:20px;}
 .sidebar-list-title {font-size:18px;font-weight:var(--fw-bold);color:var(--color-gray3);padding:0 22px 20px;border-bottom:1px solid var(--color-border-dark2);}
 .sidebar-wrap {padding:0 22px;}
