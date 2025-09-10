@@ -68,7 +68,7 @@ const VideoGeneratorPrompt = ({onAddText,setImgURl}) => {
 
           <label htmlFor="imageUpload" className="custom-file-upload">이미지 업로드</label>
           <div className="file-name">
-            {file ? file.name : "마케팅 이미지에 활용될 상품 이미지를 업로드해주세요"}
+            {file ? file.name : "마케팅 동영상에 활용될 상품 이미지를 업로드해주세요"}
           </div>
           {/* 업로드 된 이미지 preview인데 현재 사용X */}
           {/*{previewUrl && (
@@ -82,7 +82,7 @@ const VideoGeneratorPrompt = ({onAddText,setImgURl}) => {
 
         {/* 텍스트 입력 */}
         <Input
-          placeholder="생성할 이미지에 대해 작성해주세요"
+          placeholder="생성할 마케팅 동영상에 대해 설명해주세요"
           value={inputValue}
           onChange={handleChange}
           required

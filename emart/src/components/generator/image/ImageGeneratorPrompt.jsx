@@ -82,7 +82,7 @@ const ImageGeneratorPrompt = ({ onAddText,setImgURl }) => {
 
         {/* 텍스트 입력 */}
         <Input
-          placeholder="생성할 이미지에 대해 작성해주세요"
+          placeholder="생성할 마케팅 이미지에 대해 작성해주세요"
           value={inputValue}
           onChange={handleChange}
           required

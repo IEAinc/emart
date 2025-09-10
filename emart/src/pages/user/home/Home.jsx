@@ -8,14 +8,16 @@ const imageSlides = [
   {src:swiperImage1,alt:'이마트 예시 이미지1'},
 ]
 const projects = [
-  {id:'project1',src:img1,alt:'이마트 예시 이미지1'},
-  {id:'project2',src:img1,alt:'이마트 예시 이미지1'},
-  {id:'project3',src:img1,alt:'이마트 예시 이미지1'},
-  {id:'project4',src:img1,alt:'이마트 예시 이미지1'},
-  {id:'project5',src:img1,alt:'이마트 예시 이미지1'},
-  {id:'project6',src:img1,alt:'이마트 예시 이미지1'},
-  {id:'project7',src:img1,alt:'이마트 예시 이미지1'},
-  {id:'project8',src:img1,alt:'이마트 예시 이미지1'},
+  {id:'project1',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 이미지'},
+  {id:'project2',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 텍스트'},
+  {id:'project3',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 텍스트'},
+  {id:'project4',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 텍스트'},
+  {id:'project5',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 이미지'},
+  {id:'project6',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 동영상'},
+  {id:'project7',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 이미지'},
+  {id:'project7',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 이미지'},
+  {id:'project7',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 이미지'},
+  {id:'project8',src:img1,alt:'이마트 예시 이미지1',text:'최근 생성한 동영상'},
 ];
 export default function Home() {
   return (
@@ -38,7 +40,7 @@ export default function Home() {
             return (
               <li key={project.id}>
                 <div className="project-img-box">
-                  <img src={project.src} alt={project.alt} />
+                  <p>{project.text}</p>
                 </div>
               </li>
             )
