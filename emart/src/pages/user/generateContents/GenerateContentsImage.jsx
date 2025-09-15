@@ -9,13 +9,27 @@ const GenerateContentsImage = () => {
   const [isGen,setIsGen]=useState(false)
   const [imgUrl,setImgURl]=useState(null)
   const [allImages, setAllImages] = useState([
-    // {
-    //   id: 1,
-    //   src: 'https://picsum.photos/300/400?random=1',
-    //   alt: '샘플 이미지 1',
-    //   text: '이미지 설명 1',
-    //   settings: {} // 필요하면 설정값
-    // },
+    {
+      id: 1,
+      src: 'https://picsum.photos/300/400?random=1',
+      alt: '샘플 이미지 1',
+      text: '이미지 설명 1',
+      settings: {} // 필요하면 설정값
+    },
+    {
+      id: 1,
+      src: 'https://picsum.photos/300/400?random=1',
+      alt: '샘플 이미지 1',
+      text: '이미지 설명 1',
+      settings: {} // 필요하면 설정값
+    },
+    {
+      id: 1,
+      src: 'https://picsum.photos/300/400?random=1',
+      alt: '샘플 이미지 1',
+      text: '이미지 설명 1',
+      settings: {} // 필요하면 설정값
+    },
   ]); // 전체 이미지
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0' },
