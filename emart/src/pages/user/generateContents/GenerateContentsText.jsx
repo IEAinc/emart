@@ -11,7 +11,7 @@ const GenerateContentsText = () => {
   ]); // 전체 텍스트
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0'},
-    textLength: { label: 1, value: 1 },
+    textLength: { label: 1, value: 3 },
     style: { label: '트랜디/밈 스타일', value: '트랜디/밈 스타일'},
     purpose: { label: '신제품 소개', value: '신제품 소개' },
     brand: { label: '모던하고 심플한', value: '모던하고 심플한' },
@@ -46,14 +46,19 @@ const GenerateContentsText = () => {
       return false;
     }
     console.log(response.data.text_list[0].text)
-    let result=response.data.text_list[0].text
-    const newItem = {
-      id: Date.now(),
-      text: result,
-      settings, // 이미 settings가 초기값으로 채워져 있으므로 그대로 사용
-    };
+    let result_list=[]
+      for (let step = 0; step < response.data.text_list.length; step++) {
+          let result=response.data.text_list[step].text
+          let newItem = {
+              id: Date.now(),
+              text: result,
+              settings, // 이미 settings가 초기값으로 채워져 있으므로 그대로 사용
+          };
+          result_list.push(JSON.parse(JSON.stringify(newItem)));
+      }
+
     setAllTexts((prev) => {
-      const updated = [...prev, newItem];
+      const updated = [...prev, ...result_list];
       console.log('전체 텍스트 배열:', updated);
       setIsGen(false)
       return updated;

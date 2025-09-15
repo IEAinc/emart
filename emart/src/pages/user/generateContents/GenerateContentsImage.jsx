@@ -9,27 +9,27 @@ const GenerateContentsImage = () => {
   const [isGen,setIsGen]=useState(false)
   const [imgUrl,setImgURl]=useState(null)
   const [allImages, setAllImages] = useState([
-    {
-      id: 1,
-      src: 'https://picsum.photos/300/400?random=1',
-      alt: '샘플 이미지 1',
-      text: '이미지 설명 1',
-      settings: {} // 필요하면 설정값
-    },
-    {
-      id: 1,
-      src: 'https://picsum.photos/300/400?random=1',
-      alt: '샘플 이미지 1',
-      text: '이미지 설명 1',
-      settings: {} // 필요하면 설정값
-    },
-    {
-      id: 1,
-      src: 'https://picsum.photos/300/400?random=1',
-      alt: '샘플 이미지 1',
-      text: '이미지 설명 1',
-      settings: {} // 필요하면 설정값
-    },
+    // {
+    //   id: 1,
+    //   src: 'https://picsum.photos/300/400?random=1',
+    //   alt: '샘플 이미지 1',
+    //   text: '이미지 설명 1',
+    //   settings: {} // 필요하면 설정값
+    // },
+    // {
+    //   id: 1,
+    //   src: 'https://picsum.photos/300/400?random=1',
+    //   alt: '샘플 이미지 1',
+    //   text: '이미지 설명 1',
+    //   settings: {} // 필요하면 설정값
+    // },
+    // {
+    //   id: 1,
+    //   src: 'https://picsum.photos/300/400?random=1',
+    //   alt: '샘플 이미지 1',
+    //   text: '이미지 설명 1',
+    //   settings: {} // 필요하면 설정값
+    // },
   ]); // 전체 이미지
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0' },
@@ -38,7 +38,7 @@ const GenerateContentsImage = () => {
     brand: { label: '모던하고 심플한', value: '모던하고 심플한'},
     ratio: { label: '1:1', value: '1:1' },
     resolution: { label: '512*512', value: '512*512' }, // 해상도 기본값
-    imageCount: { label: '1', value: '1' },
+    imageCount: { label: '1', value: '3' },
   });
   // ImageGeneratorSetting에서 전달된 값 업데이트
   const handleSettingsChange = (key, value) => {
@@ -74,17 +74,22 @@ const GenerateContentsImage = () => {
       return false;
     }
     console.log(response.data.save_url)
-    const newItem = {
-      id: Date.now(),
-      text: trimmedText,
-      file: file || null,        // 선택한 이미지 파일
-      previewUrl: response.data.save_url[0].img_url, // 미리보기 URL
-      src:response.data.save_url[0].img_url,
-      settings,                  // 현재 선택된 설정값
-    };
+    let result_list=[]
+    for(let step=0;step<response.data.save_url.length;step++){
+        let newItem = {
+            id: response.data.save_url[step].id,
+            text: trimmedText,
+            file: file || null,        // 선택한 이미지 파일
+            previewUrl: response.data.save_url[step].img_url, // 미리보기 URL
+            src:response.data.save_url[step].img_url,
+            settings,                  // 현재 선택된 설정값
+        };
+        result_list.push(JSON.parse(JSON.stringify(newItem)));
+    }
+
     setAllImages((prev) => {
       //const updated = [...prev, newItem];
-      const updated = [newItem];
+      const updated = result_list;
       console.log('전체 이미지 배열:', updated);
       setIsGen(false)
       return updated;
@@ -94,23 +99,25 @@ const GenerateContentsImage = () => {
   /* 다운로드 */
   const handleDownload = async () => {
     console.log('이미지 다운로드');
-    const url = allImages[0].src; // 다운로드할 이미지 주소
-    const response = await fetch(url, {
-      mode: "cors",
-      credentials: "omit",
-      cache: "no-store",
-    });
-    const blob = await response.blob();
-    const blobUrl = URL.createObjectURL(blob);
+      for (const e of allImages) {
+          const url = e.src; // 다운로드할 이미지 주소
+          const response = await fetch(url, {
+              mode: "cors",
+              credentials: "omit",
+              cache: "no-store",
+          });
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
 
-    const a = document.createElement("a");
-    a.href = blobUrl;
-    a.download = allImages[0].id+".png"; // 저장할 파일명
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+          const a = document.createElement("a");
+          a.href = blobUrl;
+          a.download = e.id+".png"; // 저장할 파일명
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
 
-    URL.revokeObjectURL(blobUrl); // 메모리 해제
+          URL.revokeObjectURL(blobUrl); // 메모리 해제
+      }
 
 
   }
