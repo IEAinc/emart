@@ -168,7 +168,7 @@ header h1 {width:150px;}
 .tabs-title-wrap > p {font-size:14px;color:var(--color-gray3);font-weight:var(--fw-medium);}
 /* 검색 */
 .search-wrapper {margin-bottom:15px;display:flex;align-items:center;justify-content:space-between;gap:30px;}
-.search-wrap {display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
+.search-wrap {display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .search-wrap .select-wrapper + .select-wrapper {margin-top:0;}
 .search-wrap + .search-wrap {margin-top:20px;}
 
