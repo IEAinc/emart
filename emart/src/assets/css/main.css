@@ -165,10 +165,12 @@ header h1 {width:150px;}
 .tab-navigation > nav > button:last-child {border-radius:0 16px 0 0;}
 .tab-content {width:100%;padding:20px 30px 0 30px;height:calc(100vh - 68px - 70px - 90px - 38px);overflow-y:auto;border-radius:0 16px 16px 16px;background-color:var(--color-white);}
 .tabs-title-wrap {margin-bottom:20px;}
+.tabs-title-wrap > p {font-size:14px;color:var(--color-gray3);font-weight:var(--fw-medium);}
 /* 검색 */
 .search-wrapper {margin-bottom:15px;display:flex;align-items:center;justify-content:space-between;gap:30px;}
 .search-wrap {display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
 .search-wrap .select-wrapper + .select-wrapper {margin-top:0;}
+.search-wrap + .search-wrap {margin-top:20px;}
 
 /* aggrid */
 /* AG grid */
@@ -197,8 +199,12 @@ header h1 {width:150px;}
 .ag-checkbox-input-wrapper.ag-checked::after{color:#2D72E2!important;}
 .ag-row-selected {background-color: #E4E4E4!important;}
 .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within {border:1px solid #2d72e2 !important;}
+.btn-wrap {display:flex;align-items:center;justify-content:center;gap:8px;height:100%;}
+.grid-img-wrap {display:flex;justify-content:center;align-items:center;height:100%;}
+.grid-img-wrap > img {height: 80px;}
 
-/* datepicker */
+
+    /* datepicker */
 .react-datepicker-wrapper { all: unset; display: inline-block; }
 .react-datepicker__input-container { all: unset; display: inline-block; }
 .react-datepicker__input-container input { all: unset; height:36px;border: 1px solid var(--color-border); border-radius: 4px;padding:14px 10px;font-size: 14px; background: var(--color-white); width: 132px; cursor: pointer;box-sizing: border-box;}
@@ -272,3 +278,11 @@ header h1 {width:150px;}
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* 마이 프로젝트 */
+.box {border-radius: 16px;padding:16px;background-color:var(--color-white)}
+.box + .box  {margin-top:16px;}
+.page-wrap .tabs-title-wrap {padding-top:24px;}
+.page-wrap .tabs-title-wrap >  h3 {color:var(--color-white)}
+.page-wrap .tabs-title-wrap > p {font-size:14px;color:var(--color-gray3);font-weight:var(--fw-medium);margin-top:4px;}
+.page-wrap .search-wrapper {margin:12px 0;}

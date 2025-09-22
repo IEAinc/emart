@@ -3,7 +3,7 @@ import { useId } from 'react';
 const Input = ({
                  id,
                  labelName,
-                 className,
+                 className='',
                  placeholder,
                  disabled = false,
                  readonly = false,

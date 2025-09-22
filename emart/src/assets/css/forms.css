@@ -6,7 +6,7 @@
 .select-wrapper + .list-title-wrap,
 .tab-radio-wrapper + .tab-radio-wrapper {margin-top:30px;}
 /* ---------------------- */
-.label-wrapper {min-width:50px;}
+.label-wrapper {min-width:60px;}
 /* Select */
 .select-wrapper {display:flex;align-items:center;justify-content:flex-start;}
 .select-label {font-size:15px;font-weight:var(--fw-bold);width:100%;}
@@ -50,8 +50,11 @@
 .input-wrapper input:focus {border-color:var(--color-primary)!important;}
 .input-wrapper.table-ver {width: 100%;}
 .input-wrapper.table-ver input {height:36px;padding:8px 8px;font-size:14px;border-color:var(--color-border);}
+.input-wrapper.row {display:flex;align-items:center;}
+.input-wrapper.row label {min-width:80px;font-size:16px;color:var(--color-black);font-weight: var(--fw-bold); white-space: nowrap; overflow: hidden;}
+.input-wrapper.row input {height:36px;padding:14px 10px;outline: none; cursor: pointer;background-color:var(--color-white);border:1px solid var(--color-border);}
 
-/* textarea */
+    /* textarea */
 .textarea-wrapper {width:100%;}
 .textarea-wrapper textarea {display:block;width:100%;padding:8px;font-family:inherit;font-size:14px;font-weight:var(--fw-regular);color:var(--color-black);border:1px solid var(--color-border);border-radius:4px;background-color:var(--color-transparent);outline:none;resize:none;}
 .textarea-wrapper textarea::placeholder {color:var(--color-gray4);}
@@ -87,6 +90,11 @@
 .btn.top-right {right:16px;top:16px;}
 .btn.table-form-btn {height:40px;min-width:350px;padding:4px;font-size:14px;font-weight:var(--fw-regular);color:var(--color-gray11);border-radius:4px;background-color:var(--color-gray1);border:1px solid var(--color-border);}
 .btn.table-form-btn:hover{background-color:var(--color-primary);font-weight:var(--fw-bold);border-color:var(--color-primary)}
+.btn.ico-square {width:32px;height:32px;border-radius:4px;border:1px solid var(--color-gray3);padding:4px;}
+.btn.ico-square:hover {border-color:var(--color-primary-hover);}
+.tooltip-btn {position:relative;}
+.tooltip-btn .insert-tooltip {display: none;position:absolute;left:0;top:32px;}
+.tooltip-btn button:hover + .insert-tooltip {display:block;}
 
 /* 데이트 피커 */
 

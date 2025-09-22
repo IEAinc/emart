@@ -16,7 +16,7 @@ const Sidebar = ({menuData = []}) => {
   }
 
   // 탭 있는 메뉴
-  const tabbedPages = ['/modelManagement/aiImageManagement', '/modelManagement/aiVideoManagement'];
+  const tabbedPages = ['/modelManagement/aiTextManagement','/modelManagement/aiImageManagement', '/modelManagement/aiVideoManagement'];
 
   // 현재 활성화된 메뉴의 인덱스를 찾아 설정
   useEffect(() => {

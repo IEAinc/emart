@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import AiImageGenerationManagement from './tabs/AiImageGenerationManagement.jsx';
-import AiImageGenerationLearning from './tabs/AiImageGenerationLearning.jsx';
+import AiImageGenerationManagement from './imageTabs/AiImageGenerationManagement.jsx';
+import AiImageGenerationLearning from './imageTabs/AiImageGenerationLearning.jsx';
 
 const ModelImageManagement = () => {
   const navigate = useNavigate();

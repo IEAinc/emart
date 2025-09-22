@@ -1,14 +1,13 @@
 import React, {useState} from "react";
-import Select from "../../../components/common/forms/Select.jsx";
-import CustomDatepicker from "../../../components/common/forms/CustomDatepicker.jsx";
-import Button from "../../../components/common/forms/Button.jsx";
-import Magnify from "../../../assets/images/icon/ico_search.svg?react";
-import Textarea from "../../../components/common/forms/Textarea.jsx";
-import Input from "../../../components/common/forms/Input.jsx";
-import Checkbox from "../../../components/common/forms/Checkbox.jsx";
-import Radio from "../../../components/common/forms/Radio.jsx";
+import Select from "../../../../components/common/forms/Select.jsx";
+import Button from "../../../../components/common/forms/Button.jsx";
+import Magnify from "../../../../assets/images/icon/ico_search.svg?react";
+import Textarea from "../../../../components/common/forms/Textarea.jsx";
+import Input from "../../../../components/common/forms/Input.jsx";
+import Checkbox from "../../../../components/common/forms/Checkbox.jsx";
+import Radio from "../../../../components/common/forms/Radio.jsx";
 
-const AiImageGenerationLearning = () => {
+const AiVideoGenerationLearning = () => {
   /* 추후 컴포넌트화 예정 */
   /* ------------------------------------------------------------------------------------------------------ */
   /* 구분 */
@@ -41,19 +40,14 @@ const AiImageGenerationLearning = () => {
   const handleVersionChange = (option) => {
     setSelectedVersionOption(option);
   }
-  /* 학습일 */
-  const [dateRange, setDateRange] = useState([null,null]);
 
-  /* 상태 */
-  const statusOptions = [
-    { label: '전체', value: 'option1' },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
-  const [selectedStatusOption, setSelectedStatusOption] = useState(statusOptions[0]);
-  const handleStatusChange = (option) => {
-    setSelectedStatusOption(option);
-  }
+  /* 검색 */
+  const [searchValue, setSearchValue] = useState('');
+  const handleSearchChange = () => {
+    console.log('구분',selectedOption);
+    console.log('모델명',selectedModelOption);
+    console.log('버전',selectedStatusOption);
+  };
   /* ----------------------------------------------------------------------------------------------- */
 
   /* 설명 */
@@ -100,6 +94,21 @@ const AiImageGenerationLearning = () => {
   const handleAgreeChange = (e) => {
     setAgreed(e.target.checked);
   };
+
+  /* 학습 */
+  const [learning, setLearning] = useState(false);
+  const handleLearning = () => {
+    console.log('구분(스타일 /용도)',selectedOption)
+    console.log('모델명',selectedModelOption)
+    console.log('버전',selectedVersionOption)
+    console.log('설명',message)
+    console.log('학습 데이터 파일 업로드',file)
+    console.log('데이터셋 명',inputDatasetValue)
+    console.log('데이터 출처(URL)',inputDatasetURLValue)
+    console.log('라이선스/저작권',inputLicenseValue)
+    console.log('상업적 이용 가능 여부',commercial)
+    console.log('확인 여부',agreed)
+  }
   return (
     <div className="tabs">
       <div className="tabs-title-wrap">
@@ -131,21 +140,8 @@ const AiImageGenerationLearning = () => {
             openDirection="bottom"
             colVer={false}
           />
-          <CustomDatepicker
-            label="학습일"
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-          />
-          <Select
-            label="상태"
-            value={selectedStatusOption}
-            onChange={handleStatusChange}
-            options={statusOptions}
-            openDirection="bottom"
-            colVer={false}
-          />
         </div>
-        <Button className={'normal2 icon'}>
+        <Button className={'normal2 icon'} onClick={handleSearchChange}>
           <Magnify/>
           검색
         </Button>
@@ -328,6 +324,7 @@ const AiImageGenerationLearning = () => {
       <div className="btn-footer-wrap">
         <Button
           className={'table-form-btn'}
+          onClick={handleLearning}
         >
           학습
         </Button>
@@ -335,4 +332,4 @@ const AiImageGenerationLearning = () => {
     </div>
   );
 }
-export default AiImageGenerationLearning;
+export default AiVideoGenerationLearning;

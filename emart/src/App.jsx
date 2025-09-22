@@ -1,12 +1,15 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate,BrowserRouter } from 'react-router-dom';
+import BodyClassController from "./components/BodyClassController.jsx";
 
 // 페이지 모음
 // 공통
 import Login from './pages/Login.jsx';
 // 어드민
 import IGenManagement from './pages/admin/iGenManagement/IGenManagement.jsx';
-import ModelImageManagement from './pages/modelManagement/ModelImageManagement.jsx';
+import ModelImageManagement from './pages/admin/modelManagement/ModelImageManagement.jsx';
+import ModelVideoManagement from './pages/admin//modelManagement/ModelVideoManagement.jsx';
+import ModelTextManagement from './pages/admin/modelManagement/ModelTextManagement.jsx';
 // 사용자
 import Home from './pages/user/home/Home.jsx';
 // 콘텐츠 생성 (3)
@@ -17,6 +20,9 @@ import GenerateContentsVideo from './pages/user/generateContents/GenerateContent
 // 콘텐츠 편집 (2)
 import EditContentsImage from './pages/user/editContents/EditContentsImage.jsx'; // 이미지 편집기
 // 내 프로젝트
+import ProjectText from './pages/user/myProjects/ProjectText.jsx'
+import ProjectImage from './pages/user/myProjects/ProjectImage.jsx'
+import ProjectVideo from './pages/user/myProjects/ProjectVideo.jsx'
 
 
 // 레이아웃 컴포넌트
@@ -36,8 +42,9 @@ function App() {
       path: '/modelManagement',
       icon: { default: '', active: '' },
       subMenu: [
+        { title: '생성형 문구 모델 관리', path: '/modelManagement/aiTextManagement/view'},
         { title: '생성형 이미지 모델 관리', path: '/modelManagement/aiImageManagement/view' },
-        { title: '생성형 동영상 모델 관리', path: '/modelManagement/aiVideoManagement',disabled: true },
+        { title: '생성형 동영상 모델 관리', path: '/modelManagement/aiVideoManagement/view'},
       ],
     },
   ];
@@ -72,15 +79,18 @@ function App() {
       path: '/myProjects',
       icon: { default: '', active: '' },
       subMenu: [
-        { title: '마케팅 문구 생성물', path: '/myProjects/1',disabled: true },
-        { title: '마케팅 이미지 생성물', path: '/myProjects/2',disabled: true },
-        { title: '마케팅 동영상 생성물', path: '/myProjects/2',disabled: true },
+        { title: '마케팅 문구 생성물', path: '/myProjects/textProjects'},
+        { title: '마케팅 이미지 생성물', path: '/myProjects/imageProjects'},
+        { title: '마케팅 동영상 생성물', path: '/myProjects/videoProjects'},
       ],
     },
   ];
 
   return (
     <AuthProvider>
+      {/* Body 클래스 제어 */}
+      <BodyClassController />
+
       <Routes>
         {/* 로그인 페이지 */}
         <Route path="/login" element={<Login />} />
@@ -90,20 +100,25 @@ function App() {
           {/* 관리자 페이지 */}
           <Route path="iGenManagement" element={<IGenManagement />} />
 
-          {/* 모델 관리 페이지 */}
+          {/* --------------- 모델 관리 페이지 --------------- */}
           <Route path="modelManagement">
             {/* 기본 접근 시 view로 리다이렉트 */}
+            <Route path="aiTextManagement" element={<Navigate to="view" replace />} />
+            <Route path="aiTextManagement/view" element={<ModelTextManagement />} />
+            <Route path="aiTextManagement/learning" element={<ModelTextManagement />} />
+
+            {/* 이미지 모델 */}
             <Route path="aiImageManagement" element={<Navigate to="view" replace />} />
             <Route path="aiImageManagement/view" element={<ModelImageManagement />} />
             <Route path="aiImageManagement/learning" element={<ModelImageManagement />} />
 
             {/* 동영상 모델 */}
             <Route path="aiVideoManagement" element={<Navigate to="view" replace />} />
-            <Route path="aiVideoManagement/view" element={<div>동영상 모델 조회 페이지</div>} />
-            <Route path="aiVideoManagement/learning" element={<div>동영상 모델 학습 페이지</div>} />
+            <Route path="aiVideoManagement/view" element={<ModelVideoManagement/>} />
+            <Route path="aiVideoManagement/learning" element={<ModelVideoManagement/>} />
           </Route>
 
-          {/* 사용자 페이지 */}
+          {/* --------------- 사용자 페이지  ---------------*/}
           <Route path="home" element={<Home />} />
           {/* 콘텐츠 생성 */}
           <Route path="generateContents">
@@ -116,8 +131,14 @@ function App() {
             <Route path="editContentsImage" element={<EditContentsImage />} />{/* 콘텐츠 편집 > 이미지 편집기 */}
           </Route>
           {/* 내 프로젝트 */}
+          <Route path="myProjects">
+            <Route path="textProjects" element={<ProjectText />} />{/* 내 프로젝트 > 텍스트 편집기 */}
+            <Route path="imageProjects" element={<ProjectImage />} />{/* 내 프로젝트 > 이미지 편집기 */}
+            <Route path="videoProjects" element={<ProjectVideo />} />{/* 내 프로젝트 > 동영상 편집기 */}
+          </Route>
         </Route>
       </Routes>
+
     </AuthProvider>
   );
 }

@@ -14,7 +14,7 @@ provideGlobalGridOptions({ theme: "legacy"});// Mark all grids as using legacy t
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-const AgGrid = (props) => {
+const AgGrid = ({rowHeight,autoHeight,...props}) => {
   const gridRef = useRef(null);
   const [gridApi, setGridApi] = useState(null);
 
@@ -205,7 +205,7 @@ const AgGrid = (props) => {
           :
           null
       }
-      <div className="ag-theme-alpine" style={{ height: props.height }}>
+      <div className="ag-theme-alpine" style={{ height: props.height}}>
         <AgGridReact
           ref={gridRef}
           rowData={displayData}
@@ -214,7 +214,8 @@ const AgGrid = (props) => {
           defaultColDef={defaultColDef}
           suppressMovableColumns={true} // 셀 이동 비활성화
           overlayNoRowsTemplate={`<span style="font-size:16px;">표시할 데이터가 없습니다.</span>`}
-
+          rowHeight={rowHeight ? rowHeight : 42}
+          domLayout={autoHeight ? 'autoHeight': ''}
           context={{
             currentPage: currentPage, // 현재 페이지
             pageSize: pageSize,       // 한 페이지당 데이터 크기
