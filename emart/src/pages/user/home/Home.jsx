@@ -4,10 +4,12 @@ import img1 from '../../../assets/images/slides/image1.jpg';
 import swiperImage1 from '../../../assets/images/slides/image2.png'
 // 스와이퍼
 import BasicSwiper from '../../../components/common/BasicSwiper.jsx';
+import Pagination from '../../../components/common/pagination/Pagination.jsx';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('tab1');
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10; // 한 페이지에 보여줄 프로젝트 수
   const imageSlides = [
     { src: swiperImage1, alt: '이마트 예시 이미지1' },
   ];
@@ -73,6 +75,10 @@ export default function Home() {
   };
 
   const projects = getProjectsForTab();
+  // 페이지네이션 적용
+  const paginatedProjects = projects.length > pageSize
+    ? projects.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    : projects;
 
   return (
     <div>
@@ -106,8 +112,8 @@ export default function Home() {
         </div>
 
         {/* 프로젝트 리스트 */}
-        <ul className={`grid-box con-5 ${projects.length > 5 ? 'row-2' : ''}`}>
-          {projects.map((project) => (
+        <ul className={`grid-box con-5 ${paginatedProjects.length > 5 ? 'row-2' : ''}`}>
+          {paginatedProjects.map((project) => (
             <li key={project.id}>
               <div className="project-img-box">
                 <p>{project.text}</p>
@@ -115,6 +121,16 @@ export default function Home() {
             </li>
           ))}
         </ul>
+        {/* 페이지네이션 */}
+        {projects.length > pageSize && (
+          <Pagination
+            currentPage={currentPage}
+            totalItems={projects.length}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            type="generator"
+          />
+        )}
       </div>
     </div>
   );
