@@ -7,6 +7,7 @@ import AgGrid from "../../../components/common/grids/AgGrid.jsx";
 import Modal from "../../../components/common/modal/Modal.jsx";
 
 /* 아이콘 */
+import {api, errorHandler} from "../../../util/axios.jsx";
 import img2 from "../../../assets/images/myprojects/g2.png";
 
 const ProjectText = () => {
@@ -17,7 +18,7 @@ const ProjectText = () => {
 
   /* 목적 */
   const options = [
-    { label: '전체', value: 'option1' },
+    { label: '전체', value: null },
     { label: '전체 2', value: 'option2' },
     { label: '전체 3', value: 'option3' }
   ];
@@ -27,7 +28,7 @@ const ProjectText = () => {
   }
   /* 스타일 */
   const styleOptions = [
-    { label: '전체', value: 'option1' },
+    { label: '전체', value: null },
     { label: '전체 2', value: 'option2' },
     { label: '전체 3', value: 'option3' }
   ];
@@ -37,7 +38,7 @@ const ProjectText = () => {
   }
   /* 브랜드톤 */
   const brandtonsOptions = [
-    { label: '전체', value: 'option1' },
+    { label: '전체', value: null },
     { label: '전체 2', value: 'option2' },
     { label: '전체 3', value: 'option3' }
   ];
@@ -54,12 +55,40 @@ const ProjectText = () => {
 
   /* 검색 */
   const [searchValue, setSearchValue] = useState('');
+  const handleResetSearch=()=>{
+      let today= new Date();
+      today.setHours(0+9)
+      today.setMinutes(0)
+      today.setSeconds(0)
+      let before_week=new Date()
+      before_week.setHours(0+9)
+      before_week.setMinutes(0)
+      before_week.setSeconds(0)
+      before_week.setDate(before_week.getDate()-7)
+      console.log([before_week,today])
+      setDateRange([before_week,today])
+      setContents("")
+      setSelectedBrandtonOption(brandtonsOptions[0])
+      setSelectedOption(options[0])
+      setSelectedStyleOption(styleOptions[0])
+  }
   const handleSearchChange = () => {
+    console.log("jdd")
     console.log('기간',dateRange);
     console.log('목적',selectedOption);
     console.log('스타일',selectedStyleOption);
     console.log('브랜드톤',selectedBrandtonOption);
     console.log('내용검색',selectedBrandtonOption);
+    let data={
+        style:selectedStyleOption.value,
+        tone:selectedBrandtonOption.value,
+        purpose:selectedOption.value,
+        input:contents,
+        startdt:dateRange[0],
+        enddt:dateRange[1],
+        type:"문구",
+    }
+    searchData(data)
   };
   /* ----------------------------------------------------------------------------------------------- */
   /* 팝업 */
@@ -94,8 +123,56 @@ const ProjectText = () => {
   const handleDataUpdate = (updatedRows) => {
     setGridData(updatedRows);
   };
+  const searchData=async (data)=>{
+      try {
+         let response = await api.post("/myproject/myproject/data", JSON.stringify(data), {
+              headers: {},
+          })
+
+
+          const newData = response.data.data.map(({ created,style, gid,output,purpose,tone,type,model,input,...rest }) => ({
+              generateText: {
+                  textList :  [
+                      {
+                          id: 'generate-txt-1',
+                          text:output  },
+                  ],
+              },
+              category: purpose,
+              brandton: tone,
+              createdDate: created.split("T")[0]+" "+created.split("T")[1],
+              style: style,
+              modelName: model,
+              userInput:input,
+              gid: gid,
+              type: type,
+              ...rest  // 나머지 키들은 그대로 유지
+          }));
+          setGridData(newData);
+          setGridCount(newData.length);
+      } catch (error) {
+          console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+          return false;
+      }
+  }
 
   useEffect(() => {
+      let today= new Date();
+      today.setHours(0+9)
+      today.setMinutes(0)
+      today.setSeconds(0)
+      let before_week=new Date()
+      before_week.setHours(0+9)
+      before_week.setMinutes(0)
+      before_week.setSeconds(0)
+      before_week.setDate(before_week.getDate()-7)
+      console.log([before_week,today])
+      setDateRange([before_week,today])
+      searchData({
+              type: "문구",
+              startdt: before_week,
+              enddt: today
+          })
     /* 그리드 데이터 */
     let grid_data = [
       {
@@ -115,7 +192,6 @@ const ProjectText = () => {
               text:'3번 박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 \'간식으로 딱\'이라는 절대적인 신념!!)\n'
             },
           ],
-          prompt: '사용자 입력'
         },
         createdDate: "2025-09-01 10:00",
         productImg: img2,
@@ -226,9 +302,8 @@ const ProjectText = () => {
         },
       },
     ];
-    setGridData(grid_data);
     setGridColumns(grid_columns);
-    setGridCount(grid_data.length);
+
   },[])
   return (
     <div className="page-wrap">
@@ -281,10 +356,10 @@ const ProjectText = () => {
             </div>
           </div>
           <div className="search-btn-wrap">
-            <Button className={'btn icon normal w-sm ico-reset'} onclick={handleSearchChange}>
+            <Button className={'btn icon normal w-sm ico-reset'} onClick={handleResetSearch}>
               초기화
             </Button>
-            <Button className={'btn icon normal bg-black w-sm ico-search'} onclick={handleSearchChange}>
+            <Button className={'btn icon normal bg-black w-sm ico-search'} onClick={handleSearchChange}>
               검색
             </Button>
           </div>
@@ -353,7 +428,7 @@ const ProjectText = () => {
               <p>사용자 입력</p>
             </div>
             <div className="contents-list scroll-sm">
-              {rowData !== null && rowData.generateText.textList.length > 1 ? <p>{rowData.generateText.prompt}</p> :""}
+              {rowData !== null && rowData.userInput.length > 1 ? <p>{rowData.userInput}</p> :""}
             </div>
           </div>
         </div>

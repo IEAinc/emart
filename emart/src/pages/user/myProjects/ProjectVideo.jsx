@@ -16,6 +16,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaRegCopy } from 'react-icons/fa';
 import { FaDownload } from 'react-icons/fa';
 import { FaTrashAlt } from 'react-icons/fa';
+import {api, errorHandler} from "../../../util/axios.jsx";
 import Modal from "../../../components/common/modal/Modal.jsx";
 import BasicSwiper from "../../../components/common/BasicSwiper.jsx";
 
@@ -27,7 +28,7 @@ const ProjectVideo = () => {
 
   /* 목적 */
   const options = [
-    { label: '전체', value: 'option1' },
+    { label: '전체', value: null },
     { label: '전체 2', value: 'option2' },
     { label: '전체 3', value: 'option3' }
   ];
@@ -37,7 +38,7 @@ const ProjectVideo = () => {
   }
   /* 스타일 */
   const styleOptions = [
-    { label: '전체', value: 'option1' },
+    { label: '전체', value: null },
     { label: '전체 2', value: 'option2' },
     { label: '전체 3', value: 'option3' }
   ];
@@ -47,7 +48,7 @@ const ProjectVideo = () => {
   }
   /* 브랜드톤 */
   const brandtonsOptions = [
-    { label: '전체', value: 'option1' },
+    { label: '전체', value: null },
     { label: '전체 2', value: 'option2' },
     { label: '전체 3', value: 'option3' }
   ];
@@ -64,13 +65,7 @@ const ProjectVideo = () => {
 
   /* 검색 */
   const [searchValue, setSearchValue] = useState('');
-  const handleSearchChange = () => {
-    console.log('기간',dateRange);
-    console.log('목적',selectedOption);
-    console.log('스타일',selectedStyleOption);
-    console.log('브랜드톤',selectedBrandtonOption);
-    console.log('내용검색',selectedBrandtonOption);
-  };
+
   /* ----------------------------------------------------------------------------------------------- */
   /* 팝업 */
   const [isModalOpen, setModalOpen] = useState(false); // 팝업
@@ -108,8 +103,103 @@ const ProjectVideo = () => {
   const handleDataUpdate = (updatedRows) => {
     setGridData(updatedRows);
   };
+  const searchData=async (data)=>{
+        try {
+            let response = await api.post("/myproject/myproject/data", JSON.stringify(data), {
+                headers: {},
+            })
 
+
+            const newData = response.data.data.map(({ created,style,output_base,input, gid,output,purpose,tone,type,model,frame,...rest }) => ({
+                    generateVideoPreview:{
+                        imgList: [
+                                {
+                                    id: 'video',
+                                    img: frame,
+                                    video: output,
+                                    alt: '',
+                                    type: 'video',
+                                }
+                            ]
+                    },
+                productImg: {
+                    imgList: [
+                        {
+                            id: 'img2',
+                            img: output_base,
+                            alt: ''
+                        }
+
+                    ]
+                },
+                category: purpose,
+                brandton: tone,
+                createdDate: created.split("T")[0]+" "+created.split("T")[1],
+                userInput: input,
+                modelName: model,
+                style: style,
+                gid: gid,
+                type: type,
+                ...rest  // 나머지 키들은 그대로 유지
+            }));
+            setGridData(newData);
+            setGridCount(newData.length);
+        } catch (error) {
+            console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+            return false;
+        }
+    }
+  const handleResetSearch=()=>{
+        let today= new Date();
+        today.setHours(0+9)
+        today.setMinutes(0)
+        today.setSeconds(0)
+        let before_week=new Date()
+        before_week.setHours(0+9)
+        before_week.setMinutes(0)
+        before_week.setSeconds(0)
+        before_week.setDate(before_week.getDate()-7)
+        console.log([before_week,today])
+        setDateRange([before_week,today])
+        setContents("")
+        setSelectedBrandtonOption(brandtonsOptions[0])
+        setSelectedOption(options[0])
+        setSelectedStyleOption(styleOptions[0])
+    }
+  const handleSearchChange = () => {
+        console.log("jdd")
+          console.log('기간',dateRange);
+          console.log('목적',selectedOption);
+          console.log('스타일',selectedStyleOption);
+          console.log('브랜드톤',selectedBrandtonOption);
+          console.log('내용검색',selectedBrandtonOption);
+        let data={
+            style:selectedStyleOption.value,
+            tone:selectedBrandtonOption.value,
+            purpose:selectedOption.value,
+            input:contents,
+            startdt:dateRange[0],
+            enddt:dateRange[1],
+            type:"영상",
+        }
+        searchData(data)
+    };
   useEffect(() => {
+      let today= new Date();
+      today.setHours(0+9)
+      today.setMinutes(0)
+      today.setSeconds(0)
+      let before_week=new Date()
+      before_week.setHours(0+9)
+      before_week.setMinutes(0)
+      before_week.setSeconds(0)
+      before_week.setDate(before_week.getDate()-7)
+      setDateRange([before_week,today])
+      searchData({
+          type: "영상",
+          startdt: before_week,
+          enddt: today
+      })
     /* 그리드 데이터 */
     let grid_data = [
       {
@@ -166,7 +256,7 @@ const ProjectVideo = () => {
         cellRenderer: (params) => {
           return (
             <div className="grid-img-wrap">
-              <img src={params.value.imgList[0].img} alt="" className="img-preview" />
+              <img src={params.value !== undefined?params.value.imgList[0].img:" "} alt="" className="img-preview" />
             </div>
           );
         },
@@ -175,7 +265,7 @@ const ProjectVideo = () => {
         cellRenderer: (params) => {
           return (
             <div className="grid-img-wrap">
-              <img src={params.value.imgList[0].img} alt="" className="img-preview" />
+              <img src={params.value !== undefined?params.value.imgList[0].img:" "} alt="" className="img-preview" />
             </div>
           );
         },
@@ -235,9 +325,9 @@ const ProjectVideo = () => {
         },
       },
     ];
-    setGridData(grid_data);
+    //setGridData(grid_data);
     setGridColumns(grid_columns);
-    setGridCount(grid_data.length);
+    //setGridCount(grid_data.length);
   },[])
   return (
     <div className="page-wrap">
@@ -290,10 +380,10 @@ const ProjectVideo = () => {
             </div>
           </div>
           <div className="search-btn-wrap">
-            <Button className={'btn icon normal w-sm ico-reset'} onclick={handleSearchChange}>
+            <Button className={'btn icon normal w-sm ico-reset'} onClick={handleResetSearch}>
               초기화
             </Button>
-            <Button className={'btn icon normal bg-black w-sm ico-search'} onclick={handleSearchChange}>
+            <Button className={'btn icon normal bg-black w-sm ico-search'} onClick={handleSearchChange}>
               검색
             </Button>
           </div>

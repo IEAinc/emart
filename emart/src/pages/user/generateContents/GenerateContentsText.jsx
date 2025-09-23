@@ -26,6 +26,7 @@ const GenerateContentsText = () => {
   // TextGeneratorPrompt에서 전달된 텍스트 추가
   const handleAddText = async (text) => {
     if (!text.trim()) return;
+    if(isGen)return;
     let data = {
       "model": settings.model.value,
       "mode": "standard",

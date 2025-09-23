@@ -7,6 +7,7 @@ const CustomDatepicker = ({label,setDateRange,dateRange=[null, null]}) => {
   const [startDate, endDate] = dateRange
   /* 시작 날짜 */
   const handleStartChange = (date) => {
+      if(date)date.setHours(date.getHours()+9)
     if(!endDate || date <= endDate) {
       setDateRange([date, endDate])
     } else {
@@ -15,6 +16,8 @@ const CustomDatepicker = ({label,setDateRange,dateRange=[null, null]}) => {
   }
   /* 종료 날짜 */
   const handleEndChange = (date) => {
+      if(date)date.setHours(date.getHours()+9)
+
     if(!startDate || date >= startDate) {
       setDateRange([startDate, date])
     } else {

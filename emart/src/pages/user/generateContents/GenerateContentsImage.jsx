@@ -51,7 +51,7 @@ const GenerateContentsImage = () => {
     // text가 문자열인지 확인
     const trimmedText = typeof text === 'string' ? text.trim() : '';
 
-    if (!trimmedText || !file) return;
+    if (!trimmedText || !file||isGen) return;
     setIsGen(true)
 
     let data = {
