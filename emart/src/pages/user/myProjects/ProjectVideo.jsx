@@ -172,7 +172,7 @@ const ProjectVideo = () => {
         <p>생성된 마케팅 동영상을 확인하고 관리하세요.</p>
       </div>
       <div className="box">
-        <div className="search-wrapper">
+        <div className="search-wrapper col line mp">
           <div className="search-col">
             <div className="search-wrap">
               <CustomDatepicker
@@ -204,6 +204,8 @@ const ProjectVideo = () => {
                 openDirection="bottom"
                 colVer={false}
               />
+            </div>
+            <div className="search-wrap">
               <Input
                 labelName="내용검색"
                 value={contents}
@@ -213,15 +215,15 @@ const ProjectVideo = () => {
               />
             </div>
           </div>
-
-          <Button className={'normal2 icon'} onclick={handleSearchChange}>
-            <Magnify/>
-            검색
-          </Button>
+          <div className="search-btn-wrap">
+            <Button className={'btn icon normal w-sm ico-reset'} onclick={handleSearchChange}>
+              초기화
+            </Button>
+            <Button className={'btn icon normal bg-black w-sm ico-search'} onclick={handleSearchChange}>
+              검색
+            </Button>
+          </div>
         </div>
-      </div>
-
-      <div className="box">
         {/* aggrid */}
         <AgGrid
           rowDeselection={true}

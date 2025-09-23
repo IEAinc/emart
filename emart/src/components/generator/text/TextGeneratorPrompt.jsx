@@ -16,10 +16,15 @@ const TextGeneratorPrompt = ({ onAddText }) => {
     <div className="generator-prompt-wrap">
       <div className="prompt-input-wrap">
         <Input
-          placeholder="생성할 마케팅 문구에 대해 설명해주세요"
+          placeholder="생성하고 싶은 마케팅 문구에 대한 설명을 입력해주세요."
           value={inputValue}
           onChange={handleChange}
           required
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleClick(); // 생성 버튼 클릭과 동일
+            }
+          }}
         />
       </div>
       <Button className="prompt" onClick={handleClick}>

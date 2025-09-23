@@ -12,11 +12,11 @@
 .select-label {font-size:15px;font-weight:var(--fw-bold);width:100%;}
 .select-inner {width:auto;position:relative;}
 .generator-wrap .select-inner {width:100%;}
-.select-button {width:132px;height:36px;display:flex;justify-content:space-between;align-items:center;gap:4px;padding:14px 10px;border-radius:4px; outline: none; cursor: pointer;background-color:var(--color-white);border:1px solid var(--color-border);}
+.select-button {width:132px;height:36px;display:flex;justify-content:space-between;align-items:center;gap:4px;padding:14px 10px;border-radius:4px; outline: none; cursor: pointer;background-color:var(--color-white);border:1px solid var(--input-border-color);}
 .select-lg-full-blue { width: 100%; background-color: #0070f3; }
 .select-button-label {font-size:14px;color:var(--color-black);font-weight: var(--fw-medium); white-space: nowrap; overflow: hidden; }
 .select-button-label + svg.open {transform: rotate(180deg);}
-.select-dropdown { position: absolute; width: 100%; border-radius: 4px;background-color:var(--color-white);border:1px solid var(--color-border);box-shadow: 0 0 10px rgba(0,0,0,0.05); z-index: 50; max-height: 500px; overflow-y: auto; }
+.select-dropdown { position: absolute; width: 100%; border-radius: 4px;background-color:var(--color-white);border:1px solid var(--input-border-color);box-shadow: 0 0 10px rgba(0,0,0,0.05); z-index: 50; max-height: 500px; overflow-y: auto; }
 .dropdown-top { bottom: 100%; margin-bottom: 4px; }
 .dropdown-bottom { top: 100%; margin-top: 4px; }
 .select-option {color:var(--color-black);padding: 8px; cursor: pointer; }
@@ -45,14 +45,14 @@
 
 /* Input */
 .input-wrapper {}
-.input-wrapper input {width:100%;height:50px;padding:16px 10px;font-family:inherit;font-size:15px;font-weight:var(--fw-medium);color:var(--color-gray4);border:1px solid var(--color-bg-light-dark1);border-radius:4px;background-color:var(--color-transparent);outline:none;}
+.input-wrapper input {width:100%;height:50px;padding:16px 10px;font-family:inherit;font-size:15px;font-weight:var(--fw-medium);color:var(--color-gray4);border:1px solid var(--input-border-color);border-radius:4px;background-color:var(--color-transparent);outline:none;}
 .input-wrapper input::placeholder {color:var(--color-gray4);}
 .input-wrapper input:focus {border-color:var(--color-primary)!important;}
 .input-wrapper.table-ver {width: 100%;}
 .input-wrapper.table-ver input {height:36px;padding:8px 8px;font-size:14px;border-color:var(--color-border);}
 .input-wrapper.row {display:flex;align-items:center;}
 .input-wrapper.row label {min-width:80px;font-size:16px;color:var(--color-black);font-weight: var(--fw-bold); white-space: nowrap; overflow: hidden;}
-.input-wrapper.row input {height:36px;padding:14px 10px;outline: none; cursor: pointer;background-color:var(--color-white);border:1px solid var(--color-border);}
+.input-wrapper.row input {height:36px;padding:14px 10px;outline: none; cursor: pointer;background-color:var(--color-white);border:1px solid var(--input-border-color);}
 
     /* textarea */
 .textarea-wrapper {width:100%;}
@@ -62,15 +62,19 @@
 
 
 /* Button */
-.btn {display:flex;align-items:center;justify-content:center;transition:background-color 0.2s;}
+
 .btn.prompt > span {font-size:16px;font-weight:var(--fw-semibold);color:var(--color-white);padding-top:30px;background: url("../images/icon/ico_generate.svg") center top / 22px no-repeat;}
 .btn.prompt:hover {background-color:var(--color-primary-hover);}
 .btn.rounded {border:1px solid var(--color-gray4);border-radius:16px;font-size:13px;font-weight:var(--fw-medium);color:var(--color-gray4);padding:7px 13px;height:30px;}
 .btn.rounded2 {border-radius:4px;font-size:20px;font-weight:var(--fw-medium);color:var(--color-white);padding:7px 13px;background-color:var(--color-bg-dark);}
-.btn.normal {height:38px;padding:4px 16px;border-radius:10px;background-color:var(--color-bg-dark);font-size:13px;font-weight:var(--fw-medium);color:var(--color-white);}
-.btn.normal2:hover,
-.btn.normal:hover {background-color:var(--color-primary-hover);}
-.btn.normal2 {min-width:80px;height:36px;padding:9px 19px;border-radius:4px;background-color:var(--color-bg-dark);font-size:14px;font-weight:var(--fw-medium);color:var(--color-white);}
+/*.btn.normal {height:38px;padding:4px 16px;border-radius:10px;background-color:var(--color-bg-dark);font-size:13px;font-weight:var(--fw-medium);color:var(--color-white);}*/
+/*.btn.normal.bright {background-color:var(--color-white);border:1px solid var(--color-bg-dark);color:var(--color-bg-dark);font-weight:var(--fw-bold);}*/
+/*.btn.normal.bright:hover{border-color:var(--color-primary-hover)}*/
+/*.btn.normal2:hover,*/
+/*.btn.normal:hover {background-color:var(--color-primary-hover);}*/
+/*.btn.normal2 {min-width:80px;height:36px;padding:10px 12px;border-radius:4px;background-color:var(--color-bg-dark);font-size:14px;font-weight:var(--fw-medium);color:var(--color-white);}*/
+/*.btn.normal2.bright2 {background-color:var(--color-white);border:1px solid var(--color-border5);color:var(--color-black2);}*/
+/*.btn.normal2.bright2:hover {border-color:var(--color-primary-hover);background-color:var(--color-primary-hover);}*/
 .btn.full {width:100%;}
 .btn.size-sm {height:40px;}
 .btn.size-md {height:60px;}
@@ -95,6 +99,32 @@
 .tooltip-btn {position:relative;}
 .tooltip-btn .insert-tooltip {display: none;position:absolute;left:0;top:32px;}
 .tooltip-btn button:hover + .insert-tooltip {display:block;}
+
+/*
+ [버튼]
+ 1. normal (기본형)
+ 2. rounded (둥근 테두리)
+ 3. tooltip (툴팁 내장형)
+ 4. icon (아이콘 + 텍스트)
+ 5. icon-only (아이콘)
+ */
+.btn {display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;}
+/* 버튼 높이 */
+.btn.h-sm {height:36px;font-size:14px;}
+/* 버튼 너비 */
+.btn.w-sm {min-width:80px;}
+/* 버튼 색상 */
+.btn.normal.bg-black {background-color:var(--color-black);border-color:var(--color-black);color:var(--color-white);}
+/* 1. normal (기본형) */
+.btn.normal {border-radius:4px;border:1px solid var(--color-border5);background-color:var(--color-white);color:var(--color-black2);}
+/* 4. icon (아이콘 + 텍스트) */
+.btn.icon {font-size:14px;font-weight:var(--fw-medium);padding:10px 19px 10px 39px;position:relative}
+.btn.icon::before {content:'';width:16px;height:16px;position:absolute;left:19px;top:50%;transform:translateY(-50%);}
+.btn.icon.ico-reset::before {background:url("../images/icon/ico_reset_gray.svg") center center no-repeat;background-size:16px;}
+.btn.icon.ico-search::before {background:url("../images/icon/ico_search.svg") center center no-repeat;background-size:16px;}
+.btn.icon:hover {background-color:var(--color-primary-hover);color:var(--color-white);border-color:var(--color-primary-hover);}
+.btn.icon.ico-reset:hover {background-color: var(--color-white);border-color:var(--color-primary-hover);color:var(--color-primary-hover);}
+.btn.icon.ico-reset:hover::before {background: var(--color-white) url("../images/icon/ico_reset_active.svg") center center no-repeat;background-size:16px;}
 
 /* 데이트 피커 */
 
@@ -124,4 +154,45 @@
 .custom-table > table > tbody > tr + tr {border-top:1px solid var(--table-border-color);}
 .custom-table > table .td-wrap .radio-wrapper + .radio-wrapper {margin-left:20px;}
 
+/* datepicker */
+.react-datepicker-wrapper { all: unset; display: inline-block; }
+.react-datepicker__input-container { all: unset; display: inline-block; }
+.react-datepicker__input-container input { all: unset; height:36px;border: 1px solid var(--input-border-color); border-radius: 4px;padding:14px 10px;font-size: 14px; background: var(--color-white); width: 132px; cursor: pointer;box-sizing: border-box;}
+.custom-datepicker-wrapper {display:flex;align-items:center;}
+.custom-datepicker-wrap {display:flex;align-items:center;gap:4px;}
+.custom-label {min-width:50px;font-weight:var(--fw-bold);}
+
+/* aggrid */
+/* AG grid */
+.ag-root-wrapper {border-color:var(--table-border-color)!important;border-radius:4px!important;}
+.ag-header, .ag-advanced-filter-header{border-bottom-color:var(--table-border-color)!important;}
+.ag-header-cell-label {justify-content: center;}
+.ag-header-cell {background-color:var(--table-bg-color)!important;}
+.ag-header-cell + .ag-header-cell {border-left:1px solid var(--table-border-color)!important;}
+.ag-header-cell-text {font-size:14px!important;color:var(--color-text2)!important;}
+.ag-theme-alpine .ag-row .ag-cell:first-child{border-left:0!important;}
+.ag-ltr .ag-cell {border-left:1px solid var(--table-border-color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ag-ltr .ag-cell.flex-center{display:flex;align-items:center;justify-content:center;}
+.ag-ltr .ag-cell.custom-checkbox .ag-cell-wrapper {width: 100%;}
+.ag-ltr .ag-cell.text-center{justify-content: center;text-align: center;}
+.ag-row:nth-child(odd), .ag-row:nth-child(even) {background-color: var(--color-white) !important; /* 모든 행을 동일한 색으로 설정 */}
+/* 셀 체크박스 중앙 정렬 */
+.ag-center-checkbox-header {display: flex;align-items: center;justify-content: center;}
+.center-header-checkbox .ag-header-cell-comp-wrapper {display: none!important;align-items: center;justify-content: center;}
+.ag-header-cell.ag-center-checkbox-header {padding: 0 !important;}
+.ag-header-cell.ag-center-checkbox-header .ag-header-select-all {margin: 0 auto;display: flex;align-items: center;justify-content: center;}
+.ag-ltr .ag-header-select-all{width: 100%!important;justify-content:center;margin-right:0!important;}
+.ag-selection-checkbox {width: 100%;justify-content:center;}
+.ag-checkbox-selection-cell {display: flex !important;justify-content: center;align-items: center;}
+.ag-checkbox-input-wrapper::after {color:var(--input-border-color)!important;}
+.ag-checkbox-input-wrapper.ag-checked::after{color:var(--color-primary)!important;}
+.ag-row-selected {background-color: #E4E4E4!important;}
+.ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within {border:1px solid var(--color-primary) !important;}
+/* aggrid내에서 사용하는 cell-renderer안 콘텐츠 */
+.btn-wrap {display:flex;align-items:center;justify-content:center;gap:8px;height:100%;}
+.grid-img-wrap {display:flex;justify-content:center;align-items:center;height:100%;}
+.grid-img-wrap > img {height: 80px;}
+.grid-indicator {margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;width:100%;}
+.grid-indicator .total-count {font-size:14px;font-weight:var(--fw-medium);color:var(--color-border-dark2);}
+.grid-indicator .total-count > p {font-weight:var(--fw-bold);}
 

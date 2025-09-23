@@ -43,7 +43,13 @@ const Header = () => {
       <div className={`inner-content ${isAdmin ? 'admin' : ''}`}>
         <div className="inner-left">
           <h1
-            onClick={() => navigate('/iGenManagement')}
+            onClick={() => {
+              if (isAdmin) {
+                navigate('/iGenManagement')
+              } else {
+                navigate('/home')
+              }
+            }}
             style={{ cursor: 'pointer' }}
           >
             <Logo/>

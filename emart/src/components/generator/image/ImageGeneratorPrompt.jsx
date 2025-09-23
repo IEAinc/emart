@@ -68,7 +68,7 @@ const ImageGeneratorPrompt = ({ onAddText,setImgURl }) => {
 
           <label htmlFor="imageUpload" className="custom-file-upload">이미지 업로드</label>
           <div className="file-name">
-            {file ? file.name : "마케팅 이미지에 활용될 상품 이미지를 업로드해주세요"}
+            {file ? file.name : "상품 이미지를 업로드해주세요."}
           </div>
           {/* 업로드 된 이미지 preview인데 현재 사용X */}
           {/*{previewUrl && (
@@ -82,10 +82,15 @@ const ImageGeneratorPrompt = ({ onAddText,setImgURl }) => {
 
         {/* 텍스트 입력 */}
         <Input
-          placeholder="생성할 마케팅 이미지에 대해 작성해주세요"
+          placeholder="생성하고 싶은 마케팅 이미지에 대한 설명을 입력해주세요."
           value={inputValue}
           onChange={handleChange}
           required
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleClick(); // 생성 버튼 클릭과 동일
+            }
+          }}
         />
       </div>
 

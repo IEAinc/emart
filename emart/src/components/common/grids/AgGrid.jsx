@@ -15,6 +15,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 const AgGrid = ({rowHeight,autoHeight,...props}) => {
+  console.log(props)
   const gridRef = useRef(null);
   const [gridApi, setGridApi] = useState(null);
 
@@ -148,7 +149,7 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
         props.indicator ?
           <div className="grid-indicator">
             <div className="total-count">
-              {props.indicator.gridCount ? <p>총 {props.indicator.gridCount} 건</p> : null}
+              {props.indicator.gridCount ? <p>총 결과 건수 {props.indicator.gridCount} 건</p> : null}
             </div>
             <div className="">
               {

@@ -3,10 +3,13 @@ import Select from "../../../components/common/forms/Select.jsx";
 import CustomDatepicker from "../../../components/common/forms/CustomDatepicker.jsx";
 import Button from "../../../components/common/forms/Button.jsx";
 import Input from "../../../components/common/forms/Input.jsx";
-import Magnify from "./../../../assets/images/icon/ico_search.svg?react";
 import AgGrid from "../../../components/common/grids/AgGrid.jsx";
+import Modal from "../../../components/common/modal/Modal.jsx";
+import Textarea from "../../../components/common/forms/Textarea.jsx";
 
 /* 아이콘 */
+import Magnify from "../../../assets/images/icon/ico_search.svg?react";
+import Reset from "../../../assets/images/icon/ico_reset_gray.svg?react"
 import { FaEye } from 'react-icons/fa';
 import { FaRegCopy } from 'react-icons/fa';
 import { FaDownload } from 'react-icons/fa';
@@ -64,6 +67,20 @@ const ProjectText = () => {
     console.log('브랜드톤',selectedBrandtonOption);
     console.log('내용검색',selectedBrandtonOption);
   };
+  /* ----------------------------------------------------------------------------------------------- */
+  /* 팝업 */
+  const [isModalOpen, setModalOpen] = useState(false); // 팝업
+  const handleModalOpen = () => {
+    // 모달 열 때 fieldData.categories 값으로 초기화
+    setModalOpen(true);
+  };
+  /* 사용자 입력 */
+  const [message, setMessage] = useState("");
+  const handleTextFieldChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+
   /* ----------------------------------------------------------------------------------------------- */
   /* AgGrid */
   const [gridData, setGridData] = useState([]);
@@ -144,12 +161,12 @@ const ProjectText = () => {
   },[])
   return (
     <div className="page-wrap">
-      <div className="tabs-title-wrap">
+      <div className="tabs-title-wrap row">
         <h3>마케팅 문구 생성물</h3>
         <p>생성된 마케팅 문구를 확인하고 관리하세요.</p>
       </div>
       <div className="box">
-        <div className="search-wrapper">
+        <div className="search-wrapper col line mp">
           <div className="search-col">
             <div className="search-wrap">
               <CustomDatepicker
@@ -181,6 +198,8 @@ const ProjectText = () => {
                 openDirection="bottom"
                 colVer={false}
               />
+            </div>
+            <div className="search-wrap">
               <Input
                 labelName="내용검색"
                 value={contents}
@@ -190,15 +209,15 @@ const ProjectText = () => {
               />
             </div>
           </div>
-   
-          <Button className={'normal2 icon'} onclick={handleSearchChange}>
-            <Magnify/>
-            검색
-          </Button>
+          <div className="search-btn-wrap">
+            <Button className={'btn icon normal w-sm ico-reset'} onclick={handleSearchChange}>
+              초기화
+            </Button>
+            <Button className={'btn icon normal bg-black w-sm ico-search'} onclick={handleSearchChange}>
+              검색
+            </Button>
+          </div>
         </div>
-      </div>
-
-      <div className="box">
         {/* aggrid */}
         <AgGrid
           rowDeselection={true}
@@ -209,9 +228,42 @@ const ProjectText = () => {
           onDataUpdate={handleDataUpdate} // 삭제 후 데이터 갱신
           onRegisterClick={handleRegisterClick}
           sortable={true}
+          indicator={{ gridCount: gridData.length }}
           usePaginationSelector={false}
         />
       </div>
+
+      <Button onClick={handleModalOpen}>
+        열어
+      </Button>
+      <Modal
+        title="마케팅 문구 상세"
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        footerButtons={
+          <>
+            <Button className={'normal'}>다운로드</Button>
+            <Button className={'normal bright'}>공유</Button>
+          </>
+        }
+      >
+        <div className="pop-box">
+          <div className="pop-tit">
+            <p>생성된 문구</p>
+            <span>생성일시: 2025-09-22</span>
+          </div>
+          <div ></div>
+          <div className='pop-fixed'>
+            <Textarea
+              name="message"
+              placeholder="메시지를 입력하세요"
+              value={message}
+              onChange={handleTextFieldChange}
+              required
+            />
+          </div>
+        </div>
+      </Modal>
 
     </div>
   );

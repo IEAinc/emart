@@ -1,7 +1,16 @@
+import {useEffect, useRef,useLayoutEffect,} from "react"
 import Button from "../../common/forms/Button.jsx";
 import Loading from "../../Loading.jsx";
 
 const TextList = ({allTexts=[],isGenerate=false,onDownload}) => {
+  const listRef = useRef(null);
+
+  // allTexts가 변경될 때 맨 아래로 스크롤
+  useLayoutEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+  }, [allTexts]);
   return (
     <div className="generator-text-list-wrap">
       {allTexts.length > 0 && (
@@ -15,7 +24,7 @@ const TextList = ({allTexts=[],isGenerate=false,onDownload}) => {
               다운로드
             </Button>*/}
           </div>
-          <div className="generator-text-list">
+          <div className="generator-text-list" ref={listRef}>
             <ul>
               {allTexts.map((item, index) => (
                 <li key={index} style={{ whiteSpace: 'pre-wrap' }}>
