@@ -6,7 +6,7 @@ function BodyClassController() {
 
   useEffect(() => {
     // /myProjects와 하위 경로에서는 auto 제거, 나머지는 붙임
-    if (location.pathname.startsWith('/myProjects')) {
+    if (location.pathname.startsWith('/myProjects') || location.pathname.startsWith('/home')) {
       document.body.classList.remove('auto');
     } else {
       document.body.classList.add('auto');

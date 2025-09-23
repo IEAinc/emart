@@ -188,6 +188,13 @@ const ProjectImage = () => {
           );
         }
       },
+      { headerName: "목적", flex: 1, field: "purpose", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center',},
+        cellRenderer: (params) => {
+          return (
+            <div className="ellipsis-2">{params.value}</div>
+          );
+        }
+      },
       { headerName: "스타일", flex: 1, field: "style",minWidth: 100, cellClass: 'text-center',cellStyle: {display:'flex',alignItems:'center'},
         cellRenderer: (params) => {
           return (
@@ -333,6 +340,12 @@ const ProjectImage = () => {
             <div className="pop-tit">
               <p>생성된 이미지</p>
               <span>생성일시: {rowData?.createdDate.split(" ")[0]}</span>
+            </div>
+            {/* 뱃지 */}
+            <div className="pop-badge-list">
+              {rowData?.purpose && <span>{rowData?.purpose}</span>}
+              {rowData?.style && <span>{rowData?.style}</span>}
+              {rowData?.brandton && <span>{rowData?.brandton}</span>}
             </div>
             <div className="contents-list no-scroll fixed-size">
               <BasicSwiper

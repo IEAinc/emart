@@ -36,7 +36,7 @@
 .select-wrapper.table-ver .select-label {font-size:14px;}
 .select-wrapper.table-ver .select-button {width:380px;:36px;padding:8px;}
 .select-wrapper.table-ver .select-button:focus {border-color:var(--color-primary)!important;}
-    /* Radio (탭 디자인) */
+/* Radio (탭 디자인) */
 .tab-radio-wrapper {display:flex;align-items:center;gap:10px;border-radius:4px;overflow:hidden;}
 .tab-radio-item {flex:1;}
 .tab-radio-item > input {position: absolute;width: 1px;height: 1px;overflow: hidden;clip: rect(0 0 0 0);white-space: nowrap;clip-path: inset(50%);}
@@ -116,8 +116,10 @@
 .btn.w-sm {min-width:80px;}
 /* 버튼 색상 */
 .btn.normal.bg-black {background-color:var(--color-black);border-color:var(--color-black);color:var(--color-white);}
+.btn.normal.bg-black:hover {background-color:var(--color-primary-hover);border-color:var(--color-primary-hover);color:var(--color-white);}
 /* 1. normal (기본형) */
 .btn.normal {border-radius:4px;border:1px solid var(--color-border5);background-color:var(--color-white);color:var(--color-black2);}
+.btn.normal:hover {border-color:var(--color-primary-hover);color:var(--color-primary-hover);}
 /* 4. icon (아이콘 + 텍스트) */
 .btn.icon {font-size:14px;font-weight:var(--fw-medium);padding:10px 19px 10px 39px;position:relative}
 .btn.icon::before {content:'';width:16px;height:16px;position:absolute;left:19px;top:50%;transform:translateY(-50%);}
@@ -175,7 +177,7 @@
 /* aggrid */
 /* AG grid */
 .ag-theme-alpine .ag-layout-auto-height .ag-center-cols-viewport,
-.ag-theme-alpine .ag-layout-auto-height .ag-center-cols-container{min-height:initial!important;}
+.ag-theme-alpine .ag-layout-auto-height .ag-center-cols-container{min-height:136px!important;}
 .ag-root-wrapper {border-color:var(--table-border-color)!important;border-radius:4px!important;}
 .ag-header, .ag-advanced-filter-header{border-bottom-color:var(--table-border-color)!important;}
 .ag-header-cell-label {justify-content: center;}
@@ -216,4 +218,4 @@ top:50%;transform:translateY(-50%);}
 .grid-indicator {margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;width:100%;}
 .grid-indicator .total-count {font-size:14px;font-weight:var(--fw-medium);color:var(--color-border-dark2);}
 .grid-indicator .total-count > p {font-weight:var(--fw-bold);}
-
+.indicator-wrap {display:flex;align-items:center;gap:8px;}
