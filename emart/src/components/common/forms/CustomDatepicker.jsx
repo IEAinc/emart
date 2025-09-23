@@ -79,16 +79,14 @@ const CustomDatepicker = ({label,setDateRange,dateRange=[null, null]}) => {
                   <span>년</span>
                   <select
                     value={date.getMonth()}
-                    onChange={({target: {value}}) => changeMonth(parseInt(value))}
+                    onChange={({ target: { value } }) => changeMonth(parseInt(value))}
                     className="custom-datepikcer-select"
                   >
-                    {Array.from({length:12},(_,i) => {
-                      return (
-                        <option key={i} value={i}>
-                          {new Date(0, i).toLocaleString("default", { month: "long" })} {/* 월 이름 */}
-                        </option>
-                      )
-                    })}
+                    {Array.from({ length: 12 }, (_, i) => (
+                      <option key={i} value={i}>
+                        {i + 1} {/* 1 ~ 12 숫자만 표시 */}
+                      </option>
+                    ))}
                   </select>
                   <span>월</span>
                 </div>

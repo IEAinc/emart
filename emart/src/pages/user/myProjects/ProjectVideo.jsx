@@ -16,6 +16,8 @@ import { FaEye } from 'react-icons/fa';
 import { FaRegCopy } from 'react-icons/fa';
 import { FaDownload } from 'react-icons/fa';
 import { FaTrashAlt } from 'react-icons/fa';
+import Modal from "../../../components/common/modal/Modal.jsx";
+import BasicSwiper from "../../../components/common/BasicSwiper.jsx";
 
 const ProjectVideo = () => {
   /* 추후 컴포넌트화 예정 */
@@ -70,6 +72,25 @@ const ProjectVideo = () => {
     console.log('내용검색',selectedBrandtonOption);
   };
   /* ----------------------------------------------------------------------------------------------- */
+  /* 팝업 */
+  const [isModalOpen, setModalOpen] = useState(false); // 팝업
+  const handleModalOpen = () => {
+    // 모달 열 때 fieldData.categories 값으로 초기화
+    setModalOpen(true);
+  };
+  /* 미리보기 버튼 preview */
+  const [rowData, setRowData] = useState(null);
+  const handleOpenPreview = (data) => {
+    console.log('data',data);
+    setModalOpen(true);
+    setRowData(data);
+  }
+
+  /* 삭제하기 */
+  const handleDeleteRow = (rowId) => {
+    setGridData(prev => prev.filter(row => row.id !== rowId));
+  };
+  /* ----------------------------------------------------------------------------------------------- */
   /* AgGrid */
   const [gridData, setGridData] = useState([]);
   const [gridColumns, setGridColumns] = useState([]);
@@ -91,17 +112,41 @@ const ProjectVideo = () => {
   useEffect(() => {
     /* 그리드 데이터 */
     let grid_data = [
-      { id: 1, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_RealPhoto_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 5200, resolution: "1024x1024", status: "완료" },
-      { id: 2, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_OilPainting_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 3100, resolution: "512*512", status: "완료" },
-      { id: 3, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Comic_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 6500, resolution: "512*512", status: "완료" },
-      { id: 4, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Illustration_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 4800, resolution: "1024*1024", status: "완료" },
-      { id: 5, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Product_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 7800, resolution: "1024*1024", status: "진행중" },
-      { id: 6, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Wallpaper_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 2400, resolution: "2048x2048", status: "완료" },
-      { id: 7, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_SNS_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 3200, resolution: "512*512", status: "실패" },
-      { id: 8, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_OilPainting_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 4200, resolution: "1024*1024", status: "완료" },
-      { id: 9, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_RealPhoto_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 5600, resolution: "512*2048x2048", status: "완료" },
-      { id: 10, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Comic_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 6500, resolution: "512*512", status: "완료" },
-      { id: 11, generateVideoPreview: img1,createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Comic_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 6500, resolution: "512*512", status: "완료" },
+      {
+        id: 1,
+        generateVideoPreview: {
+          imgList: [
+            {
+              id: 'video',
+              img: img1,
+              video: '/videos/video1.mp',
+              alt: '',
+              type: 'video',
+            }
+          ]
+        },
+        createdDate: "2025-09-15 10:00",
+        productImg: {
+          imgList: [
+            {
+              id: 'img2',
+              img: img2,
+              alt: ''
+            },
+            {
+              id: 'img2',
+              img: img2,
+              alt: ''
+            },
+            {
+              id: 'img2',
+              img: img2,
+              alt: ''
+            }
+          ]
+        },
+        modelName: "Emart24_RealPhoto_v1",
+        userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 5200, resolution: "1024x1024", status: "완료" },
     ]
 
     /* 그리드 헤더 설정 */
@@ -121,7 +166,7 @@ const ProjectVideo = () => {
         cellRenderer: (params) => {
           return (
             <div className="grid-img-wrap">
-              <img src={params.value} alt="" className="img-preview" />
+              <img src={params.value.imgList[0].img} alt="" className="img-preview" />
             </div>
           );
         },
@@ -130,7 +175,7 @@ const ProjectVideo = () => {
         cellRenderer: (params) => {
           return (
             <div className="grid-img-wrap">
-              <img src={params.value} alt="" className="img-preview" />
+              <img src={params.value.imgList[0].img} alt="" className="img-preview" />
             </div>
           );
         },
@@ -182,9 +227,9 @@ const ProjectVideo = () => {
         cellRenderer: (params) => {
           return (
             <div className="grid-btn-wrap">
-              <Button title="눈" className="btn icon-square ico-eye" onClick={() => {alert('1번')}}/>
+              <Button title="눈" className="btn icon-square ico-eye" onClick={() => {handleOpenPreview(params.data)}}/>
               <Button title="다운로드"  className="btn icon-square ico-download" onClick={() => {alert('3번')}}/>
-              <Button title="삭제"  className="btn icon-square ico-delete" onClick={() => {alert('4번')}}/>
+              <Button title="삭제"  className="btn icon-square ico-delete" onClick={() => {handleDeleteRow(params.data.id)}}/>
             </div>
           );
         },
@@ -267,7 +312,50 @@ const ProjectVideo = () => {
           autoHeight={true}
         />
       </div>
-
+      {/* [모달] : 마케팅 동영상 상세 */}
+      <Modal
+        title="마케팅 동영상 상세"
+        isOpen={isModalOpen}
+        onClose={() => {
+          setModalOpen(false)
+          setRowData(null);
+        }}
+        /*footerButtons={
+          <>
+            <Button className={'normal'}>다운로드</Button>
+            <Button className={'normal bright'}>공유</Button>
+          </>
+        }*/
+      >
+        <div className="pop-box">
+          <div className="pop-contents-box">
+            <div className="pop-tit">
+              <p>생성된 동영상</p>
+              <span>생성일시: {rowData?.createdDate.split(" ")[0]}</span>
+            </div>
+            <div className="contents-list no-scroll fixed-size">
+              <BasicSwiper
+                spaceBetween={0}
+                slidesPerView={1}
+                slides={rowData?.generateVideoPreview?.imgList.map((item) => ({
+                  src: item.type === 'video' ? item.video : item.img,
+                  alt: item.alt,
+                  type: item.type || 'image'
+                })) || []}
+                pagination={true}
+              />
+            </div>
+          </div>
+          <div className="pop-contents-box">
+            <div className="pop-tit">
+              <p>사용자 입력</p>
+            </div>
+            <div className="contents-list scroll-sm">
+              {rowData !== null && rowData.userInput ? <p>{rowData.userInput}</p> :""}
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

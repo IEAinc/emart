@@ -1,6 +1,6 @@
 import Button from '../../common/forms/Button.jsx'
 import { HiX } from "react-icons/hi";
-const Modal = ({isOpen, onClose, title, children,footerButtons}) => {
+const Modal = ({isOpen, onClose, title,children,footerButtons}) => {
   if (!isOpen) return null;
   return (
     <div className={`modal ${isOpen ? 'open' : ''}`} data-modal-type={`${footerButtons} ? fixed-btn-ver : ''`}>

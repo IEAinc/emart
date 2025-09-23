@@ -39,7 +39,6 @@ const TextList = ({allTexts=[],isGenerate=false,onDownload}) => {
                     return part;
                   })}
                 </li>
-
               ))}
             </ul>
           </div>

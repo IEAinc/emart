@@ -13,6 +13,7 @@
 .select-inner {width:auto;position:relative;}
 .generator-wrap .select-inner {width:100%;}
 .select-button {width:132px;height:36px;display:flex;justify-content:space-between;align-items:center;gap:4px;padding:14px 10px;border-radius:4px; outline: none; cursor: pointer;background-color:var(--color-white);border:1px solid var(--input-border-color);}
+.select-button:focus {border-color:var(--color-primary-hover);}
 .select-lg-full-blue { width: 100%; background-color: #0070f3; }
 .select-button-label {font-size:14px;color:var(--color-black);font-weight: var(--fw-medium); white-space: nowrap; overflow: hidden; }
 .select-button-label + svg.open {transform: rotate(180deg);}
@@ -166,12 +167,15 @@
 .react-datepicker-wrapper { all: unset; display: inline-block; }
 .react-datepicker__input-container { all: unset; display: inline-block; }
 .react-datepicker__input-container input { all: unset; height:36px;border: 1px solid var(--input-border-color); border-radius: 4px;padding:14px 10px;font-size: 14px; background: var(--color-white); width: 132px; cursor: pointer;box-sizing: border-box;}
+.react-datepicker__input-container input:focus { border-color:var(--color-primary-hover)}
 .custom-datepicker-wrapper {display:flex;align-items:center;}
 .custom-datepicker-wrap {display:flex;align-items:center;gap:4px;}
 .custom-label {min-width:50px;font-weight:var(--fw-bold);}
 
 /* aggrid */
 /* AG grid */
+.ag-theme-alpine .ag-layout-auto-height .ag-center-cols-viewport,
+.ag-theme-alpine .ag-layout-auto-height .ag-center-cols-container{min-height:initial!important;}
 .ag-root-wrapper {border-color:var(--table-border-color)!important;border-radius:4px!important;}
 .ag-header, .ag-advanced-filter-header{border-bottom-color:var(--table-border-color)!important;}
 .ag-header-cell-label {justify-content: center;}
@@ -179,10 +183,9 @@
 .ag-header-cell + .ag-header-cell {border-left:1px solid var(--table-border-color)!important;}
 .ag-header-cell-text {font-size:14px!important;color:var(--color-text2)!important;}
 .ag-theme-alpine .ag-row .ag-cell:first-child{border-left:0!important;}
+.ag-theme-alpine .ag-row:last-child{border-bottom:0!important;}
 .ag-ltr .ag-cell {border-left:1px solid var(--table-border-color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ag-ltr .ag-cell.no-ellipsis{}
-
-
 .ag-ltr .ag-cell.flex-center{display:flex;align-items:center;justify-content:center;}
 .ag-ltr .ag-cell.custom-checkbox .ag-cell-wrapper {width: 100%;}
 .ag-ltr .ag-cell.text-center{justify-content: center;text-align: center;}
