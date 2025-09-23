@@ -14,6 +14,8 @@ import { FaEye } from 'react-icons/fa';
 import { FaRegCopy } from 'react-icons/fa';
 import { FaDownload } from 'react-icons/fa';
 import { FaTrashAlt } from 'react-icons/fa';
+import img1 from "../../../assets/images/myprojects/g1.png";
+import img2 from "../../../assets/images/myprojects/g2.png";
 
 const ProjectText = () => {
   /* 추후 컴포넌트화 예정 */
@@ -103,22 +105,34 @@ const ProjectText = () => {
   useEffect(() => {
     /* 그리드 데이터 */
     let grid_data = [
-      { id: 1, learningDate: "2025-09-01 10:00", category: "실사 스타일", modelName: "Emart24_RealPhoto_v1", version: "v1.0", description: "점포 외관 실사 이미지 생성", dataset: "StoreExteriorSet", imageCount: 5200, resolution: "1024x1024", status: "완료" },
-      { id: 2, learningDate: "2025-09-01 10:00", category: "유화 스타일", modelName: "Emart24_OilPainting_v1", version: "v1.0", description: "유화풍 행사 이미지 생성", dataset: "PromotionOilSet", imageCount: 3100, resolution: "512*512", status: "완료" },
-      { id: 3, learningDate: "2025-09-01 10:00", category: "만화 스타일", modelName: "Emart24_Comic_v2", version: "v2.0", description: "캐릭터 기반 만화 스타일 학습", dataset: "CharacterComicSet", imageCount: 6500, resolution: "512*512", status: "완료" },
-      { id: 4, learningDate: "2025-09-01 10:00", category: "일러스트 스타일", modelName: "Emart24_Illustration_v1", version: "v1.0", description: "SNS용 일러스트 이미지 학습", dataset: "SNSIllustrationSet", imageCount: 4800, resolution: "1024*1024", status: "완료" },
-      { id: 5, learningDate: "2025-09-01 10:00", category: "제품 사진 스타일", modelName: "Emart24_Product_v1", version: "v1.0", description: "신제품 홍보용 이미지 생성", dataset: "ProductPhotoSet", imageCount: 7800, resolution: "1024*1024", status: "진행중" },
-      { id: 6, learningDate: "2025-09-01 10:00", category: "배경화면 스타일", modelName: "Emart24_Wallpaper_v1", version: "v1.0", description: "매장 내부 배경화면 이미지 생성", dataset: "StoreInteriorSet", imageCount: 2400, resolution: "2048x2048", status: "완료" },
-      { id: 7, learningDate: "2025-09-01 10:00", category: "SNS 컨텐츠 스타일", modelName: "Emart24_SNS_v1", version: "v1.0", description: "SNS 홍보용 감각적 이미지 생성", dataset: "SNSContentSet", imageCount: 3200, resolution: "512*512", status: "실패" },
-      { id: 8, learningDate: "2025-09-01 10:00", category: "유화 스타일", modelName: "Emart24_OilPainting_v1", version: "v1.0", description: "더 세부적인 유화 질감 강화", dataset: "PromoOilSet_v2", imageCount: 4200, resolution: "1024*1024", status: "완료" },
-      { id: 9, learningDate: "2025-09-01 10:00", category: "실사 스타일", modelName: "Emart24_RealPhoto_v2", version: "v1.0", description: "점포 외관 실사 이미지 생성", dataset: "StoreExteriorSet_v2", imageCount: 5600, resolution: "512*2048x2048", status: "완료" },
-      { id: 10, learningDate: "2025-09-01 10:00", category: "만화 스타일", modelName: "Emart24_Comic_v2", version: "v2.0", description: "캐릭터 기반 만화 스타일 학습", dataset: "CharacterComicSet", imageCount: 6500, resolution: "512*512", status: "완료" },
-      { id: 11, learningDate: "2025-09-01 10:00", category: "만화 스타일", modelName: "Emart24_Comic_v2", version: "v2.0", description: "캐릭터 기반 만화 스타일 학습", dataset: "CharacterComicSet", imageCount: 6500, resolution: "512*512", status: "완료" },
+      { id: 1, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_RealPhoto_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 5200, resolution: "1024x1024", status: "완료" },
+      { id: 2, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_OilPainting_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 3100, resolution: "512*512", status: "완료" },
+      { id: 3, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Comic_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 6500, resolution: "512*512", status: "완료" },
+      { id: 4, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Illustration_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 4800, resolution: "1024*1024", status: "완료" },
+      { id: 5, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Product_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 7800, resolution: "1024*1024", status: "진행중" },
+      { id: 6, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Wallpaper_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 2400, resolution: "2048x2048", status: "완료" },
+      { id: 7, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_SNS_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 3200, resolution: "512*512", status: "실패" },
+      { id: 8, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_OilPainting_v1", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 4200, resolution: "1024*1024", status: "완료" },
+      { id: 9, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_RealPhoto_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 5600, resolution: "512*2048x2048", status: "완료" },
+      { id: 10, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Comic_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 6500, resolution: "512*512", status: "완료" },
+      { id: 11, generateText: "박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 '간식으로 딱'이라는 절대적인 신념!!)\n" +
+          "키워드: 박스브레드, 밤가득큐브빵, 간식, 편의점신상",createdDate: "2025-09-01 10:00", productImg: img2, modelName: "Emart24_Comic_v2", userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.", style: "감성적", brandton: "친근함", imageCount: 6500, resolution: "512*512", status: "완료" },
     ]
 
     /* 그리드 헤더 설정 */
     let grid_columns = [
-      { headerName: "NO", field: "number",cellClass: 'text-center',width: 80 ,suppressSizeToFit: true,   valueGetter: (params) => {
+      { headerName: "NO", field: "number",cellClass: 'text-center',width: 50 ,suppressSizeToFit: true,cellStyle: {display:'flex',alignItems:'center'},
+        valueGetter: (params) => {
           // 커스텀 pagination 값을 가져오기
           const currentPage = params.context.currentPage; // 현재 페이지 번호 (1-Based Index)
           const pageSize = params.context.pageSize; // 페이지당 데이터 수
@@ -126,30 +140,58 @@ const ProjectText = () => {
 
           // 페이지 기반의 번호 계산
           return (currentPage - 1) * pageSize + rowIndex + 1;
-        },
+        }
       },
-      { headerName: "생성한 문구", flex: 1, field: "learningDate", cellClass: 'text-center' },
-      { headerName: "목적", flex: 1, field: "category", cellClass: 'text-center' },
-      { headerName: "스타일", flex: 1, field: "modelName",cellClass: 'text-center',minWidth:300 },
-      { headerName: "브랜드톤", flex: 1, field: "version", cellClass: 'text-center' },
-      { headerName: "생성일시", flex: 1, field: "description", cellClass: 'text-center',minWidth:300 },
-      { headerName: "모델", flex: 1, field: "dataset", cellClass: 'text-center' },
-      { headerName: "ETC", flex: 1, field: "imageCount", cellClass: 'text-center',
+      { headerName: "생성한 문구", flex: 3, field: "generateText", cellClass: 'text-center',minWidth:200, cellStyle: {display:'flex',alignItems:'center'},
         cellRenderer: (params) => {
           return (
-            <div className="btn-wrap">
-              <Button title="눈" className="btn ico-square" onClick={() => {alert('1번')}}>
-                <FaEye size={20} color="gray" />
-              </Button>
-              <Button title="복사"  className="btn ico-square" onClick={() => {alert('2번')}}>
-                <FaRegCopy size={20} color="gray" />
-              </Button>
-              <Button title="다운로드"  className="btn ico-square" onClick={() => {alert('3번')}}>
-                <FaDownload size={20} color="gray" />
-              </Button>
-              <Button title="삭제"  className="btn ico-square" onClick={() => {alert('4번')}}>
-                <FaTrashAlt size={20} color="gray" />
-              </Button>
+            <div className="ellipsis-5">{params.value}</div>
+          );
+        }
+      },
+      { headerName: "스타일", flex: 1, field: "style",minWidth: 100, cellClass: 'text-center',cellStyle: {display:'flex',alignItems:'center'},
+        cellRenderer: (params) => {
+          return (
+            <div className="ellipsis-2">{params.value}</div>
+          );
+        }
+      },
+      { headerName: "브랜드톤", flex: 1, field: "brandton",minWidth: 100, cellClass: 'text-center',cellStyle: {display:'flex',alignItems:'center'},
+        cellRenderer: (params) => {
+          return (
+            <div className="ellipsis-2">{params.value}</div>
+          );
+        }
+      },
+      { headerName: "생성일시", flex: 1, field: "createdDate", minWidth: 150,cellClass: 'text-center',cellStyle: {display:'flex',alignItems:'center'},
+        cellRenderer: (params) => {
+          if (!params.value) return null;
+          return (
+            <div className="ellipsis-2">
+              {params.value.split(" ").map((part, idx) => (
+                <React.Fragment key={idx}>
+                  {part}
+                  <br />
+                </React.Fragment>
+              ))}
+            </div>
+          );
+        }
+      },
+      { headerName: "모델", flex: 1, field: "modelName", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center',},
+        cellRenderer: (params) => {
+          return (
+            <div className="ellipsis-2">{params.value}</div>
+          );
+        }
+      },
+      { headerName: "ETC", flex: 1, field: "imageCount", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center'},
+        cellRenderer: (params) => {
+          return (
+            <div className="grid-btn-wrap">
+              <Button title="눈" className="btn icon-square ico-eye" onClick={() => {alert('1번')}}/>
+              <Button title="다운로드"  className="btn icon-square ico-download" onClick={() => {alert('3번')}}/>
+              <Button title="삭제"  className="btn icon-square ico-delete" onClick={() => {alert('4번')}}/>
             </div>
           );
         },
@@ -223,13 +265,13 @@ const ProjectText = () => {
           rowDeselection={true}
           rowData={gridData}
           columnDefs={gridColumns}
-          height={463}
           isCheckboxMode={false}
           onDataUpdate={handleDataUpdate} // 삭제 후 데이터 갱신
           onRegisterClick={handleRegisterClick}
           sortable={true}
-          indicator={{ gridCount: gridData.length }}
           usePaginationSelector={false}
+          rowHeight={136}
+          autoHeight={true}
         />
       </div>
 

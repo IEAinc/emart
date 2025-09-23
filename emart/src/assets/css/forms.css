@@ -106,9 +106,9 @@
  2. rounded (둥근 테두리)
  3. tooltip (툴팁 내장형)
  4. icon (아이콘 + 텍스트)
- 5. icon-only (아이콘)
+ 5. icon-square (아이콘)
  */
-.btn {display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;}
+.btn {display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;position:relative;}
 /* 버튼 높이 */
 .btn.h-sm {height:36px;font-size:14px;}
 /* 버튼 너비 */
@@ -125,6 +125,14 @@
 .btn.icon:hover {background-color:var(--color-primary-hover);color:var(--color-white);border-color:var(--color-primary-hover);}
 .btn.icon.ico-reset:hover {background-color: var(--color-white);border-color:var(--color-primary-hover);color:var(--color-primary-hover);}
 .btn.icon.ico-reset:hover::before {background: var(--color-white) url("../images/icon/ico_reset_active.svg") center center no-repeat;background-size:16px;}
+/* 5. ico-square */
+.btn.icon-square {width:36px;height:36px;border-radius:4px;}
+.btn.icon-square.ico-eye {background:url("../images/icon/ico_eye.svg") center center no-repeat;background-size:20px;}
+.btn.icon-square.ico-eye:hover {background:url("../images/icon/ico_eye_active.svg") center center no-repeat;background-size:20px;}
+.btn.icon-square.ico-delete {background:url("../images/icon/ico_delete.svg") center center no-repeat;background-size:20px;}
+.btn.icon-square.ico-delete:hover {background:url("../images/icon/ico_delete_active.svg") center center no-repeat;background-size:20px;}
+.btn.icon-square.ico-download {background:url("../images/icon/ico_download.svg") center center no-repeat;background-size:20px;}
+.btn.icon-square.ico-download:hover {background:url("../images/icon/ico_download_active.svg") center center no-repeat;background-size:20px;}
 
 /* 데이트 피커 */
 
@@ -167,11 +175,14 @@
 .ag-root-wrapper {border-color:var(--table-border-color)!important;border-radius:4px!important;}
 .ag-header, .ag-advanced-filter-header{border-bottom-color:var(--table-border-color)!important;}
 .ag-header-cell-label {justify-content: center;}
-.ag-header-cell {background-color:var(--table-bg-color)!important;}
+.ag-header-cell {background-color:var(--table-bg-color)!important;padding: 0 10px!important;}
 .ag-header-cell + .ag-header-cell {border-left:1px solid var(--table-border-color)!important;}
 .ag-header-cell-text {font-size:14px!important;color:var(--color-text2)!important;}
 .ag-theme-alpine .ag-row .ag-cell:first-child{border-left:0!important;}
 .ag-ltr .ag-cell {border-left:1px solid var(--table-border-color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ag-ltr .ag-cell.no-ellipsis{}
+
+
 .ag-ltr .ag-cell.flex-center{display:flex;align-items:center;justify-content:center;}
 .ag-ltr .ag-cell.custom-checkbox .ag-cell-wrapper {width: 100%;}
 .ag-ltr .ag-cell.text-center{justify-content: center;text-align: center;}
@@ -188,8 +199,15 @@
 .ag-checkbox-input-wrapper.ag-checked::after{color:var(--color-primary)!important;}
 .ag-row-selected {background-color: #E4E4E4!important;}
 .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within {border:1px solid var(--color-primary) !important;}
+.vertical-ellipsis {overflow:hidden;white-space: nowrap;text-overflow:ellipsis;}
+[class^='ellipsis-'] {word-break: break-word;}
+.ellipsis-5 {overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;white-space:normal;text-overflow:ellipsis;line-height:1.4}
+.ellipsis-2 {overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;text-overflow:ellipsis;line-height:1.4}
 /* aggrid내에서 사용하는 cell-renderer안 콘텐츠 */
-.btn-wrap {display:flex;align-items:center;justify-content:center;gap:8px;height:100%;}
+.grid-btn-wrap {display:flex;align-items:center;justify-content:center;gap:8px;}
+.grid-btn-wrap > .btn + .btn {margin-left:8px;}
+.grid-btn-wrap > .btn + .btn::before {content:'';width:1px;height:12px;background-color:var(--input-border-color);position:absolute;left:-8px;
+top:50%;transform:translateY(-50%);}
 .grid-img-wrap {display:flex;justify-content:center;align-items:center;height:100%;}
 .grid-img-wrap > img {height: 80px;}
 .grid-indicator {margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;width:100%;}
