@@ -52,6 +52,7 @@ const GenerateContentsImage = () => {
     const trimmedText = typeof text === 'string' ? text.trim() : '';
 
     if (!trimmedText || !file) return;
+      if(isGen)return;
     setIsGen(true)
 
     let data = {

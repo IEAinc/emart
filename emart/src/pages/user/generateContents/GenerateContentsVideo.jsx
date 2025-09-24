@@ -39,7 +39,7 @@ const GenerateContentsVideo = () => {
     const trimmedText = typeof text === 'string' ? text.trim() : '';
 
     if (!trimmedText && !file) return;
-    console.log(settings)
+      if(isGen)return;
     setIsGen(true)
 
     let data = {
