@@ -151,13 +151,11 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
             <div className="total-count">
               {props.indicator.gridCount ? <p>총 결과 건수 {props.indicator.gridCount} 건</p> : null}
             </div>
-            <div className="">
+            <div className="indicator-wrap">
               {
                 props.indicator.excel ?
                   <Button
-                    size="xs"
-                    minWidth="80px"
-                    iconMode="excel"
+                    className="btn normal h-sm w-sm"
                     onClick={() => exportToExcel(props.rowData,props.columnDefs)}
                   >
                     다운로드
@@ -168,9 +166,7 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
               {
                 props.indicator.register ?
                   <Button
-                    size="xs"
-                    colorMode={true}
-                    iconMode="plus"
+                    className="btn normal h-sm w-sm"
                     onClick={props.onRegisterClick}
                   >
                     등록
@@ -181,7 +177,7 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
               {
                 props.indicator.edit ?
                   <Button
-                    size="xs"
+                    className="btn normal h-sm w-sm"
                     onClick={handleEditSelectedRows}
                   >
                     수정
@@ -192,8 +188,7 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
               {
                 props.indicator.delete ?
                   <Button
-                    size="xs"
-                    textColor='text-point-color'
+                    className="btn normal h-sm w-sm bg-black"
                     onClick={handleDeleteSelectedRows}
                   >
                     삭제
@@ -263,23 +258,28 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
         />
       </div>
       {/* 사용자 정의 Pagination 컴포넌트 */}
-      <div className="pagination-whole-wrap">
-        <Pagination
-          currentPage={currentPage}
-          totalItems={totalItems}
-          pageSize={pageSize}
-          onPageChange={handlePageChange}
-          type={'list'}
-        />
-        {usePaginationSelector &&
-          <PageSizeSelector
-            pageSize={pageSize}
-            onPageSizeChange={handlePageSizeChange}
-            width="60px"
-          />
-        }
+      {
+        totalItems > 0 && (
+          <div className="pagination-whole-wrap">
+            <Pagination
+              currentPage={currentPage}
+              totalItems={totalItems}
+              pageSize={pageSize}
+              onPageChange={handlePageChange}
+              type={'list'}
+            />
+            {usePaginationSelector &&
+              <PageSizeSelector
+                pageSize={pageSize}
+                onPageSizeChange={handlePageSizeChange}
+                width="60px"
+              />
+            }
+          </div>
+        )
 
-      </div>
+      }
+
     </div>
   );
 }

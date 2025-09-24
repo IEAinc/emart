@@ -17,8 +17,8 @@ const BasicSwiper = ({ slides = [], pagination = false, ...props }) => {
           <SwiperSlide key={idx}>
             <div className="swiper-img-box">
               {item.type === 'video' ? (
-                <vieo
-                  src={ditem.src}
+                <video
+                  src={item.src}
                   controls
                   style={{ width: '100%' }}
                 />

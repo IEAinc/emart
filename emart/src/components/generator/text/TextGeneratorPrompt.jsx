@@ -9,7 +9,7 @@ const TextGeneratorPrompt = ({ onAddText }) => {
   const handleClick = () => {
     if (!inputValue.trim()) return;
     onAddText && onAddText(inputValue);
-    setInputValue(''); // 입력창 초기화
+    //setInputValue(''); // 입력창 초기화
   };
 
   return (
