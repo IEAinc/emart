@@ -153,3 +153,7 @@ export async function downloadExcel(data, filename = 'data_with_images.xlsx') {
 }
 
 
+export function saveTextFile(text, filename = 'document.txt') {
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, filename);
+}

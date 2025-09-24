@@ -9,6 +9,7 @@ import Modal from "../../../components/common/modal/Modal.jsx";
 /* 아이콘 */
 import {api, errorHandler} from "../../../util/axios.jsx";
 import img2 from "../../../assets/images/myprojects/g2.png";
+import {saveTextFile} from "../../../util/excel.jsx";
 
 const ProjectText = () => {
   /* 추후 컴포넌트화 예정 */
@@ -154,6 +155,12 @@ const ProjectText = () => {
           console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
           return false;
       }
+  }
+  const singelTxt=()=>{
+      let data=gridData[0].generateText.textList[0].text
+      let text="1.\n"+data+"\n"
+      console.log(data)
+     saveTextFile(text)
   }
 
   useEffect(() => {
