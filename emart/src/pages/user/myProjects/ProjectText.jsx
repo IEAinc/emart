@@ -383,13 +383,18 @@ const ProjectText = () => {
           rowDeselection={true}
           rowData={gridData}
           columnDefs={gridColumns}
-          isCheckboxMode={false}
+          isCheckboxMode={true}
           onDataUpdate={handleDataUpdate} // 삭제 후 데이터 갱신
           onRegisterClick={handleRegisterClick}
+          handleRowGridClick={handleOpenPreview}
           sortable={true}
           usePaginationSelector={false}
           rowHeight={136}
           autoHeight={true}
+          indicator={{
+              excel: true,
+              delete: true,
+          }}
         />
       </div>
       {/* [모달] : 마케팅 문구 상세 */}

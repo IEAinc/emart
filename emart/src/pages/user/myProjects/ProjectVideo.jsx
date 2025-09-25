@@ -408,10 +408,7 @@ const ProjectVideo = () => {
           rowHeight={136}
           autoHeight={true}
           handleRowGridClick={handleOpenPreview}
-          // indicator={{
-          //   excel: true,
-          //   delete: true,
-          // }}
+
         />
       </div>
       {/* [모달] : 마케팅 동영상 상세 */}
