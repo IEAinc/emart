@@ -463,7 +463,7 @@ const ProjectText = () => {
         }}
         footerButtons={
           <>
-            <Button className={'normal icon-insert ico-download-dark h-md bg-primary'}><span>다운로드</span></Button>
+            <Button className={'normal icon-insert ico-download-white h-md bg-black'}><span>다운로드</span></Button>
             <Button className={'normal bright icon-insert ico-share h-md'}><span>공유</span></Button>
           </>
         }

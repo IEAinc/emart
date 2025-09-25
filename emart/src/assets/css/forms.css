@@ -117,8 +117,8 @@
 .btn.w-sm {min-width:80px;}
 .btn.pd-sm {padding:6px;}
 /* 버튼 색상 */
-.btn.normal.bg-black {background-color:var(--color-black);border-color:var(--color-black);color:var(--color-white);}
-.btn.normal.bg-black:hover {background-color:var(--color-primary-hover);border-color:var(--color-primary-hover);color:var(--color-white);}
+.btn.normal.bg-black {background-color:var(--color-black);border-color:var(--color-gray-800);color:var(--color-white);}
+.btn.normal.bg-black:hover {background-color:var(--color-primary-hover);border-color:var(--color-primary-hover);color:var(--color-gray-800);}
 .btn.normal.bg-primary {background-color:var(--color-primary-hover);border-color:var(--color-primary-hover);color:var(--color-gray-900);}
 .btn.normal.bg-primary:hover {background-color:var(--color-primary-hover);border-color:var(--color-primary-hover);color:var(--color-white);}
 /* 1. normal (기본형) */
@@ -127,9 +127,11 @@
 /* 4. icon (아이콘 + 텍스트) */
 .btn.icon-insert {padding:10px;}
 .btn.icon-insert > span {display:inline-block;padding-left:20px;position:relative;}
-.btn.icon-insert > span::before {content:'';width:16px;height:16px;position:absolute;left:0;top:50%;transform:translateY(-50%);}
+.btn.icon-insert > span::before {transition: all 0.3s;content:'';width:16px;height:16px;position:absolute;left:0;top:50%;transform:translateY(-50%);}
 .btn.icon-insert.ico-download-dark > span::before {background:url("../images/icon/ico_download_dark.svg") center center no-repeat;background-size:16px;}
 .btn.icon-insert.ico-download-dark:hover > span::before {background:url("../images/icon/ico_download_dark.svg") center center no-repeat;background-size:16px;}
+.btn.icon-insert.ico-download-white > span::before {background:url("../images/icon/ico_download_white.svg") center center no-repeat;background-size:16px;}
+.btn.icon-insert.ico-download-white:hover > span::before {background:url("../images/icon/ico_download_dark.svg") center center no-repeat;background-size:16px;}
 .btn.icon-insert.ico-share > span::before {background:url("../images/icon/ico_share.svg") center center no-repeat;background-size:16px;}
 .btn.icon-insert.ico-share:hover > span::before {background:url("../images/icon/ico_share_active.svg") center center no-repeat;background-size:16px;}
 .btn.icon-insert.ico-reset > span::before {background: url("../images/icon/ico_reset_gray.svg") center center no-repeat;background-size:16px;}
@@ -182,6 +184,7 @@
 .react-datepicker__input-container { all: unset; display: inline-block; }
 .react-datepicker__input-container input { all: unset; height:36px;border: 1px solid var(--input-border-color); border-radius: 4px;padding:14px 10px;font-size: 14px; background: var(--color-white); width: 132px; cursor: pointer;box-sizing: border-box;}
 .react-datepicker__input-container input:focus { border-color:var(--color-primary-hover)}
+.react-datepicker__close-icon::after {background-color:var(--color-primary)!important;}
 .custom-datepicker-wrapper {display:flex;align-items:center;}
 .custom-datepicker-wrap {display:flex;align-items:center;gap:4px;}
 .custom-label {min-width:50px;font-weight:var(--fw-bold);}
