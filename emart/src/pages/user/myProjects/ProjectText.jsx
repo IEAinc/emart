@@ -144,6 +144,7 @@ const ProjectText = () => {
   // 데이터 삭제
   const handleDataUpdate = (updatedRows) => {
     setGridData(updatedRows);
+    setGridCount(updatedRows.length);
   };
   const searchData=async (data)=>{
       try {
@@ -316,6 +317,13 @@ const ProjectText = () => {
           );
         }
       },
+      { headerName: "사용자 입력", flex: 3, field: "userInput",cellClass: 'text-left',minWidth:224,cellStyle: {display:'flex',alignItems:'center'},
+        cellRenderer: (params) => {
+          return (
+            <div className=" ellipsis-5">{params.value}</div>
+          );
+        }
+      },
       { headerName: "목적", flex: 1, field: "purpose", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center',},
         cellRenderer: (params) => {
           return (
@@ -352,27 +360,8 @@ const ProjectText = () => {
           );
         }
       },
-      { headerName: "모델", flex: 1, field: "modelName", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center',},
-        cellRenderer: (params) => {
-          return (
-            <div className="ellipsis-2">{params.value}</div>
-          );
-        }
-      },
-      { headerName: "ETC", flex: 1, field: "imageCount", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center'},
-        cellRenderer: (params) => {
-          return (
-            <div className="grid-btn-wrap">
-              <Button title="눈" className="btn icon-square ico-eye" onClick={() => {handleOpenPreview(params.data)}}/>
-              <Button title="다운로드"  className="btn icon-square ico-download" onClick={() => {alert('3번')}}/>
-              <Button title="삭제"  className="btn icon-square ico-delete" onClick={() => {alert('4번')}}/>
-            </div>
-          );
-        },
-      },
     ];
     setGridColumns(grid_columns);
-
   },[])
   return (
     <div className="page-wrap">
@@ -448,8 +437,9 @@ const ProjectText = () => {
           autoHeight={true}
           exportToExcel={MakeExcel}
           indicator={{
-              excel: true,
-              delete: true,
+            excel: true,
+            delete: true,
+            gridCount: gridCount
           }}
         />
       </div>

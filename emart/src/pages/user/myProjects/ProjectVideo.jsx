@@ -95,11 +95,6 @@ const ProjectVideo = () => {
   const handleRegisterClick = () => {
     // navigate(`/scenarioManagement/mainScenarioManagement/detail/register`);
   };
-  // 상세보기
-  const handleRowClick = (id) => {
-    const basePath = location.pathname; // 현재 경로 가져오기
-    // navigate(`${basePath}/detail/${String(id)}`); // 동적 경로 생성
-  }
   // 데이터 삭제
   const handleDataUpdate = (updatedRows) => {
     setGridData(updatedRows);
@@ -290,13 +285,6 @@ const ProjectVideo = () => {
           );
         }
       },
-      { headerName: "목적", flex: 1, field: "purpose", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center',},
-        cellRenderer: (params) => {
-          return (
-            <div className="ellipsis-2">{params.value}</div>
-          );
-        }
-      },
       { headerName: "스타일", flex: 1, field: "style",minWidth: 100, cellClass: 'text-center',cellStyle: {display:'flex',alignItems:'center'},
         cellRenderer: (params) => {
           return (
@@ -325,24 +313,6 @@ const ProjectVideo = () => {
             </div>
           );
         }
-      },
-      { headerName: "모델", flex: 1, field: "modelName", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center',},
-        cellRenderer: (params) => {
-          return (
-            <div className="ellipsis-2">{params.value}</div>
-          );
-        }
-      },
-      { headerName: "ETC", flex: 1, field: "imageCount", cellClass: 'text-center',minWidth: 200,cellStyle: {display:'flex',alignItems:'center'},
-        cellRenderer: (params) => {
-          return (
-            <div className="grid-btn-wrap">
-              <Button title="눈" className="btn icon-square ico-eye" onClick={() => {handleOpenPreview(params.data)}}/>
-              <Button title="다운로드"  className="btn icon-square ico-download" onClick={() => {alert('3번')}}/>
-              <Button title="삭제"  className="btn icon-square ico-delete" onClick={() => {handleDeleteRow(params.data.id)}}/>
-            </div>
-          );
-        },
       },
     ];
     //setGridData(grid_data);
