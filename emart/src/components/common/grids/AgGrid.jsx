@@ -13,12 +13,14 @@ provideGlobalGridOptions({ theme: "legacy"});// Mark all grids as using legacy t
 // 엑셀 다운로드
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import {api, errorHandler} from "../../../util/axios.jsx";
+
 
 const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props}) => {
   console.log(props)
   const gridRef = useRef(null);
   const [gridApi, setGridApi] = useState(null);
-
+  const axios_api=api;
   const defaultColDef = {
     flex: props.cellFlex ? 1 : false,
     sortable: !!props.sortable,
@@ -65,28 +67,42 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props
   }
 
   /* 선택된 row 삭제하기 */
-  const handleDeleteSelectedRows = () => {
-    const api = gridRef.current?.api;
-    if (!api) {
-      console.warn("Grid API가 준비되지 않았습니다.");
-      return;
-    }
+  const handleDeleteSelectedRows = async () => {
+      const api = gridRef.current?.api;
+      if (!api) {
+          console.warn("Grid API가 준비되지 않았습니다.");
+          return;
+      }
 
-    const selectedRows = api.getSelectedRows();
-    if (!selectedRows || selectedRows.length === 0) {
-      alert("삭제할 행을 선택해주세요.");
-      return;
-    }
+      const selectedRows = api.getSelectedRows();
+      if (!selectedRows || selectedRows.length === 0) {
+          alert("삭제할 행을 선택해주세요.");
+          return;
+      }
+      try {
+          for (const e of selectedRows) {
+              let search_data = {
+                  type: e.type,
+                  gid: e.gid
+              }
+              await axios_api.post("/myproject/myproject/delete", JSON.stringify(search_data), {
+                  headers: {},
+              })
+          }
+      }catch (error) {
+          console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+          return false;
+      }
 
-    const updatedData = props.rowData.filter(
-      (row) => !selectedRows.some((selected) => selected.gid === row.gid)
-    );
+      const updatedData = props.rowData.filter(
+          (row) => !selectedRows.some((selected) => selected.gid === row.gid)
+      );
 
-    if (props.onDataUpdate) {
-      props.onDataUpdate(updatedData, api);
-    } else {
-      console.error("onDataUpdate prop이 전달되지 않았습니다.");
-    }
+      if (props.onDataUpdate) {
+          props.onDataUpdate(updatedData, api);
+      } else {
+          console.error("onDataUpdate prop이 전달되지 않았습니다.");
+      }
   };
 
   return (

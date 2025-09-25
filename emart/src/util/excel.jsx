@@ -1,5 +1,6 @@
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
 // 엑셀 관련
 async function urlToBase64(url) {
     try {
@@ -136,17 +137,16 @@ async function createExcelWithImages(data) {
 export async function downloadExcel(data, filename = 'data_with_images.xlsx') {
     try {
 
-        console.log('엑셀 파일 생성 중...');
+
         const workbook = await createExcelWithImages(data);
 
-        console.log('파일 저장 중...');
         const buffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([buffer], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         });
 
         saveAs(blob, filename);
-        console.log('파일 다운로드 완료!');
+
     } catch (error) {
         console.error('엑셀 파일 생성 실패:', error);
     }
@@ -154,6 +154,205 @@ export async function downloadExcel(data, filename = 'data_with_images.xlsx') {
 
 
 export function saveTextFile(text, filename = 'document.txt') {
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    // 숫자 이모지와 ** 사이에 공백 추가
+    const cleanText = text.replaceAll("**", "        ");
+
+    const encoder = new TextEncoder();
+    const uint8Array = encoder.encode(cleanText);
+    const blob = new Blob([uint8Array], { type: 'text/plain;charset=utf-8' });
     saveAs(blob, filename);
 }
+
+
+
+
+/**
+ * 단일 이미지 다운로드
+ * @param {string} imageUrl - 다운로드할 이미지 URL
+ * @param {string} filename - 파일명 (선택사항, 자동 생성됨)
+ */
+export async function downloadSingleImage(imageUrl, filename) {
+    try {
+        const response = await fetch(imageUrl, {
+            mode: 'cors'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+
+        // 파일명이 없으면 자동 생성
+        if (!filename) {
+            filename = generateFilename(imageUrl, blob.type);
+        }
+
+        saveAs(blob, filename);
+
+        return {
+            success: true,
+            filename: filename
+        };
+
+    } catch (error) {
+        console.error('이미지 다운로드 실패:', error);
+        throw error;
+    }
+}
+
+/**
+ * 여러 이미지를 ZIP 파일로 다운로드
+ * @param {string[]} imageUrls - 다운로드할 이미지 URL 배열
+ * @param {string} zipFileName - ZIP 파일명 (기본값: 'images.zip')
+ */
+export async function downloadImagesAsZip(imageUrls, zipFileName = 'images.zip') {
+    try {
+        const zip = new JSZip();
+
+        // 모든 이미지를 병렬로 다운로드
+        const downloadPromises = imageUrls.map(async (url, index) => {
+            try {
+                const response = await fetch(url, { mode: 'cors' });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const blob = await response.blob();
+                const filename = generateFilename(url, blob.type, index);
+
+                return { blob, filename, success: true };
+
+            } catch (error) {
+                console.error(`이미지 ${index + 1} 다운로드 실패:`, error);
+                return { success: false, url };
+            }
+        });
+
+        const results = await Promise.all(downloadPromises);
+
+        // 성공한 이미지들만 ZIP에 추가
+        let successCount = 0;
+        results.forEach((result) => {
+            if (result.success) {
+                zip.file(result.filename, result.blob);
+                successCount++;
+            }
+        });
+
+        if (successCount === 0) {
+            throw new Error('다운로드된 이미지가 없습니다.');
+        }
+
+
+
+        // ZIP 파일 생성 및 다운로드
+        const zipBlob = await zip.generateAsync({
+            type: "blob",
+            compression: "DEFLATE",
+            compressionOptions: { level: 6 }
+        });
+
+        saveAs(zipBlob, zipFileName);
+
+        return {
+            success: true,
+            downloadedCount: successCount,
+            totalCount: imageUrls.length
+        };
+
+    } catch (error) {
+        console.error('ZIP 다운로드 실패:', error);
+        throw error;
+    }
+}
+
+/**
+ * URL에서 파일명 생성
+ */
+function generateFilename(url, mimeType, index = 0) {
+    try {
+        // URL에서 파일명 추출
+        const urlPath = new URL(url).pathname;
+        const originalName = urlPath.split('/').pop();
+
+        // 확장자 결정
+        let extension = '';
+        if (originalName && originalName.includes('.')) {
+            extension = originalName.split('.').pop().toLowerCase();
+        } else {
+            // MIME 타입에서 확장자 결정
+            const mimeToExt = {
+                // 이미지
+                'image/jpeg': 'jpg',
+                'image/jpg': 'jpg',
+                'image/png': 'png',
+                'image/gif': 'gif',
+                'image/webp': 'webp',
+                'image/svg+xml': 'svg',
+                // 영상
+                'video/mp4': 'mp4',
+                'video/webm': 'webm',
+                'video/ogg': 'ogv',
+                'video/avi': 'avi',
+                'video/mov': 'mov',
+                'video/wmv': 'wmv',
+                'video/flv': 'flv'
+            };
+            extension = mimeToExt[mimeType] || 'jpg';
+        }
+
+        // 파일명 정리 (특수문자 제거)
+        let cleanName = originalName ?
+            originalName.replace(/[<>:"/\\|?*]/g, '_').split('.')[0] :
+            `image_${index + 1}`;
+
+        return `${cleanName}.${extension}`;
+
+    } catch (error) {
+        // URL 파싱 실패 시 기본 파일명
+        const extension = mimeType?.includes('png') ? 'png' : 'jpg';
+        return `image_${index + 1}.${extension}`;
+    }
+}
+export async function downloadSingleVideo(videoUrl, filename) {
+    try {
+        const response = await fetch(videoUrl, {
+            mode: 'cors'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+
+        // 파일명이 없으면 자동 생성
+        if (!filename) {
+            filename = generateFilename(videoUrl, blob.type, 0, 'video');
+        }
+
+        saveAs(blob, filename);
+
+        return {
+            success: true,
+            filename: filename,
+            size: formatFileSize(blob.size)
+        };
+
+    } catch (error) {
+        console.error('영상 다운로드 실패:', error);
+        throw error;
+    }
+}
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+

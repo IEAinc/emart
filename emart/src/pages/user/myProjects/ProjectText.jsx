@@ -179,9 +179,17 @@ const ProjectText = () => {
       }
   }
   const singelTxt=()=>{
-      let data=gridData[0].generateText.textList[0].text
-      let text="1.\n"+data+"\n"
-     saveTextFile(text)
+      let data=rowData.generateText.textList
+      console.log(data)
+      let txt="";
+      let index=0;
+      for(const i of data){
+          index++
+          txt+="마케팅 생성 문구"+index+"\n"
+          txt+=`-${i.text}\n`
+      }
+      //let text="1.\n"+data+"\n"
+     saveTextFile(txt)
   }
   const MakeExcel=async (gridRef) => {
       let data
@@ -453,7 +461,7 @@ const ProjectText = () => {
         }}
         footerButtons={
           <>
-            <Button className={'normal icon-insert ico-download-white h-md bg-black'}><span>다운로드</span></Button>
+            <Button onClick={singelTxt} className={'normal icon-insert ico-download-white h-md bg-black'}><span>다운로드</span></Button>
             <Button className={'normal bright icon-insert ico-share h-md'}><span>공유</span></Button>
           </>
         }

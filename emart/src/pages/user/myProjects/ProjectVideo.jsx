@@ -19,7 +19,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import {api, errorHandler} from "../../../util/axios.jsx";
 import Modal from "../../../components/common/modal/Modal.jsx";
 import BasicSwiper from "../../../components/common/BasicSwiper.jsx";
-import {downloadExcel} from "../../../util/excel.jsx";
+import {downloadExcel, downloadSingleVideo} from "../../../util/excel.jsx";
 
 const ProjectVideo = () => {
   /* 추후 컴포넌트화 예정 */
@@ -319,6 +319,9 @@ const ProjectVideo = () => {
     setGridColumns(grid_columns);
     //setGridCount(grid_data.length);
   },[])
+  const singelMp4=()=>{
+      downloadSingleVideo(rowData.generateVideoPreview.imgList[0].video)
+  }
   return (
     <div className="page-wrap">
       <div className="tabs-title-wrap">
@@ -411,7 +414,7 @@ const ProjectVideo = () => {
         }}
         footerButtons={
           <>
-            <Button className={'normal icon-insert ico-download-white h-md bg-black'}><span>다운로드</span></Button>
+            <Button onClick={singelMp4} className={'normal icon-insert ico-download-white h-md bg-black'}><span>다운로드</span></Button>
             <Button className={'normal bright icon-insert ico-share h-md'}><span>공유</span></Button>
           </>
         }

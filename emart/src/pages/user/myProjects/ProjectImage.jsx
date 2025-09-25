@@ -13,7 +13,7 @@ import img2 from "./../../../assets/images/myprojects/g2.png";
 
 
 import {api, errorHandler} from "../../../util/axios.jsx";
-import {downloadExcel} from "../../../util/excel.jsx";
+import {downloadExcel, downloadImagesAsZip, downloadSingleImage} from "../../../util/excel.jsx";
 
 const ProjectImage = () => {
   /* 추후 컴포넌트화 예정 */
@@ -78,12 +78,6 @@ const ProjectImage = () => {
         setSelectedStyleOption(styleOptions[0])
     }
     const handleSearchChange = () => {
-        console.log("jdd")
-        console.log('기간',dateRange);
-        console.log('목적',selectedOption);
-        console.log('스타일',selectedStyleOption);
-        console.log('브랜드톤',selectedBrandtonOption);
-        console.log('내용검색',selectedBrandtonOption);
         let data={
             style:selectedStyleOption.value,
             tone:selectedBrandtonOption.value,
@@ -373,6 +367,19 @@ const ProjectImage = () => {
     setGridColumns(grid_columns);
    // setGridCount(grid_data.length);
   },[])
+  const singeDownload=()=>{
+      console.log(rowData)
+      let url_list=[]
+      for(const da of rowData.generateImgPreview.imgList){
+          url_list.push(da.img)
+      }
+      console.log(url_list)
+      if(url_list.length===1){
+          downloadSingleImage(url_list[0])
+      }else {
+          downloadImagesAsZip(url_list)
+      }
+  }
   return (
     <div className="page-wrap">
       <div className="tabs-title-wrap">
@@ -463,7 +470,7 @@ const ProjectImage = () => {
         }}
         footerButtons={
           <>
-            <Button className={'normal icon-insert ico-download-white h-md bg-black'}><span>다운로드</span></Button>
+            <Button onClick={singeDownload} className={'normal icon-insert ico-download-white h-md bg-black'}><span>다운로드</span></Button>
             <Button className={'normal bright icon-insert ico-share h-md'}><span>공유</span></Button>
           </>
         }
