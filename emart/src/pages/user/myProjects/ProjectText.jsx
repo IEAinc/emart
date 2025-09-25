@@ -312,7 +312,7 @@ const ProjectText = () => {
           return (
             <div>
               <div className="ellipsis-5">{params.value.textList[0].text}</div>
-              <span className="text-gray">{params.data.count}건</span>
+              {params.data.count > 0 && <span className="text-gray">외 {params.data.count}건</span>}
             </div>
           );
         }
