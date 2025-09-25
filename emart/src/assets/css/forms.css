@@ -114,6 +114,7 @@
 .btn.h-sm {height:36px;font-size:14px;}
 /* 버튼 너비 */
 .btn.w-sm {min-width:80px;}
+.btn.pd-sm {padding:6px;}
 /* 버튼 색상 */
 .btn.normal.bg-black {background-color:var(--color-black);border-color:var(--color-black);color:var(--color-white);}
 .btn.normal.bg-black:hover {background-color:var(--color-primary-hover);border-color:var(--color-primary-hover);color:var(--color-white);}

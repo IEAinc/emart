@@ -18,7 +18,7 @@ const TextList = ({allTexts=[],isGenerate=false,onDownload}) => {
           <div className="list-title-wrap">
             <p className="list-tit type02">AI 마케팅 문구 생성기</p>
             {/*<Button
-              className={'normal'}
+              className={'normal ico-reset bg-black h-sm w-sm pd-sm'}
               onClick={onDownload}
             >
               다운로드

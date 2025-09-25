@@ -14,7 +14,7 @@ provideGlobalGridOptions({ theme: "legacy"});// Mark all grids as using legacy t
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-const AgGrid = ({rowHeight,autoHeight,...props}) => {
+const AgGrid = ({rowHeight,autoHeight,handleRowGridClick, ...props}) => {
   console.log(props)
   const gridRef = useRef(null);
   const [gridApi, setGridApi] = useState(null);
@@ -25,6 +25,16 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
     filter: !!props.filter,
     resizable: !!props.resizable,
   }
+  /* 체크박스 유무 */
+  const processedColumns = React.useMemo(() => {
+    if (!props.isCheckboxMode) return props.columnDefs;
+
+    // 첫 번째 컬럼에만 체크박스 추가 예시
+    return props.columnDefs.map((col, idx) => {
+      if (idx === 0) return { ...col, checkboxSelection: true };
+      return col;
+    });
+  }, [props.columnDefs, props.isCheckboxMode]);
 
   /* pagination 관련 설정 */
   const [pageSize, setPageSize] = useState(10); // 페이지당 데이터 수
@@ -216,40 +226,52 @@ const AgGrid = ({rowHeight,autoHeight,...props}) => {
             currentPage: currentPage, // 현재 페이지
             pageSize: pageSize,       // 한 페이지당 데이터 크기
           }}
-          // 아래 두 옵션으로 체크박스 활성화
           rowSelection={{
             mode: props.isCheckboxMode ? 'multiRow' : 'single',
             enableSelectionWithoutKeys: true,
           }}
+          onCellClicked={(event) => {
+            console.log('대',event.colDef.checkboxSelection);
+            if (event.colDef.checkboxSelection === undefined) { // 혹시 legacy 남아있다면
+              handleRowGridClick(event.data)
+            } else {
+              alert('체크박스')
+            }
+          }}
           onGridReady={(params) => {
+            if (!params.api || !params.columnApi) return;
+
             gridRef.current = params.api;
-            setGridApi(params.api); // API를 상태로 저장
-            // 체크박스 컬럼 아이디 찾기
-            const checkboxColumn = params.columnApi.getAllColumns().find(col => col.getColDef().checkboxSelection);
-            if (checkboxColumn) {
-              // 너비 50으로 고정
-              params.columnApi.setColumnWidth(checkboxColumn.getId(), 50);
-              params.columnApi.setColumnPinned(checkboxColumn.getId(), 'left'); // 고정도 가능
+            setGridApi(params.api);
+
+            if (props.isCheckboxMode) {
+              const checkboxColumn = params.columnApi.getAllColumns().find(col => col.getColDef()?.checkboxSelection);
+              if (checkboxColumn) {
+                params.columnApi.setColumnWidth(checkboxColumn.getId(), 50);
+                params.columnApi.setColumnPinned(checkboxColumn.getId(), 'left');
+              }
             }
 
             // 나머지 컬럼 자동 조정
             const allColumns = params.columnApi.getAllColumns();
             const autoSizeColumnIds = allColumns
-              .filter(col => !col.getColDef().checkboxSelection)
+              .filter(col => !col.getColDef()?.checkboxSelection)
               .map(col => col.getId());
 
             params.columnApi.autoSizeColumns(autoSizeColumnIds);
-
           }}
+
           onFirstDataRendered={(params) => {
-            // 체크박스 컬럼을 제외한 나머지 컬럼 아이디 구하기
+            if (!params.columnApi) return; // 안전 체크
+
             const allColumns = params.columnApi.getAllColumns();
             const autoSizeColumnIds = allColumns
-              .filter(col => !col.getColDef().checkboxSelection)
+              .filter(col => !col.getColDef()?.checkboxSelection)
               .map(col => col.getId());
-            // 체크박스 컬럼 제외한 컬럼만 자동 사이즈 조정
+
             params.columnApi.autoSizeColumns(autoSizeColumnIds);
           }}
+
           onGridSizeChanged={(params) => {
             setTimeout(function() {
               params.api.sizeColumnsToFit(); // 컨테이너 크기 변경 시 컬럼 크기 재조정

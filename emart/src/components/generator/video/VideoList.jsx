@@ -8,7 +8,7 @@ const VideoList = ({allVideos=[], isGenerate=false, onDownload}) => {
           <div className="list-title-wrap">
             <p className="list-tit type02">AI 마케팅 동영상 생성기</p>
             <Button
-              className={'normal'}/* ico-reset */
+              className={'normal ico-reset bg-black h-sm w-sm pd-sm'}/* ico-reset */
               onClick={onDownload}
             >
               다운로드

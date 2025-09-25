@@ -571,6 +571,7 @@ const ProjectImage = () => {
           isCheckboxMode={false}
           onDataUpdate={handleDataUpdate} // 삭제 후 데이터 갱신
           onRegisterClick={handleRegisterClick}
+          handleRowGridClick={handleOpenPreview}
           sortable={true}
           usePaginationSelector={false}
           rowHeight={136}

@@ -400,13 +400,14 @@ const ProjectVideo = () => {
           rowDeselection={true}
           rowData={gridData}
           columnDefs={gridColumns}
-          // isCheckboxMode={true}
+          isCheckboxMode={false}
           onDataUpdate={handleDataUpdate} // 삭제 후 데이터 갱신
           onRegisterClick={handleRegisterClick}
           sortable={true}
           usePaginationSelector={false}
           rowHeight={136}
           autoHeight={true}
+          handleRowGridClick={handleOpenPreview}
           // indicator={{
           //   excel: true,
           //   delete: true,
