@@ -6,18 +6,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const BasicSwiper = ({ slides = [],navigation=false, pagination = false, ...props }) => {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
   return (
     <div className="swiper-box">
       <Swiper
         modules={[Navigation, Pagination]}
         pagination={slides.length > 1 && pagination ? { clickable: true } : false}
         navigation={navigation ? true : false}
-        onBeforeInit={(swiper) => {
-          swiper.params.navigation.prevEl = prevRef.current;
-          swiper.params.navigation.nextEl = nextRef.current;
-        }}
         {...props}
         style={{ width: '100%' }}
       >
