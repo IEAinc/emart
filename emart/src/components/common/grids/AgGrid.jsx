@@ -14,7 +14,7 @@ provideGlobalGridOptions({ theme: "legacy"});// Mark all grids as using legacy t
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-const AgGrid = ({rowHeight,autoHeight,handleRowGridClick, ...props}) => {
+const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props}) => {
   console.log(props)
   const gridRef = useRef(null);
   const [gridApi, setGridApi] = useState(null);
@@ -86,7 +86,7 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick, ...props}) => {
     //   alert("삭제할 행을 선택해주세요.");
     //   return;
     // }
-
+    console.log(selectedRows)
     // 고유 ID를 기준으로 데이터 필터링
     const updatedData = props.rowData.filter(
       (row) => !selectedRows.some((selected) => selected.id === row.id) // ID 기준으로 매칭
@@ -100,59 +100,7 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick, ...props}) => {
     }
   };
 
-  /* 엑셀 내보내기 */
-  const exportToExcel = (rowData, columnData) => {
-    if (!rowData || rowData.length === 0) {
-      alert('엑셀로 내보낼 데이터가 없습니다.');
-      return;
-    }
 
-    // 1. 엑셀 헤더 (headerName) 추출
-    const headers = columnData.filter(col=>col.headerName!=='상세보기').map(col =>col.headerName);
-
-    // 2. 각 row에서 field 값 추출해 headerName 기준으로 정리
-    const exportData = rowData.map((row, rowIndex) => {
-      const newRow = {};
-      let minusIndex=0;
-      for (let colIndex = 0; colIndex < columnData.length; colIndex++) {
-        const col = columnData[colIndex];
-        let value;
-        if(col.headerName==='상세보기'){
-          minusIndex++;
-          console.log(minusIndex)
-          continue;
-        }
-        // valueGetter가 있는 경우 계산해서 넣기
-        if (typeof col.valueGetter === 'function') {
-          value = col.valueGetter({
-            data: row,
-            node: { rowIndex },
-            context: {
-              currentPage: 1, // 필요시 실제 페이지 정보로 수정
-              pageSize: rowData.length, // 필요시 실제 pageSize로 수정
-            }
-          });
-        } else {
-          value = row[col.field];
-        }
-     
-        newRow[col.headerName] = value;
-      };
-
-      return newRow;
-    });
-
-    // 3. 워크시트 생성
-    const worksheet = XLSX.utils.json_to_sheet(exportData, { header: headers });
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-
-    // 4. 저장
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-
-    saveAs(blob, 'export.xlsx');
-  };
   return (
     <div className="grid-wrap">
       {
@@ -166,7 +114,7 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick, ...props}) => {
                 props.indicator.excel ?
                   <Button
                     className="btn normal h-sm w-sm"
-                    onClick={() => exportToExcel(props.rowData,props.columnDefs)}
+                    onClick={() => exportToExcel(gridRef)}
                   >
                     다운로드
                   </Button>
@@ -231,7 +179,6 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick, ...props}) => {
             enableSelectionWithoutKeys: true,
           }}
           onCellClicked={(event) => {
-            console.log('대',event.colDef.checkboxSelection);
             if (event.colDef.checkboxSelection === undefined) { // 혹시 legacy 남아있다면
               handleRowGridClick(event.data)
             } else {

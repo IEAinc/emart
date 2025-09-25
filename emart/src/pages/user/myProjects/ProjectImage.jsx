@@ -104,10 +104,30 @@ const ProjectImage = () => {
   };
   /* 미리보기 버튼 preview */
   const [rowData, setRowData] = useState(null);
-  const handleOpenPreview = (data) => {
-    console.log('data',data);
-    setModalOpen(true);
-    setRowData(data);
+  const handleOpenPreview = async (data) => {
+      let search_data = {
+          type: data.type,
+          gid: data.gid
+      }
+      try {
+          let response = await api.post("/myproject/myproject/data", JSON.stringify(search_data), {
+              headers: {},
+          })
+
+          data.generateImgPreview.imgList = response.data.data.map((e, idx) => {
+              return {
+                  id: 'img' + idx,
+                  img: e.output,
+                  alt: '',
+                  type: 'image'
+              }
+          })
+          setModalOpen(true);
+          setRowData(data);
+      } catch (error) {
+          console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+          return false;
+      }
   }
   // 엑셀 관련
 
@@ -177,16 +197,42 @@ const ProjectImage = () => {
             return false;
         }
     }
-    const MakeExcel=()=>{
-        let data=gridData.map(({generateImgPreview,productImg,...etc})=>{
-            return{
-                generateImgPreview:generateImgPreview.imgList[0].img,
-                productImg:productImg.imgList[0].img,
-                ...etc
-            }
-        })
-        downloadExcel(data,"list_images.xlsx")
-    }
+  const MakeExcel=async (gridRef) => {
+      let data
+      if (gridRef.current.api.getSelectedRows().length > 0) {
+          data = gridRef.current.api.getSelectedRows()
+      } else {
+          data = gridData
+      }
+      let list = []
+      let count = 0;
+      for (const e of data) {
+          let search_data = {
+              type: e.type,
+              gid: e.gid
+          }
+          let response = await api.post("/myproject/myproject/data", JSON.stringify(search_data), {
+              headers: {},
+          })
+
+          response.data.data.map((el) => {
+              count++
+              list.push({
+                  "No": count,
+                  "생성된 이미지(미리보기)": el.output,
+                  "제품 이미지": el.output_base,
+                  "사용자입력": el.input,
+                  "스타일": e.style,
+                  "브랜드톤": e.brandton,
+                  "생성일시": e.createdDate,
+                  "모델": e.modelName
+              })
+
+          })
+      }
+      console.log(list)
+      downloadExcel(list, "list_images.xlsx")
+  }
 
   useEffect(() => {
       let today= new Date();
@@ -415,13 +461,14 @@ const ProjectImage = () => {
           rowDeselection={true}
           rowData={gridData}
           columnDefs={gridColumns}
-          isCheckboxMode={false}
+          isCheckboxMode={true}
           onDataUpdate={handleDataUpdate} // 삭제 후 데이터 갱신
           onRegisterClick={handleRegisterClick}
           handleRowGridClick={handleOpenPreview}
           sortable={true}
           usePaginationSelector={false}
           rowHeight={136}
+          exportToExcel={MakeExcel}
           autoHeight={true}
           indicator={{
               excel: true,

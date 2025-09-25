@@ -19,6 +19,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import {api, errorHandler} from "../../../util/axios.jsx";
 import Modal from "../../../components/common/modal/Modal.jsx";
 import BasicSwiper from "../../../components/common/BasicSwiper.jsx";
+import {downloadExcel} from "../../../util/excel.jsx";
 
 const ProjectVideo = () => {
   /* 추후 컴포넌트화 예정 */
@@ -165,6 +166,17 @@ const ProjectVideo = () => {
         setSelectedBrandtonOption(brandtonsOptions[0])
         setSelectedOption(options[0])
         setSelectedStyleOption(styleOptions[0])
+    }
+    const MakeExcel=async (gridRef) => {
+        let data
+        if (gridRef.current.api.getSelectedRows().length > 0) {
+            data = gridRef.current.api.getSelectedRows()
+        } else {
+            data = gridData
+        }
+
+
+        downloadExcel(data, "list_images.xlsx")
     }
   const handleSearchChange = () => {
         console.log("jdd")
@@ -400,15 +412,19 @@ const ProjectVideo = () => {
           rowDeselection={true}
           rowData={gridData}
           columnDefs={gridColumns}
-          isCheckboxMode={false}
+          isCheckboxMode={true}
           onDataUpdate={handleDataUpdate} // 삭제 후 데이터 갱신
           onRegisterClick={handleRegisterClick}
           sortable={true}
           usePaginationSelector={false}
           rowHeight={136}
           autoHeight={true}
+          exportToExcel={MakeExcel}
           handleRowGridClick={handleOpenPreview}
-
+          indicator={{
+              excel: true,
+              delete: true,
+          }}
         />
       </div>
       {/* [모달] : 마케팅 동영상 상세 */}

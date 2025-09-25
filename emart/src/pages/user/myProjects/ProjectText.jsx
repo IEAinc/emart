@@ -9,7 +9,7 @@ import Modal from "../../../components/common/modal/Modal.jsx";
 /* 아이콘 */
 import {api, errorHandler} from "../../../util/axios.jsx";
 import img2 from "../../../assets/images/myprojects/g2.png";
-import {saveTextFile} from "../../../util/excel.jsx";
+import {downloadExcel, saveTextFile} from "../../../util/excel.jsx";
 
 const ProjectText = () => {
   /* 추후 컴포넌트화 예정 */
@@ -66,7 +66,6 @@ const ProjectText = () => {
       before_week.setMinutes(0)
       before_week.setSeconds(0)
       before_week.setDate(before_week.getDate()-7)
-      console.log([before_week,today])
       setDateRange([before_week,today])
       setContents("")
       setSelectedBrandtonOption(brandtonsOptions[0])
@@ -74,12 +73,6 @@ const ProjectText = () => {
       setSelectedStyleOption(styleOptions[0])
   }
   const handleSearchChange = () => {
-    console.log("jdd")
-    console.log('기간',dateRange);
-    console.log('목적',selectedOption);
-    console.log('스타일',selectedStyleOption);
-    console.log('브랜드톤',selectedBrandtonOption);
-    console.log('내용검색',selectedBrandtonOption);
     let data={
         style:selectedStyleOption.value,
         tone:selectedBrandtonOption.value,
@@ -100,9 +93,30 @@ const ProjectText = () => {
   };
   /* 미리보기 버튼 preview */
   const [rowData, setRowData] = useState(null);
-  const handleOpenPreview = (data) => {
-    setModalOpen(true);
-    setRowData(data);
+  const handleOpenPreview = async (data) => {
+      let search_data={
+          type: data.type,
+          gid:data.gid
+      }
+      try {
+          let response = await api.post("/myproject/myproject/data", JSON.stringify(search_data), {
+              headers: {},
+          })
+
+          let text_list=response.data.data.map((e,idx)=>{
+              return {
+                  id: 'generate-txt-'+idx,
+                  text:e.output
+              }
+          })
+          data.generateText.textList=text_list
+          setModalOpen(true);
+          setRowData(data);
+      } catch (error) {
+          console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+          return false;
+      }
+
   }
 
 
@@ -139,7 +153,7 @@ const ProjectText = () => {
                           text:output  },
                   ],
               },
-              category: purpose,
+              purpose: purpose,
               brandton: tone,
               createdDate: created.split("T")[0]+" "+created.split("T")[1],
               style: style,
@@ -159,10 +173,42 @@ const ProjectText = () => {
   const singelTxt=()=>{
       let data=gridData[0].generateText.textList[0].text
       let text="1.\n"+data+"\n"
-      console.log(data)
      saveTextFile(text)
   }
+  const MakeExcel=async (gridRef) => {
+      let data
+      if (gridRef.current.api.getSelectedRows().length > 0) {
+          data = gridRef.current.api.getSelectedRows()
+      } else {
+          data = gridData
+      }
+      let list=[]
+      let count=0;
+      for (const e of data) {
+          let search_data={
+              type: e.type,
+              gid:e.gid
+          }
+          let response = await api.post("/myproject/myproject/data", JSON.stringify(search_data), {
+              headers: {},
+          })
 
+         response.data.data.map((el) => {
+             count++
+              list.push({
+                  "No":count,
+                  "생성한 문구":el.output,
+                  "목적":e.purpose,
+                  "스타일":e.style,
+                  "브랜드톤":e.brandton,
+                  "생성일시":e.createdDate,
+                  "모델":e.modelName
+              })
+
+         })
+      }
+      downloadExcel(list,"list_text.xlsx")
+  }
   useEffect(() => {
       let today= new Date();
       today.setHours(0+9)
@@ -173,7 +219,6 @@ const ProjectText = () => {
       before_week.setMinutes(0)
       before_week.setSeconds(0)
       before_week.setDate(before_week.getDate()-7)
-      console.log([before_week,today])
       setDateRange([before_week,today])
       searchData({
               type: "문구",
@@ -391,6 +436,7 @@ const ProjectText = () => {
           usePaginationSelector={false}
           rowHeight={136}
           autoHeight={true}
+          exportToExcel={MakeExcel}
           indicator={{
               excel: true,
               delete: true,
