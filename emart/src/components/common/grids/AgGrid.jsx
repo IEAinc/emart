@@ -25,16 +25,6 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props
     filter: !!props.filter,
     resizable: !!props.resizable,
   }
-  /* 체크박스 유무 */
-  const processedColumns = React.useMemo(() => {
-    if (!props.isCheckboxMode) return props.columnDefs;
-
-    // 첫 번째 컬럼에만 체크박스 추가 예시
-    return props.columnDefs.map((col, idx) => {
-      if (idx === 0) return { ...col, checkboxSelection: true };
-      return col;
-    });
-  }, [props.columnDefs, props.isCheckboxMode]);
 
   /* pagination 관련 설정 */
   const [pageSize, setPageSize] = useState(10); // 페이지당 데이터 수
@@ -179,8 +169,6 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props
           onCellClicked={(event) => {
             if (event.colDef.checkboxSelection === undefined) { // 혹시 legacy 남아있다면
               handleRowGridClick(event.data)
-            } else {
-              alert('체크박스')
             }
           }}
           onGridReady={(params) => {

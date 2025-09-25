@@ -103,6 +103,7 @@ const ProjectVideo = () => {
   // 데이터 삭제
   const handleDataUpdate = (updatedRows) => {
     setGridData(updatedRows);
+    setGridCount(updatedRows.length)
   };
   const searchData=async (data)=>{
         try {
@@ -399,11 +400,11 @@ const ProjectVideo = () => {
             </div>
           </div>
           <div className="search-btn-wrap">
-            <Button className={'btn icon normal w-sm ico-reset'} onClick={handleResetSearch}>
-              초기화
+            <Button className={'btn icon-insert normal w-sm ico-reset'} onClick={handleResetSearch}>
+              <span>초기화</span>
             </Button>
-            <Button className={'btn icon normal bg-black w-sm ico-search'} onClick={handleSearchChange}>
-              검색
+            <Button className={'btn icon-insert normal bg-black w-sm ico-search'} onClick={handleSearchChange}>
+              <span>검색</span>
             </Button>
           </div>
         </div>
@@ -421,10 +422,13 @@ const ProjectVideo = () => {
           autoHeight={true}
           exportToExcel={MakeExcel}
           handleRowGridClick={handleOpenPreview}
-          indicator={{
+          indicator={
+            {
               excel: true,
               delete: true,
-          }}
+              gridCount: gridCount
+            }
+          }
         />
       </div>
       {/* [모달] : 마케팅 동영상 상세 */}
@@ -435,44 +439,55 @@ const ProjectVideo = () => {
           setModalOpen(false)
           setRowData(null);
         }}
-        /*footerButtons={
+        footerButtons={
           <>
-            <Button className={'normal'}>다운로드</Button>
-            <Button className={'normal bright'}>공유</Button>
+            <Button className={'normal icon-insert ico-download-dark h-md bg-primary'}><span>다운로드</span></Button>
+            <Button className={'normal bright icon-insert ico-share h-md'}><span>공유</span></Button>
           </>
-        }*/
+        }
       >
         <div className="pop-box">
           <div className="pop-contents-box">
-            <div className="pop-tit">
-              <p>생성된 동영상</p>
-              <span>생성일시: {rowData?.createdDate.split(" ")[0]}</span>
+            <div className="pop-section">
+              <div className="pop-tit">
+                <p>생성된 동영상</p>
+                <span>생성일시: {rowData?.createdDate.split(" ")[0]}</span>
+              </div>
             </div>
+
             {/* 뱃지 */}
-            <div className="pop-badge-list">
-              {rowData?.purpose && <span>{rowData?.purpose}</span>}
-              {rowData?.style && <span>{rowData?.style}</span>}
-              {rowData?.brandton && <span>{rowData?.brandton}</span>}
+            <div className="pop-section">
+              <div className="pop-badge-list">
+                {rowData?.purpose && <span>목적 | {rowData?.purpose}</span>}
+                {rowData?.style && <span>스타일 | {rowData?.style}</span>}
+                {rowData?.brandton && <span>브랜드톤 | {rowData?.brandton}</span>}
+              </div>
             </div>
-            <div className="contents-list no-scroll fixed-size">
-              <BasicSwiper
-                spaceBetween={0}
-                slidesPerView={1}
-                slides={rowData?.generateVideoPreview?.imgList.map((item) => ({
-                  src: item.type === 'video' ? item.video : item.img,
-                  alt: item.alt,
-                  type: item.type || 'image'
-                })) || []}
-                pagination={true}
-              />
+            <div className="pop-section no-pd-tb">
+              <div className="contents-list no-scroll fixed-size">
+                <BasicSwiper
+                  spaceBetween={0}
+                  slidesPerView={1}
+                  slides={rowData?.generateVideoPreview?.imgList.map((item) => ({
+                    src: item.type === 'video' ? item.video : item.img,
+                    alt: item.alt,
+                    type: item.type || 'image'
+                  })) || []}
+                  pagination={true}
+                />
+              </div>
             </div>
           </div>
           <div className="pop-contents-box">
-            <div className="pop-tit">
-              <p>사용자 입력</p>
+            <div className="pop-section">
+              <div className="pop-tit">
+                <p>사용자 입력</p>
+              </div>
             </div>
-            <div className="contents-list scroll-sm">
-              {rowData !== null && rowData.userInput ? <p>{rowData.userInput}</p> :""}
+            <div className="pop-section">
+              <div className="contents-list scroll-sm text-box">
+                {rowData !== null && rowData.userInput ? <p>{rowData.userInput}</p> :""}
+              </div>
             </div>
           </div>
         </div>

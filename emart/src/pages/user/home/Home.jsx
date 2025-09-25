@@ -95,13 +95,13 @@ export default function Home() {
                   const [text, image, video] = responses.map(response => response.data);
 
                   let text_data=text.data.map((e,idx)=>{
-                      return { id: 'text'+idx, text: e.output }
+                      return { id: 'text'+idx, text: e.output, type:e.type, style: e.style, tone:e.tone }
                   })
                   let image_data=image.data.map((e,idx)=>{
-                      return { id: 'image'+idx, text: e.output }
+                      return { id: 'image'+idx, text: e.output, type:e.type }
                   })
                   let video_data=video.data.map((e,idx)=>{
-                      return { id: 'video'+idx, text: e.output }
+                      return { id: 'video'+idx, text: e.output, type:e.type }
                   })
                   setProjectsText(text_data)
                   setProjectsImg(image_data)
@@ -126,6 +126,7 @@ export default function Home() {
     //   보여주는 데이터 임시저장소 와 페이지가 바뀌면  보여주는걸 결정하는 변수를 다시 업데이트하도록 설정
     let data=projects.length > pageSize? projects.slice((currentPage - 1) * pageSize, currentPage * pageSize): projects;
     setPaginatedProjects(data)
+    console.log(data)
 
   }, [projects,currentPage]);
   useEffect(() => {
@@ -172,11 +173,31 @@ export default function Home() {
         {/* 프로젝트 리스트 */}
         <ul  className={`grid-box con-5 ${paginatedProjects.length > 5 ? 'row-2' : ''}`}>
           {paginatedProjects.map((project) =>
+            <li key={project.id}>
+              {project.type === '문구' && (
+                <div className="project-text-box">
+                  <div className="summary-list">
+                    {project.style && <span>{project.style}</span>}
+                    {project.tone && <span>{project.tone}</span>}
+                  </div>
+                  <p className="ellipsis-8">{project.text}</p>
+                </div>
+              )}
 
-            <li key={project.id} >
-              <div className="project-img-box">
-                <p>{project.text}</p>
-              </div>
+              {project.type === '이미지' && (
+                <div className="project-img-box">
+                  <img src={project.text} alt="마케팅 이미지" />
+                </div>
+              )}
+
+              {project.type === '영상' && (
+                <div className="project-video-box">
+                  <video controls>
+                    <source src={project.text} type="video/mp4" />
+                    브라우저가 video 태그를 지원하지 않습니다.
+                  </video>
+                </div>
+              )}
             </li>
           )}
         </ul>

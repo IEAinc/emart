@@ -1,5 +1,5 @@
 import Button from '../../common/forms/Button.jsx'
-import { HiX } from "react-icons/hi";
+import Close from '../../../assets/images/icon/ico_modal_close.svg?react'
 const Modal = ({isOpen, onClose, title,children,footerButtons}) => {
   if (!isOpen) return null;
   return (
@@ -13,7 +13,7 @@ const Modal = ({isOpen, onClose, title,children,footerButtons}) => {
         <div className="title-wrap">
           {title && (<h3>{title}</h3>)}
           <Button onClick={onClose}>
-            <HiX/>
+            <Close/>
             <span className="sr-only">닫기</span>
           </Button>
         </div>
