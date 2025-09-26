@@ -89,7 +89,6 @@ export default function Home() {
           const video = api.post("/myproject/myproject/data", JSON.stringify(data), {headers: {},});;
           Promise.all([text, image, video])
               .then(responses => {
-                  console.log('모든 API 요청 완료!');
 
                   // axios는 자동으로 JSON 파싱해주므로 바로 data 사용 가능
                   const [text, image, video] = responses.map(response => response.data);
@@ -126,7 +125,6 @@ export default function Home() {
     //   보여주는 데이터 임시저장소 와 페이지가 바뀌면  보여주는걸 결정하는 변수를 다시 업데이트하도록 설정
     let data=projects.length > pageSize? projects.slice((currentPage - 1) * pageSize, currentPage * pageSize): projects;
     setPaginatedProjects(data)
-    console.log(data)
 
   }, [projects,currentPage]);
   useEffect(() => {

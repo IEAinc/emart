@@ -18,31 +18,25 @@ const ProjectText = () => {
   const [dateRange, setDateRange] = useState([null,null]);
 
   /* 목적 */
-  const options = [
-    { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+    const [options,setOptions] = useState([
+        { label: '전체', value: null },
+    ]);
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const handleChange = (option) => {
     setSelectedOption(option);
   }
   /* 스타일 */
-  const styleOptions = [
-    { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+    const [styleOptions,setStyleOptions] =useState([
+        { label: '전체', value: null },
+    ]);
   const [selectedStyleOption, setSelectedStyleOption] = useState(styleOptions[0]);
   const handleStyleChange = (option) => {
     setSelectedStyleOption(option);
   }
   /* 브랜드톤 */
-  const brandtonsOptions = [
-    { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+    const [brandtonsOptions,setBrandtonsOptions] = useState([
+        { label: '전체', value: null },
+    ]);
   const [selectedBrandtonOption, setSelectedBrandtonOption] = useState(brandtonsOptions[0]);
   const handleBrandtonChange = (option) => {
     setSelectedBrandtonOption(option);
@@ -180,7 +174,6 @@ const ProjectText = () => {
   }
   const singelTxt=()=>{
       let data=rowData.generateText.textList
-      console.log(data)
       let txt="";
       let index=0;
       for(const i of data){
@@ -225,7 +218,37 @@ const ProjectText = () => {
       }
       downloadExcel(list,"list_text.xlsx")
   }
+  const fetchSearchCondition=async () => {
+        try {
+            let response = await api.post("/myproject/myproject/search",{type:"문구"})
+            let list=[{label: "전체",value: null}]
+            let style=response.data.data.style
+            for(const e of style){
+                list.push({label: e[0],value: e[0]})
+            }
+            setStyleOptions(list)
+
+            list=[{label: "전체",value: null}]
+            let purpose=response.data.data.purpose
+            for(const e of purpose){
+                list.push({label: e[0],value: e[0]})
+            }
+            setOptions(list)
+
+            list=[{label: "전체",value: null}]
+            let tone=response.data.data.tone
+            for(const e of tone){
+                list.push({label: e[0],value: e[0]})
+            }
+            setBrandtonsOptions(list)
+        }catch (error){
+            console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+            return false;
+        }
+
+    }
   useEffect(() => {
+      fetchSearchCondition()
       let today= new Date();
       today.setHours(0+9)
       today.setMinutes(0)
@@ -241,67 +264,6 @@ const ProjectText = () => {
               startdt: before_week,
               enddt: today
           })
-    /* 그리드 데이터 */
-    // let grid_data = [
-    //   {
-    //     id: 1,
-    //     generateText: {
-    //       textList :  [
-    //         {
-    //           id: 'generate-txt-1',
-    //           text:'1번 박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 \'간식으로 딱\'이라는 절대적인 신념!!)\n'
-    //         },
-    //         {
-    //           id: 'generate-txt-2',
-    //           text:'2번 박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 \'간식으로 딱\'이라는 절대적인 신념!!)\n'
-    //         },
-    //         {
-    //           id: 'generate-txt-3',
-    //           text:'3번 박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 \'간식으로 딱\'이라는 절대적인 신념!!)\n'
-    //         },
-    //       ],
-    //     },
-    //     createdDate: "2025-09-01 10:00",
-    //     productImg: img2,
-    //     modelName: "Emart24_RealPhoto_v1",
-    //     userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.",
-    //     style: "감성적",
-    //     brandton: "친근함",
-    //     imageCount: 5200,
-    //     resolution: "1024x1024",
-    //     status: "완료"
-    //   },
-    //   {
-    //     id: 2,
-    //     generateText: {
-    //       textList :  [
-    //         {
-    //           id: 'generate-txt-1',
-    //           text:'2-1번 박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 \'간식으로 딱\'이라는 절대적인 신념!!)\n'
-    //         },
-    //         {
-    //           id: 'generate-txt-2',
-    //           text:'2-2번 박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 \'간식으로 딱\'이라는 절대적인 신념!!)\n'
-    //         },
-    //         {
-    //           id: 'generate-txt-3',
-    //           text:'2-3번 박스브레드로 인생간식 탄생! 밤가득큐브빵 90g 22% 진한밤 맛으로 완전 쌉가능?!💥 🍞 큐브모양이 뭔가 더 기분좋게 먹히는 🌙 상온으로 즐기는 밤빵의 달콤함 🥜 리얼밤이 가득 채워진 텍스처가 입 안에서 터짐! #이마트24 #박스브레드 #밤가득큐브빵 #한입간식 #상온브레드 #편의점신상 이마트24에서 만나보세요✨ (중장년 타겟에게는 \'간식으로 딱\'이라는 절대적인 신념!!)\n'
-    //         },
-    //       ],
-    //       prompt: '사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2사용자 입력2'
-    //     },
-    //     createdDate: "2025-09-01 10:00",
-    //     productImg: img2,
-    //     modelName: "Emart24_RealPhoto_v1",
-    //     userInput: "신선한 토마토 밭을 배경으로 한 따뜻한 석양 속에서 '탱탱젤리' 패키지가 돋보이게 표현해주세요. 토마토의 상큼함과 건강한 이미지를 강조하고, 자연스럽게 빛나는 패키지 질감으로 연출합니다.",
-    //     style: "감성적",
-    //     brandton: "친근함",
-    //     imageCount: 5200,
-    //     resolution: "1024x1024",
-    //     status: "완료"
-    //   }
-    // ]
-
     /* 그리드 헤더 설정 */
     let grid_columns = [
       { headerName: "NO", field: "number",cellClass: 'text-center',width: 50 ,suppressSizeToFit: true,cellStyle: {display:'flex',alignItems:'center'},

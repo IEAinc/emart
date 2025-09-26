@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 const Breadcrumb = ({subText='서버에 업로드한 모델 정보를 조회합니다.'}) => {
   const location = useLocation(); // 현재 경로 가져오기
   const pathnames = location.pathname.split("/").filter((x) => x); // 경로를 배열로 분리 (빈 값 제거)
-  console.log(pathnames)
 
 
   // 경로명과 한글 매핑
@@ -24,9 +23,7 @@ const Breadcrumb = ({subText='서버에 업로드한 모델 정보를 조회합�
   if(pathnames.length === 1) {
     lastPathname = `${routeNames[pathnames[pathnames.length - 1]]}`; // 경로 배열의 마지막 값
   } else if(pathnames.length === 3) {
-    console.log('여기')
     lastPathname = `${routeNames[pathnames[pathnames.length - 2]]}`; // 경로 배열의 마지막에서 두번재 값
-    console.log(lastPathname)
   }
   return (
     <nav className="breadcrumb-wrapper">

@@ -30,7 +30,6 @@ const GenerateContentsVideo = () => {
   // VideoGeneratorSetting에서 전달된 값 업데이트
   const handleSettingsChange = (key, value) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
-    console.log('설정 업데이트:', key, value);
   };
 
   // VideoGeneratorPrompt에서 전달된 텍스트 추가
@@ -73,7 +72,6 @@ const GenerateContentsVideo = () => {
     setAllVideos((prev) => {
       //const updated = [...prev, newItem];
       const updated = [newItem];
-      console.log('전체 이미지 배열:', updated);
       setIsGen(false)
       return updated;
     });

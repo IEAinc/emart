@@ -43,7 +43,6 @@ const GenerateContentsImage = () => {
   // ImageGeneratorSetting에서 전달된 값 업데이트
   const handleSettingsChange = (key, value) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
-    console.log('설정 업데이트:', key, value);
   };
 
   // ImageGeneratorPrompt에서 전달된 텍스트 추가
@@ -74,7 +73,6 @@ const GenerateContentsImage = () => {
       setIsGen(false)
       return false;
     }
-    console.log(response.data.save_url)
     let result_list=[]
     for(let step=0;step<response.data.save_url.length;step++){
         let newItem = {
@@ -91,7 +89,6 @@ const GenerateContentsImage = () => {
     setAllImages((prev) => {
       //const updated = [...prev, newItem];
       const updated = result_list;
-      console.log('전체 이미지 배열:', updated);
       setIsGen(false)
       return updated;
     });
@@ -99,7 +96,6 @@ const GenerateContentsImage = () => {
 
   /* 다운로드 */
   const handleDownload = async () => {
-    console.log('이미지 다운로드');
       for (const e of allImages) {
           const url = e.src; // 다운로드할 이미지 주소
           const response = await fetch(url, {

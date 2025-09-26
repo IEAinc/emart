@@ -3,22 +3,26 @@ import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 // 엑셀 관련
 async function urlToBase64(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const blob = await response.blob();
+    let count=0
+    while (count<5){
+        count++
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const blob = await response.blob();
 
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result.split(',')[1]);
-            reader.onerror = reject;
-            reader.readAsDataURL(blob);
-        });
-    } catch (error) {
-        console.error('이미지 로드 실패:', error);
-        return null;
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        } catch (error) {
+            console.error('이미지 로드 실패:', error);
+
+        }
     }
 }
 
@@ -50,6 +54,7 @@ async function createExcelWithImages(data) {
     for (const item of data) {
         const row = [];
         const imagePromises = [];
+        let link_info = {isHype:false};
 
         // 각 컬럼 처리
         for (let colIndex = 0; colIndex < headers.length; colIndex++) {
@@ -72,13 +77,30 @@ async function createExcelWithImages(data) {
                         col: colIndex + 1
                     }))
                 );
+            }else if(typeof value === 'string' &&
+                (value.startsWith('http://') || value.startsWith('https://')) &&
+                /\.(mp4)(\?.*)?$/i.test(value)){
+                let data= {
+                    text: '동영상 링크',
+                    hyperlink: value,
+                    tooltip: '동영상 링크로 이동'
+                }
+                link_info={col:colIndex+1,isHype:true}
+                row.push(data);
             } else {
                 row.push(value);
             }
         }
 
         // 행 추가
-        worksheet.addRow(row);
+        let work_row=worksheet.addRow(row);
+        if(link_info.isHype) {
+            const linkCell = work_row.getCell(link_info.col);
+            linkCell.font = {
+                color: {argb: 'FF0000FF'},
+                underline: true
+            };
+        }
 
         // 이미지 처리
         if (imagePromises.length > 0) {

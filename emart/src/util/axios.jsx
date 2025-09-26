@@ -23,11 +23,6 @@ apiClient.interceptors.request.use(
 
         // 요청 로깅 (개발 환경에서만)
         if (import.meta.env.MODE === 'development') {
-            console.log('🚀 API Request:', {
-                method: config.method?.toUpperCase(),
-                url: config.url,
-                data: config.data,
-            });
         }
 
         return config;
@@ -43,10 +38,8 @@ apiClient.interceptors.response.use(
     (response) => {
         // 응답 로깅 (개발 환경에서만)
         if (import.meta.env.MODE === 'development') {
-            console.log('✅ API Response:', {
-                status: response.status,
-                data: response.data,
-            });
+
+
         }
 
         return response;

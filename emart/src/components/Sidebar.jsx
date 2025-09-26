@@ -22,7 +22,6 @@ const Sidebar = ({menuData = []}) => {
   useEffect(() => {
     const activeMenuIndex = menuData.findIndex((menu) => {
       // 상위 메뉴의 path가 현재 경로를 포함하는 경우
-      // console.log(location.pathname,'경로확인')
       if (location.pathname.startsWith(menu.path)) {
         return true;
       }

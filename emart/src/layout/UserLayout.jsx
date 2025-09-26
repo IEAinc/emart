@@ -15,7 +15,6 @@ export default function Layout({ menuData }) {
     }
   }, [location.pathname, navigate]);
   const hideBreadcrumb = location.pathname === '/home';
-  console.log(hideBreadcrumb);
 
   return (
     <>

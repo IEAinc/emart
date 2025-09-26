@@ -22,31 +22,25 @@ const ProjectImage = () => {
   const [dateRange, setDateRange] = useState([null,null]);
 
   /* 목적 */
-  const options = [
-    { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+    const [options,setOptions] = useState([
+        { label: '전체', value: null },
+    ]);
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const handleChange = (option) => {
     setSelectedOption(option);
   }
   /* 스타일 */
-  const styleOptions = [
-    { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+    const [styleOptions,setStyleOptions] =useState([
+        { label: '전체', value: null },
+    ]);
   const [selectedStyleOption, setSelectedStyleOption] = useState(styleOptions[0]);
   const handleStyleChange = (option) => {
     setSelectedStyleOption(option);
   }
   /* 브랜드톤 */
-  const brandtonsOptions = [
-    { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+    const [brandtonsOptions,setBrandtonsOptions] = useState([
+        { label: '전체', value: null },
+    ]);
   const [selectedBrandtonOption, setSelectedBrandtonOption] = useState(brandtonsOptions[0]);
   const handleBrandtonChange = (option) => {
     setSelectedBrandtonOption(option);
@@ -70,7 +64,6 @@ const ProjectImage = () => {
         before_week.setMinutes(0)
         before_week.setSeconds(0)
         before_week.setDate(before_week.getDate()-7)
-        console.log([before_week,today])
         setDateRange([before_week,today])
         setContents("")
         setSelectedBrandtonOption(brandtonsOptions[0])
@@ -225,11 +218,39 @@ const ProjectImage = () => {
 
           })
       }
-      console.log(list)
       downloadExcel(list, "list_images.xlsx")
   }
+  const fetchSearchCondition=async () => {
+        try {
+            let response = await api.post("/myproject/myproject/search",{type:"이미지"})
+            let list=[{label: "전체",value: null}]
+            let style=response.data.data.style
+            for(const e of style){
+                list.push({label: e[0],value: e[0]})
+            }
+            setStyleOptions(list)
 
+            list=[{label: "전체",value: null}]
+            let purpose=response.data.data.purpose
+            for(const e of purpose){
+                list.push({label: e[0],value: e[0]})
+            }
+            setOptions(list)
+
+            list=[{label: "전체",value: null}]
+            let tone=response.data.data.tone
+            for(const e of tone){
+                list.push({label: e[0],value: e[0]})
+            }
+            setBrandtonsOptions(list)
+        }catch (error){
+            console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+            return false;
+        }
+
+    }
   useEffect(() => {
+      fetchSearchCondition()
       let today= new Date();
       today.setHours(0+9)
       today.setMinutes(0)
@@ -368,12 +389,10 @@ const ProjectImage = () => {
    // setGridCount(grid_data.length);
   },[])
   const singeDownload=()=>{
-      console.log(rowData)
       let url_list=[]
       for(const da of rowData.generateImgPreview.imgList){
           url_list.push(da.img)
       }
-      console.log(url_list)
       if(url_list.length===1){
           downloadSingleImage(url_list[0])
       }else {

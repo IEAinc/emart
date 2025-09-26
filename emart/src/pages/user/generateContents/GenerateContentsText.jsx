@@ -20,7 +20,6 @@ const GenerateContentsText = () => {
   // TextGeneratorSetting에서 전달된 값 업데이트
   const handleSettingsChange = (key, value) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
-    console.log('설정 업데이트:', key, value);
   };
 
   // TextGeneratorPrompt에서 전달된 텍스트 추가
@@ -46,7 +45,6 @@ const GenerateContentsText = () => {
       setIsGen(false)
       return false;
     }
-    console.log(response.data.text_list[0].text)
     let result_list=[]
       for (let step = 0; step < response.data.text_list.length; step++) {
           let result=response.data.text_list[step].text
@@ -60,7 +58,6 @@ const GenerateContentsText = () => {
 
     setAllTexts((prev) => {
       const updated = [...prev, ...result_list];
-      console.log('전체 텍스트 배열:', updated);
       setIsGen(false)
       return updated;
     });
@@ -68,7 +65,6 @@ const GenerateContentsText = () => {
   
   /* 다운로드 */
   const handleDownload = () => {
-    console.log('텍스트 다운로드');
   }
   return (
     <div className="generator-content-wrap">

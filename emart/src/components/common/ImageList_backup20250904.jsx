@@ -11,7 +11,6 @@ const ImageList = ({isGenerate = true}) => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    console.log(`페이지가 ${newPage}로 변경되었습니다.`);
   };
 
   // 현재 페이지에 보여줄 4개의 이미지

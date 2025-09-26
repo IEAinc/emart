@@ -28,31 +28,25 @@ const ProjectVideo = () => {
   const [dateRange, setDateRange] = useState([null,null]);
 
   /* 목적 */
-  const options = [
+  const [options,setOptions] = useState([
     { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+  ]);
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const handleChange = (option) => {
     setSelectedOption(option);
   }
   /* 스타일 */
-  const styleOptions = [
+  const [styleOptions,setStyleOptions] =useState([
     { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+  ]);
   const [selectedStyleOption, setSelectedStyleOption] = useState(styleOptions[0]);
   const handleStyleChange = (option) => {
     setSelectedStyleOption(option);
   }
   /* 브랜드톤 */
-  const brandtonsOptions = [
+  const [brandtonsOptions,setBrandtonsOptions] = useState([
     { label: '전체', value: null },
-    { label: '전체 2', value: 'option2' },
-    { label: '전체 3', value: 'option3' }
-  ];
+  ]);
   const [selectedBrandtonOption, setSelectedBrandtonOption] = useState(brandtonsOptions[0]);
   const handleBrandtonChange = (option) => {
     setSelectedBrandtonOption(option);
@@ -77,7 +71,6 @@ const ProjectVideo = () => {
   /* 미리보기 버튼 preview */
   const [rowData, setRowData] = useState(null);
   const handleOpenPreview = (data) => {
-    console.log('data',data);
     setModalOpen(true);
     setRowData(data);
   }
@@ -156,7 +149,6 @@ const ProjectVideo = () => {
         before_week.setMinutes(0)
         before_week.setSeconds(0)
         before_week.setDate(before_week.getDate()-7)
-        console.log([before_week,today])
         setDateRange([before_week,today])
         setContents("")
         setSelectedBrandtonOption(brandtonsOptions[0])
@@ -170,17 +162,24 @@ const ProjectVideo = () => {
         } else {
             data = gridData
         }
+        let list=[]
+        for (const da of data){
+            let list_data={
+                "생성한 동영상(미리보기)":da.generateVideoPreview.imgList[0].img,
+                "동영상 링크":da.generateVideoPreview.imgList[0].video,
+                "제품이미지":da.productImg.imgList[0].img,
+                "사용자 입력":da.userInput,
+                "스타일":da.style,
+                "브랜드톤":da.brandton,
+                "생성일시":da.createdDate,
+            }
+            list.push(list_data)
+        }
 
 
-        downloadExcel(data, "list_images.xlsx")
+        downloadExcel(list, "list_images.xlsx")
     }
   const handleSearchChange = () => {
-        console.log("jdd")
-          console.log('기간',dateRange);
-          console.log('목적',selectedOption);
-          console.log('스타일',selectedStyleOption);
-          console.log('브랜드톤',selectedBrandtonOption);
-          console.log('내용검색',selectedBrandtonOption);
         let data={
             style:selectedStyleOption.value,
             tone:selectedBrandtonOption.value,
@@ -192,7 +191,37 @@ const ProjectVideo = () => {
         }
         searchData(data)
     };
+  const fetchSearchCondition=async () => {
+      try {
+          let response = await api.post("/myproject/myproject/search",{type:"영상"})
+          let list=[{label: "전체",value: null}]
+          let style=response.data.data.style
+          for(const e of style){
+              list.push({label: e[0],value: e[0]})
+          }
+          setStyleOptions(list)
+
+          list=[{label: "전체",value: null}]
+          let purpose=response.data.data.purpose
+          for(const e of purpose){
+              list.push({label: e[0],value: e[0]})
+          }
+          setOptions(list)
+
+          list=[{label: "전체",value: null}]
+          let tone=response.data.data.tone
+          for(const e of tone){
+              list.push({label: e[0],value: e[0]})
+          }
+          setBrandtonsOptions(list)
+      }catch (error){
+          console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+          return false;
+      }
+
+  }
   useEffect(() => {
+      fetchSearchCondition()
       let today= new Date();
       today.setHours(0+9)
       today.setMinutes(0)

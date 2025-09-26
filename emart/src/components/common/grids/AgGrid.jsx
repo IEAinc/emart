@@ -17,7 +17,6 @@ import {api, errorHandler} from "../../../util/axios.jsx";
 
 
 const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props}) => {
-  console.log(props)
   const gridRef = useRef(null);
   const [gridApi, setGridApi] = useState(null);
   const axios_api=api;
