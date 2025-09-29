@@ -193,26 +193,36 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props
             setGridApi(params.api);
 
             if (props.isCheckboxMode) {
-              const checkboxColumn = params.columnApi.getAllColumns().find(col => col.getColDef()?.checkboxSelection);
+              const checkboxColumn = params.columnApi.getAllColumns().find(
+                col => col.getColDef()?.checkboxSelection
+              );
               if (checkboxColumn) {
                 params.columnApi.setColumnWidth(checkboxColumn.getId(), 50);
+
+                // 폭 강제 고정 옵션 추가
+                checkboxColumn.getColDef().suppressSizeToFit = true;
+                checkboxColumn.getColDef().minWidth = 50;
+                checkboxColumn.getColDef().maxWidth = 50;
+
                 params.columnApi.setColumnPinned(checkboxColumn.getId(), 'left');
               }
             }
 
-            // 나머지 컬럼 자동 조정
-            const allColumns = params.columnApi.getAllColumns();
-            const autoSizeColumnIds = allColumns
+// 나머지 컬럼만 autoSize 적용
+            const autoSizeColumnIds = params.columnApi
+              .getAllColumns()
               .filter(col => !col.getColDef()?.checkboxSelection)
               .map(col => col.getId());
 
             params.columnApi.autoSizeColumns(autoSizeColumnIds);
+
           }}
 
           onFirstDataRendered={(params) => {
             if (!params.columnApi) return; // 안전 체크
 
             const allColumns = params.columnApi.getAllColumns();
+
             const autoSizeColumnIds = allColumns
               .filter(col => !col.getColDef()?.checkboxSelection)
               .map(col => col.getId());
@@ -221,9 +231,14 @@ const AgGrid = ({rowHeight,autoHeight,handleRowGridClick,exportToExcel, ...props
           }}
 
           onGridSizeChanged={(params) => {
-            setTimeout(function() {
-              params.api.sizeColumnsToFit(); // 컨테이너 크기 변경 시 컬럼 크기 재조정
-            },0);
+            setTimeout(() => {
+              const autoSizeColumnIds = params.columnApi
+                .getAllColumns()
+                .filter(col => !col.getColDef()?.checkboxSelection)
+                .map(col => col.getId());
+
+              params.columnApi.autoSizeColumns(autoSizeColumnIds);
+            }, 10);
           }}
         />
       </div>
