@@ -401,7 +401,7 @@ const ProjectImage = () => {
   }
   return (
     <div className="page-wrap">
-      <div className="tabs-title-wrap">
+      <div className="tabs-title-wrap row">
         <h3>마케팅 이미지 생성물</h3>
         <p>생성된 마케팅 이미지를 확인하고 관리하세요.</p>
       </div>
@@ -443,7 +443,7 @@ const ProjectImage = () => {
               <Input
                 labelName="내용검색"
                 value={contents}
-                placeholder={'생성된 마케팅 문구 내용 검색'}
+                placeholder={'마케팅 이미지 생성 내용 검색'}
                 className="row"
                 onChange={handleContentsChange}
               />
