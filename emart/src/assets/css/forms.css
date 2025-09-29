@@ -207,6 +207,7 @@
 .ag-ltr .ag-cell.no-ellipsis{}
 .ag-ltr .ag-cell.flex-center{display:flex;align-items:center;justify-content:center;}
 .ag-ltr .ag-cell.custom-checkbox .ag-cell-wrapper {width: 100%;}
+.ag-cell-wrapper {height: 100%;}
 .ag-ltr .ag-cell.text-center{justify-content: center;text-align: center;}
 .ag-row:nth-child(odd), .ag-row:nth-child(even) {background-color: var(--color-white) !important; /* 모든 행을 동일한 색으로 설정 */}
 /* 셀 체크박스 중앙 정렬 */
