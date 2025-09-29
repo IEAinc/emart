@@ -213,7 +213,7 @@
 .ag-center-checkbox-header {display: flex;align-items: center;justify-content: center;}
 .center-header-checkbox .ag-header-cell-comp-wrapper {display: none!important;align-items: center;justify-content: center;}
 .ag-header-cell.ag-center-checkbox-header {padding: 0 !important;}
-.ag-header-cell-comp-wrapper {display: none!important;}
+.ag-checkbox + .ag-header-cell-comp-wrapper {display: none!important;}
 .ag-header-cell.ag-center-checkbox-header .ag-header-select-all {margin: 0 auto;display: flex;align-items: center;justify-content: center;}
 .ag-ltr .ag-header-select-all{width: 100%!important;justify-content:center;margin-right:0!important;}
 .ag-selection-checkbox {width: 100%;justify-content:center;}
