@@ -207,16 +207,25 @@ const ProjectText = () => {
               list.push({
                   "No":count,
                   "생성한 문구":el.output,
+                  "사용자 입력":e.userInput,
                   "목적":e.purpose,
                   "스타일":e.style,
                   "브랜드톤":e.brandton,
                   "생성일시":e.createdDate,
-                  "모델":e.modelName
               })
 
          })
       }
-      downloadExcel(list,"list_text.xlsx")
+      let cell_size={
+          "No":{ width: 5, height: 75},
+          "생성한 문구":{ width: 50, height: 75},
+          "사용자 입력":{ width: 50, height: 75},
+          "목적":{ width: 15, height: 75},
+          "스타일":{ width: 15, height: 75},
+          "브랜드톤":{ width: 15, height: 75},
+          "생성일시":{ width: 20, height: 75},
+      }
+      downloadExcel(list,"list_text.xlsx",cell_size)
   }
   const fetchSearchCondition=async () => {
         try {
@@ -377,7 +386,7 @@ const ProjectText = () => {
               <Input
                 labelName="내용검색"
                 value={contents}
-                placeholder={'생성된 마케팅 문구 내용 검색'}
+                placeholder={'생성한 문구 또는 문구 생성을 위한 사용자 입력 키워드를 검색합니다.'}
                 className="row"
                 onChange={handleContentsChange}
               />

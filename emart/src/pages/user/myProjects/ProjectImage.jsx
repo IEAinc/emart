@@ -218,7 +218,17 @@ const ProjectImage = () => {
 
           })
       }
-      downloadExcel(list, "list_images.xlsx")
+      let cell_size={
+          "No": { width: 5, height: 75},
+          "생성된 이미지(미리보기)": { width: 20, height: 75},
+          "제품 이미지": { width: 20, height: 75},
+          "사용자입력": { width: 50, height: 75},
+          "스타일": { width: 15, height: 75},
+          "브랜드톤":{ width: 15, height: 75},
+          "생성일시": { width: 20, height: 75}
+
+      }
+      downloadExcel(list, "list_image.xlsx",cell_size)
   }
   const fetchSearchCondition=async () => {
         try {
@@ -415,14 +425,6 @@ const ProjectImage = () => {
                 setDateRange={setDateRange}
               />
               <Select
-                label="목적"
-                value={selectedOption}
-                onChange={handleChange}
-                options={options}
-                openDirection="bottom"
-                colVer={false}
-              />
-              <Select
                 label="스타일"
                 value={selectedStyleOption}
                 onChange={handleStyleChange}
@@ -443,7 +445,7 @@ const ProjectImage = () => {
               <Input
                 labelName="내용검색"
                 value={contents}
-                placeholder={'마케팅 이미지 생성 내용 검색'}
+                placeholder={'이미지 생성을 위한 사용자 입력 키워드를 검색합니다.'}
                 className="row"
                 onChange={handleContentsChange}
               />

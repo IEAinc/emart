@@ -163,8 +163,11 @@ const ProjectVideo = () => {
             data = gridData
         }
         let list=[]
+        let count=0;
         for (const da of data){
+            count++
             let list_data={
+                "No":count,
                 "생성한 동영상(미리보기)":da.generateVideoPreview.imgList[0].img,
                 "동영상 링크":da.generateVideoPreview.imgList[0].video,
                 "제품이미지":da.productImg.imgList[0].img,
@@ -175,9 +178,21 @@ const ProjectVideo = () => {
             }
             list.push(list_data)
         }
+        let cell_size= {
+            "No": { width: 5, height: 75},
+            "생성한 동영상(미리보기)": { width: 20, height: 75},
+            "동영상 링크": { width: 12, height: 75},
+            "제품이미지": { width: 20, height: 75},
+            "사용자 입력": { width: 50, height: 75},
+            "스타일": { width: 15, height: 75},
+            "브랜드톤":{ width: 15, height: 75},
+            "생성일시": { width: 20, height: 75},
+        }
 
 
-        downloadExcel(list, "list_images.xlsx")
+
+
+        downloadExcel(list, "list_video.xlsx",cell_size)
     }
   const handleSearchChange = () => {
         let data={
@@ -367,14 +382,6 @@ const ProjectVideo = () => {
                 setDateRange={setDateRange}
               />
               <Select
-                label="목적"
-                value={selectedOption}
-                onChange={handleChange}
-                options={options}
-                openDirection="bottom"
-                colVer={false}
-              />
-              <Select
                 label="스타일"
                 value={selectedStyleOption}
                 onChange={handleStyleChange}
@@ -395,7 +402,7 @@ const ProjectVideo = () => {
               <Input
                 labelName="내용검색"
                 value={contents}
-                placeholder={'마케팅 동영상 생성 내용 검색'}
+                placeholder={'동영상 생성을 위한 사용자 입력 키워드를 검색합니다.'}
                 className="row"
                 onChange={handleContentsChange}
               />

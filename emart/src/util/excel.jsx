@@ -4,10 +4,17 @@ import JSZip from 'jszip';
 // 엑셀 관련
 async function urlToBase64(url) {
     let count=0
-    while (count<5){
+    while (count<50){
         count++
         try {
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors', // 'no-cors'로 시도해볼 수도 있음
+                cache: 'no-cache',
+                headers: {
+                    'Accept': 'image/*'
+                }
+            });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -33,7 +40,7 @@ function getImageExtension(url) {
 }
 
 // 엑셀 파일 생성 함수
-async function createExcelWithImages(data) {
+async function createExcelWithImages(data, cellSizes = {}) {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('데이터');
 
@@ -102,6 +109,7 @@ async function createExcelWithImages(data) {
             };
         }
 
+
         // 이미지 처리
         if (imagePromises.length > 0) {
             const images = await Promise.all(imagePromises);
@@ -138,9 +146,46 @@ async function createExcelWithImages(data) {
         currentRow++;
     }
 
-    // 컬럼 너비 자동 조정
-    worksheet.columns.forEach(column => {
-        if (!column.width) {
+    // 헤더별 셀 크기 설정 및 줄바꿈 처리 적용
+    headers.forEach((header, index) => {
+        const colIndex = index + 1;
+
+        // cellSizes에서 해당 헤더의 설정 가져오기
+        if (cellSizes[header]) {
+            const { width, height } = cellSizes[header];
+
+            // 컬럼 너비 설정
+            if (width !== undefined) {
+                worksheet.getColumn(colIndex).width = width;
+            }
+
+            // 행 높이 설정 (헤더 행 제외하고 데이터 행에만 적용)
+            if (height !== undefined) {
+                for (let rowIndex = 2; rowIndex <= worksheet.rowCount; rowIndex++) {
+                    const currentHeight = worksheet.getRow(rowIndex).height || 15;
+                    worksheet.getRow(rowIndex).height = Math.max(currentHeight, height);
+                }
+            }
+        }
+
+        // 해당 컬럼의 모든 데이터 행에서 줄바꿈 처리
+        for (let rowIndex = 2; rowIndex <= worksheet.rowCount; rowIndex++) {
+            const cell = worksheet.getCell(rowIndex, colIndex);
+            const value = cell.value;
+
+            if (typeof value === 'string'|| typeof value === 'number') {
+                cell.alignment = {
+                    wrapText: true,
+                    vertical: 'top'
+                };
+            }
+        }
+    });
+
+    // 컬럼 너비 자동 조정 (cellSizes에 설정되지 않은 컬럼만)
+    worksheet.columns.forEach((column, index) => {
+        const header = headers[index];
+        if (!column.width && (!cellSizes[header] || cellSizes[header].width === undefined)) {
             let maxLength = 0;
             column.eachCell({ includeEmpty: true }, cell => {
                 const columnLength = cell.value ? cell.value.toString().length : 0;
@@ -156,11 +201,11 @@ async function createExcelWithImages(data) {
 }
 
 // 엑셀 파일 다운로드 함수
-export async function downloadExcel(data, filename = 'data_with_images.xlsx') {
+export async function downloadExcel(data, filename = 'data_with_images.xlsx', cellSizes = {}) {
     try {
 
 
-        const workbook = await createExcelWithImages(data);
+        const workbook = await createExcelWithImages(data, cellSizes);
 
         const buffer = await workbook.xlsx.writeBuffer();
         const blob = new Blob([buffer], {
