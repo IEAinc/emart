@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate,BrowserRouter } from 'react-router-dom';
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import BodyClassController from "./components/BodyClassController.jsx";
 
 // 페이지 모음
@@ -19,6 +19,8 @@ import GenerateContentsImage from './pages/user/generateContents/GenerateContent
 import GenerateContentsVideo from './pages/user/generateContents/GenerateContentsVideo.jsx'; // 마케팅 동영상 생성
 // 콘텐츠 편집 (2)
 import EditContentsImage from './pages/user/editContents/EditContentsImage.jsx'; // 이미지 편집기
+import EditContentsVideo from './pages/user/editContents/EditContentsVideo.jsx'; // 동영상 편집기
+
 // 내 프로젝트
 import ProjectText from './pages/user/myProjects/ProjectText.jsx'
 import ProjectImage from './pages/user/myProjects/ProjectImage.jsx'
@@ -34,7 +36,7 @@ function App() {
     {
       title: 'IGen 운영관리',
       path: '/iGenManagement',
-      icon: { default: '', active: ''},
+      icon: { default: '', active: '' },
       disabled: true
     },
     {
@@ -42,9 +44,9 @@ function App() {
       path: '/modelManagement',
       icon: { default: '', active: '' },
       subMenu: [
-        { title: '생성형 문구 모델 관리', path: '/modelManagement/aiTextManagement/view'},
+        { title: '생성형 문구 모델 관리', path: '/modelManagement/aiTextManagement/view' },
         { title: '생성형 이미지 모델 관리', path: '/modelManagement/aiImageManagement/view' },
-        { title: '생성형 동영상 모델 관리', path: '/modelManagement/aiVideoManagement/view'},
+        { title: '생성형 동영상 모델 관리', path: '/modelManagement/aiVideoManagement/view' },
       ],
     },
   ];
@@ -70,8 +72,9 @@ function App() {
       path: '/editContents',
       icon: { default: '', active: '' },
       subMenu: [
+        { title: '이미지 편집기', path: '/editContents/editContentsImage' },
         { title: '이미지 편집기', path: '/editContents/editContentsImage' ,disabled: true },
-        { title: '영상 편집기', path: '/editContents/2',disabled: true },
+        { title: '영상 편집기', path: '/editContents/EditContentsVideo' },
       ],
     },
     {
@@ -79,9 +82,9 @@ function App() {
       path: '/myProjects',
       icon: { default: '', active: '' },
       subMenu: [
-        { title: '마케팅 문구 생성물', path: '/myProjects/textProjects'},
-        { title: '마케팅 이미지 생성물', path: '/myProjects/imageProjects'},
-        { title: '마케팅 동영상 생성물', path: '/myProjects/videoProjects'},
+        { title: '마케팅 문구 생성물', path: '/myProjects/textProjects' },
+        { title: '마케팅 이미지 생성물', path: '/myProjects/imageProjects' },
+        { title: '마케팅 동영상 생성물', path: '/myProjects/videoProjects' },
       ],
     },
   ];
@@ -114,8 +117,8 @@ function App() {
 
             {/* 동영상 모델 */}
             <Route path="aiVideoManagement" element={<Navigate to="view" replace />} />
-            <Route path="aiVideoManagement/view" element={<ModelVideoManagement/>} />
-            <Route path="aiVideoManagement/learning" element={<ModelVideoManagement/>} />
+            <Route path="aiVideoManagement/view" element={<ModelVideoManagement />} />
+            <Route path="aiVideoManagement/learning" element={<ModelVideoManagement />} />
           </Route>
 
           {/* --------------- 사용자 페이지  ---------------*/}
@@ -129,6 +132,7 @@ function App() {
           {/* 콘텐츠 편집 */}
           <Route path="editContents">
             <Route path="editContentsImage" element={<EditContentsImage />} />{/* 콘텐츠 편집 > 이미지 편집기 */}
+            <Route path="editContentsVideo" element={<EditContentsVideo />} />{/* 콘텐츠 편집 > 동영상 편집기 */}
           </Route>
           {/* 내 프로젝트 */}
           <Route path="myProjects">
