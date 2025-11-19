@@ -72,8 +72,8 @@ function App() {
       path: '/editContents',
       icon: { default: '', active: '' },
       subMenu: [
-        { title: '이미지 편집기', path: '/editContents/editContentsImage' },
-        { title: '이미지 편집기', path: '/editContents/editContentsImage' ,disabled: true },
+        // { title: '이미지 편집기', path: '/editContents/editContentsImage' },
+        // { title: '이미지 편집기', path: '/editContents/editContentsImage' ,disabled: true },
         { title: '영상 편집기', path: '/editContents/EditContentsVideo' },
       ],
     },
