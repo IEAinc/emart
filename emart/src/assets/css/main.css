@@ -422,7 +422,7 @@ header h1 { width:150px; }
 .preview-box { background-color: var(--color-gray-800); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; box-sizing: border-box; } 
 
 /* 동영상 업로드 패널 */
-.upload-section { flex: 1; min-height: 200px; min-width: 200px; overflow-x: hidden; align-items: center; justify-content: center; gap: 12px; border: 2px dashed var(--color-border3); background-color: transparent; color: var(--color-gray3); } 
+.upload-section { height: 200px; min-height: 200px; min-width: 200px; overflow-x: hidden; align-items: center; justify-content: center; gap: 12px; border: 2px dashed var(--color-border3); background-color: transparent; color: var(--color-gray3); } 
 .work-guide-section { flex-shrink: 0; padding: 15px; border-radius: 8px; } 
 .video-img { display:inline-flex; font-size:15px; font-weight:var(--fw-semibold); color:var(--color-white); padding-top:74px; background:url('../../assets/images/icon/ico_video.svg') center top no-repeat; background-size:62px; margin-bottom:0px; } 
 .video-img.alone { text-indent: -9999px; font-size: 0; line-height: 0; color: transparent; width:62px; height:62px; padding-top:0; background-position: center; } 
@@ -431,7 +431,7 @@ header h1 { width:150px; }
 .video-upload-btn:hover { background-color:var(--color-primary-hover); color:var(--color-black); } 
 
 /* 미리보기 패널 */
-.preview-box { flex-grow: 0; flex-shrink: 0; flex-basis: 62%; min-height: 200px; align-items: center; justify-content: center; position: relative; padding: 0; overflow: hidden; } 
+.preview-box { height: 200px; min-height: 200px; align-items: center; justify-content: center; position: relative; padding: 0; overflow: hidden; } 
 .preview-box video { width: 100%; height: 100%; object-fit: contain; } 
 .merge-guide-section { flex-shrink: 0; padding: 15px; } 
 
