@@ -37,6 +37,7 @@
     --color-gray9: #313131;
     --color-gray10: #C2C2C2;
     --color-gray11: #444444;
+    --color-gray12: #595959;
 
     /* input select창 border */
     --input-border-color:#EFEFEF; /* --color-border5  일치 */
@@ -64,6 +65,4 @@
     --color-bg: #F2F2F2;
     --color-bg-light:#FAFAFA;
     --color-stroke: #EFEFEF;
-
-
 }
