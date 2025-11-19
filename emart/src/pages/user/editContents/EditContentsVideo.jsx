@@ -15,7 +15,6 @@ import Loading from "../../../components/edit/internal/Loading.jsx";
 import {api, errorHandler} from "../../../util/axios.jsx";
 // metadata : 비디오 길이(duration) / 1초 시점의 썸네일(thumbnail) 추출
 const getVideoMetadata = (file) => {
-    console.log(file.type);
 
     return new Promise((resolve, reject) => {
         const video = document.createElement("video");
@@ -67,6 +66,7 @@ const getVideoMetadata = (file) => {
         };
 
         video.onerror = () => {
+            alert("파일 확장자 또는 인코딩을 확인해주세요")
             console.log("VIDEO ERROR", video.error);
         };
 
@@ -127,19 +127,16 @@ const EditContentsVideo = () => {
 
      if (isLoading) return;
      setIsLoading(true);
-     console.log('병합할 클립 순서 확인:', clips);
      let files=[]
       const formData = new FormData();
       clips.forEach(e=>{
           formData.append('files', e.file);
       })
-      console.log(files)
       let response=null;
       try {
           response = await api.post("/VIDEO/video/concatenate", formData, {headers: {
                   "Content-Type": "multipart/form-data", // 생략해도 됨
               }, responseType: 'blob'})
-          console.log(response)
           const blob = await response.data;
           setPreviewVideoUrl(URL.createObjectURL(blob))
           setIsLoading(false);
