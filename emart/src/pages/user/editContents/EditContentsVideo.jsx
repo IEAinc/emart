@@ -12,50 +12,65 @@ import VideoPreviewPanel from '../../../components/edit/VideoPreviewPanel.jsx'; 
 import VideoTimelinePanel from '../../../components/edit/VideoTimelinePanel.jsx'; // 3. 타임라인
 import EditorFooter from '../../../components/edit/EditorFooter.jsx'; // 4. 하단 버튼
 import Loading from "../../../components/edit/internal/Loading.jsx";
-
+import {api, errorHandler} from "../../../util/axios.jsx";
 // metadata : 비디오 길이(duration) / 1초 시점의 썸네일(thumbnail) 추출
 const getVideoMetadata = (file) => {
-  return new Promise((resolve, reject) => {
-    const video = document.createElement('video');
-    const canvas = document.createElement('canvas');
-    video.preload = 'metadata';
+    console.log(file.type);
 
-    let duration = 0;
+    return new Promise((resolve, reject) => {
+        const video = document.createElement("video");
+        const canvas = document.createElement("canvas");
+        const url = URL.createObjectURL(file);
 
-    video.onloadedmetadata = () => { // 메타데이터 로드
-      duration = isFinite(video.duration) ? video.duration : 0; // 영상 길이
-      video.currentTime = 0.1; // 0.1초로 이동
-    };
+        video.preload = "metadata";
+        video.src = url;
 
-    video.onseeked = () => { // 썸네일
-      try {
-        if (video.videoWidth === 0) {
-          URL.revokeObjectURL(video.src);
-          resolve({ duration, thumbnail: null });
-          return;
-        }
+        video.onloadedmetadata = () => {
+            const duration = isFinite(video.duration) ? video.duration : 0;
 
-        const ctx = canvas.getContext('2d');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const thumbnail = canvas.toDataURL('image/jpeg', 0.8);
+            // 메타데이터는 있음 → seek 가능한지 확인
+            if (video.readyState < 1) {
+                // HAVE_METADATA
+                reject(new Error("Video metadata loaded but video is not ready for seeking."));
+                URL.revokeObjectURL(url);
+                return;
+            }
 
-        URL.revokeObjectURL(video.src);
-        resolve({ duration, thumbnail });
+            // 너무 0초면 seeking 오류 → 0이 아닌 최소값
+            video.currentTime = Math.min(0.1, Math.max(0.01, duration / 20));
+        };
 
-      } catch (e) {
-        reject(e);
-      }
-    };
+        video.onseeked = () => {
+            try {
+                if (!video.videoWidth) {
+                    URL.revokeObjectURL(url);
+                    resolve({ duration: video.duration, thumbnail: null });
+                    return;
+                }
 
-    video.onerror = (err) => {
-      URL.revokeObjectURL(video.src);
-      reject(err);
-    };
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext("2d").drawImage(video, 0, 0);
 
-    video.src = URL.createObjectURL(file);
-  });
+                const thumbnail = canvas.toDataURL("image/jpeg", 0.8);
+                URL.revokeObjectURL(url);
+
+                resolve({
+                    duration: video.duration,
+                    thumbnail,
+                });
+
+            } catch (err) {
+                URL.revokeObjectURL(url);
+                reject(err);
+            }
+        };
+
+        video.onerror = () => {
+            console.log("VIDEO ERROR", video.error);
+        };
+
+    });
 };
 
 const EditContentsVideo = () => {
@@ -109,9 +124,30 @@ const EditContentsVideo = () => {
 
   // 영상 병합
   const handleMerge = async () => {
-    if (isLoading) return;
-    setIsLoading(true);
-    //console.log('병합할 클립 순서 확인:', clips.map(clip => clip.id));
+
+     if (isLoading) return;
+     setIsLoading(true);
+     console.log('병합할 클립 순서 확인:', clips);
+     let files=[]
+      const formData = new FormData();
+      clips.forEach(e=>{
+          formData.append('files', e.file);
+      })
+      console.log(files)
+      let response=null;
+      try {
+          response = await api.post("/VIDEO/video/concatenate", formData, {headers: {
+                  "Content-Type": "multipart/form-data", // 생략해도 됨
+              }, responseType: 'blob'})
+          console.log(response)
+          const blob = await response.data;
+          setPreviewVideoUrl(URL.createObjectURL(blob))
+          setIsLoading(false);
+      } catch (error) {
+          setIsLoading(false);
+          console.error('사용자 목록 조회 실패:', errorHandler.handleError(error));
+
+      }
 
     // ------ (서버 API 호출 로직) 참고용 임시로직 ------ clips 데이터-> formData
     // const formData = new FormData();
@@ -129,10 +165,6 @@ const EditContentsVideo = () => {
     // }
     // -----------------------------------------------
 
-    setTimeout(() => {
-      setPreviewVideoUrl(clips[0]?.url || null);// 첫 번째 클립-> 미리보기 URL으로 설정
-      setIsLoading(false);
-    }, 1500);
   };
 
   // 영상 다운로드
