@@ -13,8 +13,11 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
     { label: 'FAST모드', value: 'FAST모드' },
   ];
   const styleOptions = [
-    { label: '실사 스타일', value: '실사 스타일' },
+    { label: '실사 스타일', value: '01' },
+    { label: '일러스트 스타일', value: '02' },
+    { label: '팝아트 스타일', value: '03' },
   ];
+
   const brandOptions = [
     { label: '모던하고 심플한', value: '모던하고 심플한' },
   ];
@@ -67,7 +70,7 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('style', option)}
             options={styleOptions}
             openDirection="bottom"
-            disabled
+
           />
           <Select
             label="브랜드 톤"

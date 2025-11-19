@@ -34,7 +34,7 @@ const GenerateContentsImage = () => {
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0' },
     generateMode: { label: '표준', value: '표준' },
-    style: { label: '실사 스타일', value: '실사 스타일' },
+    style: { label: '실사 스타일', value: '01' },
     brand: { label: '모던하고 심플한', value: '모던하고 심플한'},
     ratio: { label: '1:1', value: '1:1' },
     resolution: { label: '512*512', value: '512*512' }, // 해상도 기본값
