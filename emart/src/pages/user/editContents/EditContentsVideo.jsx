@@ -136,8 +136,10 @@ const EditContentsVideo = () => {
       try {
           response = await api.post("/VIDEO/video/concatenate", formData, {headers: {
                   "Content-Type": "multipart/form-data", // 생략해도 됨
-              }, responseType: 'blob'})
+              }, responseType: 'blob',timeout: 1800000})
           const blob = await response.data;
+          console.log("blot"+blob)
+          console.log("URL.createObjectURL(blob)"+URL.createObjectURL(blob))
           setPreviewVideoUrl(URL.createObjectURL(blob))
           setIsLoading(false);
       } catch (error) {
