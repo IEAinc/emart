@@ -28,7 +28,6 @@ const GenerateContentsText = () => {
       if(isGen)return;
     let data = {
       "model": settings.model.value,
-      "mode": "standard",
       "style": settings.style.value,
       "tone": settings.brand.value,
       "count": Number(settings.textLength.value),

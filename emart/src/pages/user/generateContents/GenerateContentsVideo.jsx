@@ -19,10 +19,9 @@ const GenerateContentsVideo = () => {
   ]); // 전체 이미지
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0' },
-    generateMode: { label: '표준', value: '표준' },
     style: { label: '실사 스타일', value: '실사 스타일'},
     brand: { label: '모던하고 심플한', value: '모던하고 심플한' },
-    ratio:     { label: '9:16', value: '9:16', icon: <Radio2 /> },
+    ratio:      { label: '9:16', value: '9:16', icon: <Radio2 /> },
     resolution: { label: '512*512', value: '512*512' }, // 해상도 기본값
     imageCount: { label: '5초', value: '1' },
   });
@@ -43,7 +42,6 @@ const GenerateContentsVideo = () => {
 
     let data = {
       "model": settings.model.value,
-      "mode": settings.generateMode.value,
       "style": settings.style.value,
       "tone": settings.brand.value,
       "ratio": settings.ratio.value,

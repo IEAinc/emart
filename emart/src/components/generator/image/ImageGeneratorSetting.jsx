@@ -8,16 +8,11 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
   const modelOptions = [
     { label: 'v.1.0', value: 'v.1.0' }
   ];
-  const generateRadioTabList = [
-    { label: '표준', value: '표준' },
-    { label: 'FAST모드', value: 'FAST모드' },
-  ];
   const styleOptions = [
-    { label: '실사 스타일', value: '01' },
-    { label: '일러스트 스타일', value: '02' },
-    { label: '팝아트 스타일', value: '03' },
+    { label: '실사 스타일', value: '실사 스타일' },
+    { label: '일러스트 스타일', value: '일러스트 스타일' },
+    { label: '팝아트 스타일', value: '팝아트 스타일' },
   ];
-
   const brandOptions = [
     { label: '모던하고 심플한', value: '모던하고 심플한' },
   ];
@@ -29,11 +24,11 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
     { label: '9:16', value: '9:16', icon: <Radio2 /> },
     { label: '4:3', value:'4:3', icon: <Radio3 /> },
   ];
-  const tabList2 = [
-    { label: '1', value: '1' },
-    { label: '2', value: '2' },
-    { label: '3', value: '3' },
-    { label: '4', value: '4' },
+  const itemCount = [
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
   ];
 
   return (
@@ -49,20 +44,17 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('model', option)}
             options={modelOptions}
             openDirection="bottom"
-            disabled
           />
         </div>
 
         <div className="list-box">
-          <div className="list-title-wrap">
-            <p className="list-tit">생성모드</p>
-          </div>
-          <TabRadioGroup
-            items={generateRadioTabList}
-            name="generate-radio"
-            value={settings.generateMode}
-            onChange={(value) => onChange('generateMode', value)}
-            disabled
+          <Select
+              label="이미지 수"
+              options={itemCount}
+              openDirection="bottom"
+              name="select2"
+              value={settings.imageCount}
+              onChange={(value) => onChange('imageCount', value)}
           />
           <Select
             label="스타일"
@@ -70,7 +62,6 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('style', option)}
             options={styleOptions}
             openDirection="bottom"
-
           />
           <Select
             label="브랜드 톤"
@@ -78,7 +69,6 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('brand', option)}
             options={brandOptions}
             openDirection="bottom"
-            disabled
           />
         </div>
 
@@ -93,7 +83,6 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
             name="generate-radios"
             value={settings.ratio}
             onChange={(value) => onChange('ratio', value)}
-            disabled
           />
           <Select
             label="해상도"
@@ -101,18 +90,6 @@ const ImageGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('resolution', option)}
             options={resolutionOptions}
             openDirection="bottom"
-            disabled
-          />
-          {/* 이미지 수 */}
-          <div className="list-title-wrap">
-            <p className="list-tit">이미지 수</p>
-          </div>
-          <TabRadioGroup
-            items={tabList2}
-            name="select2"
-            value={settings.imageCount}
-            onChange={(value) => onChange('imageCount', value)}
-            disabled
           />
         </div>
       </div>
