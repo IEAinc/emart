@@ -5,16 +5,23 @@ const TextGeneratorSetting = ({ settings, onChange }) => {
     { label: 'v.1.0', value: 'v.1.0' }
   ];
   const textLengthOptions = [
-    { label: 1, value: 1},
+      { label: 1, value: 1},
+      { label: 2, value: 2},
+      { label: 3, value: 3},
+      { label: 4, value: 4}
   ];
   const styleOptions = [
-    { label: '트랜디/밈 스타일', value: '트랜디/밈 스타일'},
+      { label: '트랜디/밈 스타일', value: '트랜디/밈 스타일'},
   ];
   const purposeOptions = [
-    { label: '신제품 소개', value: '신제품 소개' },
+      { label: '신제품 소개', value: '신제품 소개' },
   ];
   const brandOptions = [
-    { label: '모던하고 심플한', value: '모던하고 심플한'},
+      { label: '따뜻하고 감성적인', value: '따뜻하고 감성적인'},
+      { label: '모던하고 심플한', value: '모던하고 심플한'},
+      { label: '경쾌하고 발랄한', value: '경쾌하고 발랄한'},
+      { label: '프리미엄 & 고급스러운', value: '프리미엄 & 고급스러운'},
+      { label: '강렬하고 에너지 있는', value: '강렬하고 에너지 있는'},
   ];
 
   return (
@@ -30,7 +37,6 @@ const TextGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('model', option)}
             options={modelOptions}
             openDirection="bottom"
-            disabled
           />
         </div>
 
@@ -41,7 +47,6 @@ const TextGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('textLength', option)}
             options={textLengthOptions}
             openDirection="bottom"
-            disabled
           />
           <Select
             label="스타일"
@@ -49,7 +54,6 @@ const TextGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('style', option)}
             options={styleOptions}
             openDirection="bottom"
-            disabled
           />
           <Select
             label="목적"
@@ -57,7 +61,6 @@ const TextGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('purpose', option)}
             options={purposeOptions}
             openDirection="bottom"
-            disabled
           />
           <Select
             label="브랜드 톤"
@@ -65,7 +68,6 @@ const TextGeneratorSetting = ({ settings, onChange }) => {
             onChange={(option) => onChange('brand', option)}
             options={brandOptions}
             openDirection="bottom"
-            disabled
           />
         </div>
       </div>

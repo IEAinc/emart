@@ -33,12 +33,11 @@ const GenerateContentsImage = () => {
   ]); // 전체 이미지
   const [settings, setSettings] = useState({
     model: { label: 'v.1.0', value: 'v.1.0' },
-    generateMode: { label: '표준', value: '표준' },
-    style: { label: '실사 스타일', value: '01' },
+    style: { label: '실사 스타일', value: '실사 스타일' },
     brand: { label: '모던하고 심플한', value: '모던하고 심플한'},
     ratio: { label: '1:1', value: '1:1' },
     resolution: { label: '512*512', value: '512*512' }, // 해상도 기본값
-    imageCount: { label: '1', value: '3' },
+    imageCount: { label: '1', value: 1 },
   });
   // ImageGeneratorSetting에서 전달된 값 업데이트
   const handleSettingsChange = (key, value) => {
@@ -56,7 +55,7 @@ const GenerateContentsImage = () => {
 
     let data = {
       "model": settings.model.value,
-      "mode": settings.generateMode.value,
+      "mode": "표준",
       "style": settings.style.value,
       "tone": settings.brand.value,
       "count": Number(settings.imageCount.value),
